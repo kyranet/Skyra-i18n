@@ -1,0 +1,2 @@
+# Skyra
+Standalone bot
