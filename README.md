@@ -27,7 +27,7 @@ about 10 times faster now. The startup time is now thrice shorter, cache system 
 
 This version ensures much higher code quality, with a classbased backend, uses
 [Komada](https://github.com/dirigeants/komada) **0.20.0** as framework. This version is a
-complete refactor from **0.19.0** that made all bots greatly faster than before, this
+complete refactor from **0.19.0** that made all bots much faster than before, this
 speedboost is even noticeable in Skyra.
 
 Oh, and Skyra 1.7 has internal ratelimits, if a command has extremely high ratelimit, it's
@@ -40,8 +40,10 @@ has to be processed from CPU, which is slow.
 - **Anime**: The whole code has been tweaked internally, reducing code redundancy.
 - **Manga**: The whole code has been tweaked internally, reducing code redundancy.
 
+
 - **8ball**: I made it more object oriented... and a bit smarter.
 - **xkcd**: Should work better now.
+
 
 - **Overwatch**: Has been fully tweaked, rewritten from scratch, it has several improvements
 such as much higher processing speed.
@@ -49,6 +51,7 @@ such as much higher processing speed.
 - **f**: [CANVAS Improvement] Is now slightly faster.
 - **rate**: I modified it, what the hell, I was running redundant code!
 - **triggered**: [CANVAS Improvement] I made it at least twice-thrice faster.
+
 
 - **Assets**: Now it uses an unified function, so it's perfectly usable my Skyra from anywhere.
 - **Ban**: Now it doesn't require a modlog channel. Implements FailSafe.
@@ -60,6 +63,7 @@ such as much higher processing speed.
 - **Unban**: Now it doesn't require a modlog channel. Implements FailSafe.
 - **Warn**: Now it doesn't require a modlog channel. Implements FailSafe.
 
+
 - **Balance**: The code has been simplified.
 - **Daily**: Tweaked the message, the code has been simplified. Implements FailSafe.
 - **Pay**: Added prompts, the code has been simplified. Implements FailSafe.
@@ -70,9 +74,11 @@ such as much higher processing speed.
 - **Slotmachine**: The code has been simplified. Implements FailSafe.
 - **Social**: It's a special command that give you full tools to manage **local** leaderboards.
 
+
 - **Config**: Has been tweaked, it's much safer now. Implements full FailSafe system.
 - **Donate**: Want to support me? Use this command to get full details.
 - **Feedback**: This command has been *slightly* modified.
+
 
 - **Claim**: More object oriented, simplified code, greater performance.
 - **Color**: Added support for HEX, RGB, HSL and Base10.
