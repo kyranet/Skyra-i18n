@@ -554,7 +554,7 @@ module.exports = class extends Language {
             MODLOG_PENDING_REASON: (prefix, number) => `Usa ${prefix}reason ${number} para reclamar este caso.`,
 
             // System only
-            SYSTEM_DM_SENT: 'Te he enviado el mensaje en mensaje directo.',
+             SYSTEM_DM_SENT: 'Te he enviado la información a través de un mensaje directo.',
             SYSTEM_DM_FAIL: 'No te he podido enviar el mensaje en mensaje directo... ¿me has bloqueado?',
             SYSTEM_FETCHING: '`Buscando...`',
             SYSTEM_PROCESSING: '`Procesando...`',
@@ -595,6 +595,7 @@ module.exports = class extends Language {
             EVENTS_STREAM_STOP: (member) => `¡El usuario **${member.user.tag}** ha terminado su directo!`,
             EVENTS_STARBOARD_SELF: (user) => `Querido ${user}, no puedes marcar con una estrella tus propios mensajes.`,
             EVENTS_STARBOARD_BOT: (user) => `Querido ${user}, no puedes marcar con una estrella los mensajes enviados por bots.`,
+            EVENTS_STARBOARD_EMPTY: (user) => `Querido ${user}, no puedes marcar con una estrella los mensajes que están vacíos.`,
 
             SETTINGS_DELETE_CHANNELS_DEFAULT: 'Reiniciado el valor de la clave `Channels`::`default`.',
             SETTINGS_DELETE_ROLES_INITIAL: 'Reiniciado el valor de la clave `Roles`::`initial`.',
@@ -607,7 +608,7 @@ module.exports = class extends Language {
             REQUIRE_USER: 'Debes escribir el nombre, tag, o mencionar a un usuario.',
             REQUIRE_ROLE: 'Debes escribir un nombre de rol válido o una mención.',
 
-            ERROR_WTF: '¡Vaya terrible error! ¡Lo siento mucho!',
+            ERROR_WTF: '¡Se ha producido un error fatal! ¡Lo siento mucho!',
             ERROR_STRING: (mention, message) => `Querido ${mention}, ${message}`,
 
             CONST_USERS: 'Usuarios'
