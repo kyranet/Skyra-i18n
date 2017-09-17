@@ -594,6 +594,7 @@ module.exports = class extends Language {
             EVENTS_STREAM_STOP: (member) => `The user **${member.user.tag}** is not longer live!`,
             EVENTS_STARBOARD_SELF: (user) => `Dear ${user}, you cannot star your own messages.`,
             EVENTS_STARBOARD_BOT: (user) => `Dear ${user}, you cannot star bot messages.`,
+            EVENTS_STARBOARD_EMPTY: (user) => `Dear ${user}, you cannot star empty messages.`,
 
             SETTINGS_DELETE_CHANNELS_DEFAULT: 'Removed Settings Channels::default',
             SETTINGS_DELETE_ROLES_INITIAL: 'Removed Setting Roles::initial',

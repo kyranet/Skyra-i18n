@@ -595,6 +595,7 @@ module.exports = class extends Language {
             EVENTS_STREAM_STOP: (member) => `El usuario **${member.user.tag}** ha terminado su directo.`,
             EVENTS_STARBOARD_SELF: (user) => `Querido ${user}, no puedes marcar con una estrella tus propios mensajes.`,
             EVENTS_STARBOARD_BOT: (user) => `Querido ${user}, no puedes marcar con una estrella los mensajes enviados por bots.`,
+            EVENTS_STARBOARD_EMPTY: (user) => `Querido ${user}, no puedes marcar con una estrella mensajes que no tienen contenido.`,
 
             SETTINGS_DELETE_CHANNELS_DEFAULT: 'Reiniciado el valor de la clave `Channels`::`default`.',
             SETTINGS_DELETE_ROLES_INITIAL: 'Reiniciado el valor de la clave `Roles`::`initial`.',
