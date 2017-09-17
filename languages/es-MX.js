@@ -591,8 +591,8 @@ module.exports = class extends Language {
             EVENTS_MESSAGE_DELETE: 'Mensaje Borrado',
             EVENTS_MESSAGE_DELETE_MSG: (msg) => msg.substring(0, 1900),
             EVENTS_COMMAND: (command) => `Comando usado: ${command}`,
-            EVENTS_STREAM_START: (member) => `¡El usuario **${member.user.tag}** está ahora en directo! **${member.presence.game.name}**\n${member.presence.game.url}`,
-            EVENTS_STREAM_STOP: (member) => `¡El usuario **${member.user.tag}** ha terminado su directo!`,
+            EVENTS_STREAM_START: (member) => `¡El usuario **${member.user.tag}** está transmitiendo en directo! **${member.presence.game.name}**\n${member.presence.game.url}`,
+            EVENTS_STREAM_STOP: (member) => `¡El usuario **${member.user.tag}** ha terminado su transmisión en directo!`,
             EVENTS_STARBOARD_SELF: (user) => `Querido ${user}, no puedes marcar con una estrella tus propios mensajes.`,
             EVENTS_STARBOARD_BOT: (user) => `Querido ${user}, no puedes marcar con una estrella los mensajes enviados por bots.`,
             EVENTS_STARBOARD_EMPTY: (user) => `Querido ${user}, no puedes marcar con una estrella los mensajes que están vacíos.`,
@@ -600,7 +600,6 @@ module.exports = class extends Language {
             SETTINGS_DELETE_CHANNELS_DEFAULT: 'Reiniciado el valor de la clave `Channels`::`default`.',
             SETTINGS_DELETE_ROLES_INITIAL: 'Reiniciado el valor de la clave `Roles`::`initial`.',
             SETTINGS_DELETE_ROLES_MUTE: 'Reiniciado el valor de la clave `Roles`::`mute`.',
-
             TYPES_MEMBER_ROLE_UPDATE: 'Actualización de los Roles de un Miembro',
             TYPES_MEMBER_NICKNAME_UPDATE: 'Actualización de Apodo',
 
