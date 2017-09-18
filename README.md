@@ -1,12 +1,9 @@
-# Skyra 1.7
+# Skyra 2.0.0 (Last Night Update)
 
-Skyra is a standalone bot created on 24th November 2016, it's designed to avoid the
-'bot hell' by wrapping the functions of most popular bots into an unified and complex
-system in which includes FailSafe systems and designed to be very reliable. As well as
-its availability is 24/7.
+Skyra is a standalone bot created on 24th November 2016, it's designed to avoid the 'bot hell' by wrapping the functions of most popular bots into an unified and complex
+system in which includes FailSafe systems and designed to be very reliable. As well as its availability is 24/7.
 
-The source code is **PRIVATE**, this repository is meant for documentation, issue tracking
-([Issue Tracker](https://github.com/kyranet/Skyra/issues)), and suggestions.
+The source code is **PRIVATE**, this repository is meant for documentation, issue tracking ([Issue Tracker](https://github.com/kyranet/Skyra/issues)), and suggestions.
 
 ## Links
 
@@ -24,107 +21,151 @@ The source code is **PRIVATE**, this repository is meant for documentation, issu
 
 ## Changelog from 1.9.0 to 2.0.0
 
-Coming soon.
+### 18/09/2017
 
-## Changelog from 1.6 to 1.7
+- **[18/09/2017]** **`[i18n]`** Added `Languages/es-MX`
+- **[18/09/2017]** **`[i18n]`** Tweaked `Languages/es-ES` (Typos)
+- **[18/09/2017]** **`[i18n]`** Tweaked `Languages/en-US` (Typos)
 
-The time Skyra takes from when Skyra gets a message, until it gets processed and runs the command is about 10 times faster now. The startup time is now thrice shorter, cache system has been optimized.
+### 17/09/2017
 
-This version ensures much higher code quality, with a classbased backend, uses [Komada](https://github.com/dirigeants/komada) **0.20.0** as framework. This version is a
-complete refactor from **0.19.0** that made all bots much faster than before, this speedboost is even noticeable in Skyra.
+- **[17/09/2017]** Added `Views/profile.ejs` (Not finished).
+- **[17/09/2017]** **`[FEATURE]`** Added **Starboard**
+- **[17/09/2017]** Updated `Commands/Fun/8ball` (i18n RegExp Support)
+- **[17/09/2017]** Updated `Message#nuke` to be more Error-Proof.
+- **[17/09/2017]** Updated `Monitors/social` to be more Error-Proof.
+- **[17/09/2017]** Updated `Client#permissionLevels` to be more Error-Proof.
 
-Oh, and Skyra 1.7 has internal ratelimits, if a command has extremely high ratelimit, it's because it's not meant to be used whenever you want, specially in Canvas commands. Please consider that Cairo Canvas uses OpenGL, and since hosts from Internet don't have a GPU, it has to be processed from CPU, which is slow.
+### 16/09/2017
 
-### Commands
+- **[16/09/2017]** **`[i18n]`** Added `Languages/es-ES`
 
-- **Anime**: The whole code has been tweaked internally, reducing code redundancy.
-- **Manga**: The whole code has been tweaked internally, reducing code redundancy.
+### 15/09/2017
 
-- **8ball**: I made it more object oriented... and a bit smarter.
-- **xkcd**: Should work better now.
+- **[15/09/2017]** **`[i18n]`** Updated `ErrorHandler`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/youtube`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/wikipedia`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/whois`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/urban`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/roles`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/quote`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/googl`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/emoji`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/define`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/currencylayer`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/content`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Tools/color`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/configuration`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/stats`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/reload`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/reboot`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/ping`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/invite`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/help`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/feedback`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/exec`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/echo`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/clear`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/System/avatar`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/social`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/slotmachine`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/setcolor`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/scoreboard`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/reputations`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/reputation`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/remindme`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/pay`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/mylevel`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/level`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/daily`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/c4`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/banner`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Social/autorole`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Moderation/autorole`
+- **[15/09/2017]** **`[i18n]`** Updated `Commands/Weather/Utilities/checkads`
+- **[15/09/2017]** **`[PERF]`** Updated `Utils/color`
+- **[15/09/2017]** **`[CANVAS]`** Updated `Commands/Weather/weather`
+- **[15/09/2017]** **`[BUGFIX]`** Updated `Commands/Moderation/filter`
+- **[15/09/2017]** **`[ERROR HANDLING]`** Updated `Commands/Social/c4`
+- **[15/09/2017]** **`[ERROR HANDLING]`** Updated `Message#send` so it wouldn't error when editing.
+- **[15/09/2017]** Removed `Commands/System/set` (Was useless)
 
-- **Overwatch**: Has been fully tweaked, rewritten from scratch, it has several improvements such as much higher processing speed.
-- **Deletthis**: [CANVAS Improvement] Is now twice faster.
-- **f**: [CANVAS Improvement] Is now slightly faster.
-- **rate**: I modified it, what the hell, I was running redundant code!
-- **triggered**: [CANVAS Improvement] I made it at least twice-thrice faster.
+### 13/09/2017
 
-- **Assets**: Now it uses an unified function, so it's perfectly usable my Skyra from anywhere.
-- **Ban**: Now it doesn't require a modlog channel. Implements FailSafe.
-- **Kick**: Now it doesn't require a modlog channel. Implements FailSafe.
-- **Prune**: I fixed several bugs (and some code redundancy), should be working fine now.
-- **Reason**: It's new, it allows you to modify ModLogs' reasons.
-- **Softban**: Now it doesn't require a modlog channel. Implements FailSafe.
-- **Track**: I made it slightly better, nuked redundancy code.
-- **Unban**: Now it doesn't require a modlog channel. Implements FailSafe.
-- **Warn**: Now it doesn't require a modlog channel. Implements FailSafe.
+- **[13/09/2017]** **`[i18n]`** Updated `Commands/Overwatch/gameregion`
+- **[13/09/2017]** **`[i18n]`** Updated `Commands/Anime/anime`
+- **[13/09/2017]** **`[i18n]`** Updated `Commands/Anime/manga`
+- **[13/09/2017]** Created `Commands/Moderation/Utilities/permissions`
+- **[13/09/2017]** Removed `Commands/Moderation/Utilities/util` (Was complicated to use)
+> ESLint and code style changes
 
-- **Balance**: The code has been simplified.
-- **Daily**: Tweaked the message, the code has been simplified. Implements FailSafe.
-- **Pay**: Added prompts, the code has been simplified. Implements FailSafe.
-- **Profile**: [CANVAS Improvement] Is now twice faster, the code has been simplified. Implements FailSafe.
-- **Rep**: The code has been simplified. Implements FailSafe.
-- **Reps**: The code has been simplified.
-- **SetColor**: The code has been simplified, added support for HEX, RGB, HSL and Base10. Implements FailSafe.
-- **Slotmachine**: The code has been simplified. Implements FailSafe.
-- **Social**: It's a special command that give you full tools to manage **local** leaderboards.
+### Counless of changes more
 
-- **Config**: Has been tweaked, it's much safer now. Implements full FailSafe system.
-- **Donate**: Want to support me? Use this command to get full details.
-- **Feedback**: This command has been *slightly* modified.
+### 10/07/2017
 
-- **Claim**: More object oriented, simplified code, greater performance.
-- **Color**: Added support for HEX, RGB, HSL and Base10.
-- **Content**: Allows you to get the raw content from a message, keeping the whole markdown.
-- **Google**: Has been tweaked a bit, shows 4 results instead of 5.
-- **Quote**: Allows you to quote a message. It keeps the whole markdown.
-- **Settings**: [WIP] It's designed for some stuff that **Config** can't handle for simplicity.
-- **Sts**: Beautified the way Skyra shows the stats.
-- **Unclaim**: More object oriented, simplified code, greater performance.
-- **Urban**: Fixed several bugs, keep code consistency.
-- **Whois**: Use a ID and I'll fetch into the deeps of Discord.
-- **WikiPedia**: Tweaked some bugs from the output.
-- **YouTube**: Instead of sending an embed object, now I just send the link.
+- **[10/07/2017]** Updated `Commands/System/ping` (Added mode)
+- **[10/07/2017]** Updated `Commands/System/eval` (Added mode, removed botPerms)
+- **[10/07/2017]** Created `Commands/System/avatar`
+- **[10/07/2017]** Created `Commands/System/configuration`
+- **[10/07/2017]** Created `Commands/System/dm`
+- **[10/07/2017]** Created `Commands/System/donate`
+- **[10/07/2017]** Created `Commands/System/echo`
+- **[10/07/2017]** Created `Commands/System/exec`
+- **[10/07/2017]** Created `Commands/System/feedback`
+- **[10/07/2017]** Created `Commands/System/help`
+- **[10/07/2017]** Created `Commands/System/invite`
+- **[10/07/2017]** Created `Commands/System/nick`
+- **[10/07/2017]** Created `Commands/System/reboot`
+- **[10/07/2017]** Created `Commands/System/reload`
+- **[10/07/2017]** Created `Commands/System/set`
+- **[10/07/2017]** Created `Commands/System/stats`
+- **[10/07/2017]** Created `functions/canvas`
+- **[10/07/2017]** Created `functions/create`
+- **[10/07/2017]** Created `functions/dashboard`
+- **[10/07/2017]** Created `functions/embed`
+- **[10/07/2017]** Created `functions/overwatch`
+- **[10/07/2017]** Created `functions/resolveColor`
+- **[10/07/2017]** Created `functions/schema`
+- **[10/07/2017]** Created `functions/search`
+- **[10/07/2017]** Created `functions/wrappers`
+- **[10/07/2017]** Created `monitors/modlog`
+- **[10/07/2017]** Created `monitors/noinvite`
+- **[10/07/2017]** Created `monitors/nomentionspam`
+- **[10/07/2017]** Created `monitors/social`
+- **[10/07/2017]** Created `providers/rethink`
+- **[10/07/2017]** Created `utils/assets`
+- **[10/07/2017]** Created `utils/clock`
+- **[10/07/2017]** Created `utils/constants`
+- **[10/07/2017]** Created `utils/createModLog`
+- **[10/07/2017]** Created `utils/guildManager`
+- **[10/07/2017]** Created `utils/guildSettings`
+- **[10/07/2017]** Created `utils/interfaceMusic`
+- **[10/07/2017]** Created `utils/managerModeration`
+- **[10/07/2017]** Created `utils/managerMusic`
+- **[10/07/2017]** Created `utils/managerSocialGlobal`
+- **[10/07/2017]** Created `utils/managerSocialLocal`
+- **[10/07/2017]** Created `utils/memberScore`
+- **[10/07/2017]** Created `utils/moderation`
+- **[10/07/2017]** Created `utils/overwatch`
+- **[10/07/2017]** Created `utils/overwatch/playedheroes`
+- **[10/07/2017]** Created `utils/taskProcess`
+- **[10/07/2017]** Created `utils/userProfile`
+- **[10/07/2017]** Created `Commands/Anime/anime`
+- **[10/07/2017]** Created `Commands/Anime/manga`
+- **[10/07/2017]** Created `Commands/Weather/weather`
+- **[10/07/2017]** Added `Command#strip` for better multiline extended helps.
 
-### Events
+### 09/07/2017
 
-- **guildBanAdd**: Has been simplified. **Creates Anonymous ModLog**.
-- **guildBanRemove**: Has been simplified. **Creates Anonymous ModLog**.
-- **guildMemberAdd**: Has been simplified, tweaked for maximum performance.
-- **guildMemberUpdate**: Fixed some newbie errors. Now it's much more accurate.
-- **modLogProtection**: Has been added, moderators won't be able to send messages into the modlog channel. Neither run commands but moderation ones.
+- **[09/07/2017]** Re-added **EditableCommands**.
+- **[09/07/2017]** Created `Commands/System/eval`.
+- **[09/07/2017]** Changed `Command#runIn` to `Command#guildOnly`.
+- **[09/07/2017]** Started **development system**.
+- **[09/07/2017]** Modified functions/initializer.
+- **[09/07/2017]** Created temporal settings getter. Removed `SettingsSystem v2.1`.
+- **[09/07/2017]** Created temporal guildSettings getter. Removed `SettingsSystem v2.1`.
+- **[09/07/2017]** Created `Commands/System/ping`.
+- **[09/07/2017]** Started using Klasa's command handler.
+- **[09/07/2017]** Refactored Client.
 
-- **Greeting**: If **guildMemberAdd** is enabled, I'll send a message into the channel assigned as **defaultChannel** by the configuration.
-- **Farewell**: If **guildMemberRemove** is enabled, I'll send a message into the channel assigned as **defaultChannel** by the configuration.
-- **GreetingMessage**: Set your custom greetings. Events **Greeting** and **guildMemberAdd** must be enabled.
-- **FarewellMessage**: Set your custom greetings. Events **Farewell** and **guildMemberRemove** must be enabled.
-
-### Functions
-
-They are totally backend, but...
-
-- **assets**: Unified system for **assets** command and accessible from anywhere.
-- **configuration**: Now allows defaults. So you can reset keys.
-- **moderation**: Implements FailSafe and unified Moderation system.
-- **resolveColor**: A 271 loc function that can convert HEX, RGB, HSL and Base10 into any other.
-- **RethinkDB**: I have swapped from **SQLite**.
-- **Search**: Unified search. Provides more accuracy, reliability, and code simplicity.
-- **wrappers**: Unified class that allows maximum code simplicity along all pieces with readable error catching.
-
-### Inhibitors
-
-- **disabledCommands**: This inhibitor prevents certain commands to be run in the entire guild.
-- **disabledCmdChannels**: This inhibitors prevents all commands to be run in certain channels.
-- **mode**: `Free`, `Lite` or `Strict`. If it's not set in `free`, you'll prevent a whole subset of commands to be run. `Free` allows all commands, `lite` allows moderation and utilities, as well as the social module remains enabled, and `strict` only allows moderation and a limited set of utilities.
-- **spam**: If Config/channels/**spam** is set, most 'spammy' commands will be locked to that channel. Please use this as a fast and effective solution for **disabledCmdChannels**, unless you want these commands to be fully ignored.
-
-### Monitors
-
-- **ModLog**: If Config/event/**modLogProtection** is enabled, this monitor will keep modlogs clean.
-- **NoInvite**: If Config/selfmod/**invitelinks** is enabled, this monitor will keep all channels clean from invite links. This monitor ignores moderators.
-- **Social**: Simplified the way Skyra gives you points. Seriously. Implements FailSafe system and full error tracing.
-- **Tracker**: It's used for the **track** command. Has been optimized.
-
-### Utils
-
-Added unified functions with FailSafe systems. The whole system relies on them. Allows maximum code simplicity aswell.
+- **[09/07/2017]** (Almost) Everything got destroyed, Skyra **ThunderLight** is totally purged.
