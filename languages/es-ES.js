@@ -30,7 +30,6 @@ const TIMES = {
 };
 
 const PERMS = {
-    // General
     ADMINISTRATOR: 'Administrador',
     VIEW_AUDIT_LOG: 'Ver el Registro de Autoría',
     MANAGE_GUILD: 'Administrar el Servidor',
@@ -135,7 +134,7 @@ module.exports = class extends Language {
             CONST_MONITOR_WORDFILTER: 'Palabra Bloqueada',
 
             // Monitors
-            MONITOR_NOINVITE: (user) => `|\`❌\`| Querido ${user}, las invitaciones instantáneas no están permitidos aquí.`,
+            MONITOR_NOINVITE: (user) => `|\`❌\`| Querido ${user}, las invitaciones instantáneas no están permitidas aquí.`,
             MONITOR_WORDFILTER: (user) => `|\`❌\`| Perdón, ${user}, pero has dicho algo que no está permitido en este servidor.`,
             MONITOR_NMS_MESSAGE: (user) => [
                 `El MJOLNIR ha aterrizado y ahora, el usuario ${user.tag} cuya ID es ${user.id} ha sido baneado por spamming de menciones.`,
@@ -284,7 +283,7 @@ module.exports = class extends Language {
             HAS_ROLE: 'Usted ya tiene este rol.',
 
             // Commands#social
-            COMMAND_AUTOROLE_POINTS_REQUIRED: 'Debes escribir una válida cantidad de puntos.',
+            COMMAND_AUTOROLE_POINTS_REQUIRED: 'Debes escribir una cantidad válida de puntos.',
             COMMAND_AUTOROLE_UPDATE_UNCONFIGURED: 'Este rol no está configurado como un auto-rol. Utiliza el tipo \'add\'.',
             COMMAND_AUTOROLE_UPDATE: (role, points, before) => `Auto-rol actualizado: ${role.name} (${role.id}). Cantidad de puntos requerido: ${points} (antes: ${before})`,
             COMMAND_AUTOROLE_REMOVE: (role, before) => `Removido el auto-rol: ${role.name} (${role.id}), el cual requería ${before} puntos.`,
@@ -295,12 +294,12 @@ module.exports = class extends Language {
             COMMAND_BALANCE: (user, amount, icon) => `El usuario ${user} tiene un total de ${amount}${icon}`,
             COMMAND_BALANCE_SELF: (amount, icon) => `Usted tiene un total de ${amount}${icon}`,
 
-            COMMAND_BANNER_LIST_EMPTY: (prefix) => `Usted no tiene un banner. Utiliza el comando \`${prefix}banner buylist\` para obtener una lista de los banners que puede comprar.`,
+            COMMAND_BANNER_LIST_EMPTY: (prefix) => `Usted no tiene un banner. Utiliza el comando \`${prefix}banner buylist\` para obtener una lista de los banners que usted puede comprar.`,
             COMMAND_BANNER_SET_INPUT_NULL: 'Debes especificar un identificador de banner para colocar.',
             COMMAND_BANNER_SET_NOT_BOUGHT: 'Usted no tiene este banner.',
             COMMAND_BANNER_SET: (banner) => `|\`✅\`| **Éxito**. Has cambiado tu banner a: __${banner}__`,
             COMMAND_BANNER_BUY_INPUT_NULL: 'Debes especificar un identificador de banner para comprar.',
-            COMMAND_BANNER_BUY_NOT_EXISTS: (prefix) => `Este identificador de banner no existe. Por favor, usa el comando \`${prefix}banner buylist\` para obtener una lista de los banners que puede comprar.`,
+            COMMAND_BANNER_BUY_NOT_EXISTS: (prefix) => `Este identificador de banner no existe. Por favor, usa el comando \`${prefix}banner buylist\` para obtener una lista de los banners que usted puede comprar.`,
             COMMAND_BANNER_BUY_BOUGHT: (prefix, banner) => `Usted ya tiene este banner, quizá usted quiera usar el comando \`${prefix}banner set ${banner}\` para hacerlo visible en su perfil.`,
             COMMAND_BANNER_BUY_MONEY: (money, cost, icon) => `Usted no tiene dinero suficiente para comprar este banner, tienes ${money}${icon}, y el banner cuesta ${cost}${icon}`,
             COMMAND_BANNER_BUY: (banner) => `|\`✅\`| **Éxito**. Has comprado el banner: __${banner}__`,
@@ -314,7 +313,7 @@ module.exports = class extends Language {
             COMMAND_C4_SKYRA: 'Lo siento, sé que quieres jugar conmigo, pero si lo hago, ¡no seré capaz de ayudar a las otras personas! 💔',
             COMMAND_C4_BOT: 'Lo siento, pero no creo que ellos quieran parar de trabajar en lo que estén haciendo y ponerse a jugar con humanos.',
             COMMAND_C4_PROGRESS: 'Lo siento, pero hay una partida en progreso, ¡prueba de nuevo cuando termine!',
-            COMMAND_C4_PROMPT: (challenger, challengee) => `Querido ${challengee}, ${challenger} le propone una partida de Connecta-Cuatro. Por favor, ¡responda con **yes** para aceptar!`,
+            COMMAND_C4_PROMPT: (challenger, challengee) => `Querido ${challengee}, ${challenger} le propone una partida de Conecta-Cuatro. Por favor, ¡responda con **yes** para aceptar!`,
             COMMAND_C4_PROMPT_TIMEOUT: 'Lo siento, pero el usuario no ha respondido a tiempo.',
             COMMAND_C4_PROMPT_DENY: 'Lo siento, pero el objetivo no quiere jugar.',
             COMMAND_C4_START: (player, table) => `¡A jugar! Turno para: **${player}**.\n${table}`,
@@ -359,7 +358,7 @@ module.exports = class extends Language {
 
             COMMAND_REMINDME_INPUT: 'Dime qué quieres que te recuerde y cuándo.',
             COMMAND_REMINDME_TIME: 'Tu recordatorio debe durar al menos un minuto.',
-            COMMAND_REMINDME_CREATE: (id) => `Un recordatorio con la identificación \`${id}\` ha sido creada.`,
+            COMMAND_REMINDME_CREATE: (id) => `Un recordatorio con la identificación \`${id}\` ha sido creado.`,
 
             COMMAND_REPUTATION_TIME: (remaining) => `Puedes dar un punto de reputación en ${duration(remaining)}`,
             COMMAND_REPUTATION_USABLE: 'Puedes dar un punto de reputación ahora.',
@@ -393,7 +392,7 @@ module.exports = class extends Language {
             COMMAND_CONFIGURATION_ABORT: (reason) => `|\`⚙\`| Sistema de Configuración Cancelada: ${reason === 'TIME' ? 'Falta de respuesta.' : 'Desconectado con éxito.'}`,
 
             // Commands#system
-            COMMAND_FEEDBACK: '|`✅`| ¡Gracias por su mensaje ❤! Recibirás un mensaje en mensajes privados tan pronto como sea posible.',
+            COMMAND_FEEDBACK: '|`✅`| ¡Gracias por su mensaje ❤! Recibirás un mensaje en la bandeja de mensajes privados tan pronto como sea posible.',
 
             COMMAND_RELOAD: (type, name) => `✅ Recargado la pieza de tipo ${type}: ${name}`,
             COMMAND_RELOAD_ALL: (type) => `✅ Recaargado todas las piezas de tipo ${type}.`,
@@ -555,7 +554,7 @@ module.exports = class extends Language {
             MODLOG_PENDING_REASON: (prefix, number) => `Usa ${prefix}reason ${number} para reclamar este caso.`,
 
             // System only
-            SYSTEM_DM_SENT: 'Te he enviado el mensaje en mensaje directo.',
+            SYSTEM_DM_SENT: 'Te he enviado el mensaje en tu bandeja de mensajes privados.',
             SYSTEM_DM_FAIL: 'No te he podido enviar el mensaje en mensaje directo... ¿me has bloqueado?',
             SYSTEM_FETCHING: '`Buscando...`',
             SYSTEM_PROCESSING: '`Procesando...`',

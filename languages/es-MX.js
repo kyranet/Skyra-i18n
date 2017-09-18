@@ -67,7 +67,7 @@ const EIGHT_BALL = {
     WHAT: ['Un avión.', '¿Qué? Pregunta de nuevo.', '¡Un regalo!', 'Nada.', 'Un anillo.', 'No lo sé, quizá sea algo.'],
     HOWMUCH: ['Un montón.', 'Un poco.', 'Un poquillo.', 'Pregúnteme mañana.', 'No lo sé, pregúntaselo a un físico.', 'Absolutamente nada.', `Entre ${random(10)} y ${random(1000)}L.`, `${random(10)}e${random(1000)}L.`, '2 o 3 litros, no recuerdo.', '¡Infinito!', '1010 litros.'],
     HOWMANY: ['Un montón.', 'Un poco.', 'Un poquillo.', 'Pregúnteme mañana.', 'No lo sé, pregúntaselo a un físico.', 'Absolutamente nada.', `Entre ${random(10)} y ${random(1000)}.`, `${random(10)}e${random(1000)}.`, '2 o 3, no recuerdo.', '¡Infinito!', '1010.'],
-    WHY: ['Probablemente genética.', 'Porque alguien decidió que fuera así.', '¡Por la gloria de Satán, por supuesto!', 'No lo sé, quizás fuese el destino.', 'Porque lo dige yo.', 'No tengo ni idea.', 'Harambe no hizo nada malo.', 'Uhm... pregúntale al dueño del servidor.', 'Pregunta de nuevo.', 'Para llegar al otro lado.', 'Lo dice en la Biblia.'],
+    WHY: ['Probablemente genética.', 'Porque alguien decidió que fuera así.', '¡Por la gloria de Satán, por supuesto!', 'No lo sé, quizás fuese el destino.', 'Porque lo dije yo.', 'No tengo ni idea.', 'Harambe no hizo nada malo.', 'Uhm... pregúntale al dueño del servidor.', 'Pregunta de nuevo.', 'Para llegar al otro lado.', 'Lo dice en la Biblia.'],
     WHO: ['Un humano.', 'Un robot.', 'Un avión.', 'Un pájaro.', 'Una composición de carbono.', 'Un puñado de zeros y unos.', 'No tengo ni idea, ¿es material?', 'Eso no es lógico.'],
     ELSE: ['Probablemente.', 'No.', '¡SÍ!', 'Quizás.']
 };
@@ -156,7 +156,7 @@ module.exports = class extends Language {
             // Commands#anime
             COMMAND_ANIME_DESCRIPTION: (entry, context) => [
                 `**Título Inglés:** ${entry.english}`,
-                `${context.length > 750 ? `${util.splitText(context, 750)}... [continúar leyendo](https://myanimelist.net/anime/${entry.id})` : context}`
+                `${context.length > 750 ? `${util.splitText(context, 750)}... [continuar leyendo](https://myanimelist.net/anime/${entry.id})` : context}`
             ],
             COMMAND_ANIME_TITLE: (entry) => `${entry.title} (${entry.episodes === 0 ? 'desconocido' : entry.episodes} episodios)`,
             COMMAND_ANIME_STATUS: (entry) => [
@@ -165,7 +165,7 @@ module.exports = class extends Language {
             ],
             COMMAND_MANGA_DESCRIPTION: (entry, context) => [
                 `**Título Inglés:** ${entry.english}`,
-                `${context.length > 750 ? `${util.splitText(context, 750)}... [continúar leyendo](https://myanimelist.net/anime/${entry.id})` : context}`
+                `${context.length > 750 ? `${util.splitText(context, 750)}... [continuar leyendo](https://myanimelist.net/anime/${entry.id})` : context}`
             ],
             COMMAND_MANGA_TITLE: (entry) => `${entry.title} (${entry.chapters ? 'desconocido' : entry.chapters} capítulos${entry.volumes ? '' : ` y ${entry.volumes} volúmenes`})`,
             COMMAND_MANGA_STATUS: (entry) => [
@@ -215,7 +215,7 @@ module.exports = class extends Language {
             COMMAND_FLOW: (amount) => `Una cantidad de ${amount} mensajes fueron enviados durante el último minuto.`,
             COMMAND_TIME_TIMED: 'El caso de moderación seleccionado ya ha sido temporizado.',
             COMMAND_TIME_UNDEFINED_TIME: 'Debes especificar un tiempo.',
-            COMMAND_TIME_UNSUPPORTED_TIPE: 'El tipo de acción por el caso de moderación seleccionado no es reversible, por lo tanto, esta acción no está .',
+            COMMAND_TIME_UNSUPPORTED_TIPE: 'El tipo de acción por el caso de moderación seleccionado no es reversible, por lo tanto, esta acción no está soportada.',
             COMMAND_TIME_NOT_SCHEDULED: 'Esta tarea no está temporizada.',
             COMMAND_TIME_ABORTED: (title) => `Abortada la tarea ${title} con éxito.`,
             COMMAND_TIME_SCHEDULED: (title, user, time) => `✅ Temporizada una acción de tipo **${title}** para el usuario ${user.tag} (${user.id}) con una duración de ${duration(time)}`,
@@ -247,8 +247,8 @@ module.exports = class extends Language {
 
             COMMAND_FILTER_UNDEFINED_WORD: 'Debes escribir la palabra que deseas filtrar.',
             COMMAND_FILTER_FILTERED: (filtered) => `Esta palabra ${filtered ? 'ya estaba' : 'no está'} filtrada.`,
-            COMMAND_FILTER_ADDED: (word) => `✅ | ¡Operación Exitosa! Se ha Añadido la palabra ${word} al filtro.`,
-            COMMAND_FILTER_REMOVED: (word) => `✅ | ¡Operación Exitosa! Se ha Removido la palabra ${word} del filtro.`,
+            COMMAND_FILTER_ADDED: (word) => `✅ | ¡Operación Exitosa! Se ha añadido la palabra ${word} al filtro.`,
+            COMMAND_FILTER_REMOVED: (word) => `✅ | ¡Operación Exitosa! Se ha removido la palabra ${word} del filtro.`,
             COMMAND_FILTER_RESET: '✅ | ¡Operación Exitosa! El filtro ha sido reiniciado.',
 
             COMMAND_LOCKDOWN_OPEN: (channel) => `El bloqueo del canal ${channel} ha sido removido.`,
@@ -569,7 +569,7 @@ module.exports = class extends Language {
 
             COMMAND_SUCCESS: 'Ejecutado con éxito éste comando.',
 
-            GUILD_SETTINGS_CHANNELS_MOD: 'Este comando requiere un canal de registro con supervición para funcionar correctamente.',
+            GUILD_SETTINGS_CHANNELS_MOD: 'Este comando requiere un canal de registro de supervisión para funcionar correctamente.',
             GUILD_SETTINGS_ROLES_MUTED: 'Este comando require un rol configurado para los muteos.',
             GUILD_BANS_EMPTY: 'No hay baneos registrados en este servidor.',
             GUILD_BANS_NOT_FOUND: 'Por favor, escribe una ID o etiqueta válido de usuario.',
@@ -600,6 +600,7 @@ module.exports = class extends Language {
             SETTINGS_DELETE_CHANNELS_DEFAULT: 'Reiniciado el valor de la clave `Channels` :: `default`.',
             SETTINGS_DELETE_ROLES_INITIAL: 'Reiniciado el valor de la clave `Roles` :: `initial`.',
             SETTINGS_DELETE_ROLES_MUTE: 'Reiniciado el valor de la clave `Roles` :: `mute`.',
+
             TYPES_MEMBER_ROLE_UPDATE: 'Actualización de los Roles de un Miembro',
             TYPES_MEMBER_NICKNAME_UPDATE: 'Actualización de Apodo',
 
