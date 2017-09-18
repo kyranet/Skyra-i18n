@@ -30,7 +30,6 @@ const TIMES = {
 };
 
 const PERMS = {
-    // General
     ADMINISTRATOR: 'Administrador',
     VIEW_AUDIT_LOG: 'Ver el Registro de Autoría',
     MANAGE_GUILD: 'Administrar el Servidor',
@@ -96,12 +95,12 @@ module.exports = class extends Language {
             DEFAULT_LANGUAGE: 'Lenguaje Predeterminado',
 
             SETTING_GATEWAY_FOLDER_NOTEXISTS: (folder) => `La clave '${folder}' no existe en el esquema de configuración actual.`,
-            SETTING_GATEWAY_KEY_NOTEXISTS: (folder, key) => `La clave \`${folder}\`::\`${key}\` no existe en el esquema de configuración actual.`,
+            SETTING_GATEWAY_KEY_NOTEXISTS: (folder, key) => `La clave \`${folder}\` :: \`${key}\` no existe en el esquema de configuración actual.`,
             SETTING_GATEWAY_ADD_OR_REMOVE: 'El parámetro de tipo debe ser o \'add\' o \'remove\'.',
-            SETTING_GATEWAY_NOT_ARRAY: (folder, key) => `La clave \`${folder}\`::\`${key}\` no acepta múltiples valores.`,
+            SETTING_GATEWAY_NOT_ARRAY: (folder, key) => `La clave \`${folder}\` :: \`${key}\` no acepta múltiples valores.`,
             SETTING_GATEWAY_REQUIRE_VALUE: 'Debes especificar el valor para añadir o remover.',
-            SETTING_GATEWAY_ARRAY_ADD_EXISTS: (folder, key, data) => `El valor ${data} para la clave \`${folder}\`::\`${key}\` ya existe.`,
-            SETTING_GATEWAY_ARRAY_REMOVE_NOTEXISTS: (folder, key, data) => `El valor ${data} para la clave \`${folder}\`::\`${key}\` ya existe.`,
+            SETTING_GATEWAY_ARRAY_ADD_EXISTS: (folder, key, data) => `El valor ${data} para la clave \`${folder}\` :: \`${key}\` ya existe.`,
+            SETTING_GATEWAY_ARRAY_REMOVE_NOTEXISTS: (folder, key, data) => `El valor ${data} para la clave \`${folder}\` :: \`${key}\` ya existe.`,
 
             RESOLVER_INVALID_PIECE: (name, piece) => `'${name}' debe ser una pieza válida de tipo ${piece}.`,
             RESOLVER_INVALID_MSG: (name) => `'${name}' debe ser una ID de mensaje válida.`,
@@ -184,12 +183,13 @@ module.exports = class extends Language {
             COMMAND_8BALL: (author, input, output) => `🎱 Pregunta por ${author}: *${input}*\n${output}`,
             COMMAND_8BALL_NOT_QUESTION: 'Eso no parece ser una pregunta.',
             COMMAND_8BALL_QUESTIONS: {
-                WHEN: 'cuándo',
-                WHAT: 'qué',
-                HOW_MUCH: 'cuánto',
-                HOW_MANY: 'cuánto',
-                WHY: 'por qué',
-                WHO: 'quién'
+                QUESTION: '?',
+                WHEN: /^¿?cu[áa]ndo/i,
+                WHAT: /^¿?qu[ée]/i,
+                HOW_MUCH: /^¿?cu[áa]nto/i,
+                HOW_MANY: /^¿?cu[áa]nto/i,
+                WHY: /^¿?por qu[ée]/i,
+                WHO: /^¿?qui[ée]n/i
             },
             COMMAND_CATFACT: 'Hecho Gatuno',
             COMMAND_DICE: (sides, rolls, result) => `has lanzado el dado de **${sides}** lados **${rolls}** veces, obtienes: **${result}**`,
@@ -312,7 +312,7 @@ module.exports = class extends Language {
 
             COMMAND_C4_SKYRA: 'Lo siento, sé que quieres jugar conmigo, pero si lo hago, ¡no seré capaz de ayudar a las otras personas! 💔',
             COMMAND_C4_BOT: 'Lo siento, pero no creo que ellos quieran parar de trabajar en lo que estén haciendo y ponerse a jugar con humanos.',
-            COMMAND_C4_PROGRESS: 'Lo siento, pero hay u juego en progreso en este canal, Intenta de nuevo cuando el juego termine!.',
+            COMMAND_C4_PROGRESS: 'Lo siento, pero hay un juego en progreso en este canal, ¡intenta de nuevo cuando el juego termine!',
             COMMAND_C4_PROMPT: (challenger, challengee) => `Querido ${challengee}, ${challenger} le propone una partida de Conecta-Cuatro. Por favor, ¡responda con **yes** para aceptar!`,
             COMMAND_C4_PROMPT_TIMEOUT: 'Lo siento, pero el usuario no ha respondido a tiempo.',
             COMMAND_C4_PROMPT_DENY: 'Lo siento, pero el objetivo se ha rehusado a jugar.',
@@ -407,12 +407,12 @@ module.exports = class extends Language {
             COMMAND_HELP_NODM: '❌ | Parece que tienes tus mensajes privados desactivados, no pude enviarte la lista de comandos.',
 
             COMMAND_CONF_SELECTKEY: (keys) => `Por favor, elije uno de las siguientes claves: ${keys}`,
-            COMMAND_CONF_ADDED: (folder, key, value) => `Añadido con éxito el valor \`${value}\` a la clave: \`${folder}\`::\`${key}\`.`,
-            COMMAND_CONF_UPDATED: (folder, key, response) => `Actualizado con éxito el valor para la clave \`${folder}\`::\`${key}\`: \`${response}\`.`,
+            COMMAND_CONF_ADDED: (folder, key, value) => `Añadido con éxito el valor \`${value}\` a la clave: \`${folder}\` :: \`${key}\`.`,
+            COMMAND_CONF_UPDATED: (folder, key, response) => `Actualizado con éxito el valor para la clave \`${folder}\` :: \`${key}\`: \`${response}\`.`,
             COMMAND_CONF_KEY_NOT_ARRAY: 'Esta clave no acepta múltiples valores. Usa la acción de tipo \'reset\'.',
-            COMMAND_CONF_REMOVE: (folder, key, value) => `Removido con éxito el valor \`${value}\` de la clave: \`${folder}\`::\`${key}\`.`,
-            COMMAND_CONF_GET: (folder, key, value) => `El valor para la clave \`${folder}\`::\`${key}\` es: \`${value}\`.`,
-            COMMAND_CONF_RESET: (folder, key, response) => `El valor para la clave \`${folder}\`::\`${key}\` ha sido reiniciado a: \`${response}\`.`,
+            COMMAND_CONF_REMOVE: (folder, key, value) => `Removido con éxito el valor \`${value}\` de la clave: \`${folder}\` :: \`${key}\`.`,
+            COMMAND_CONF_GET: (folder, key, value) => `El valor para la clave \`${folder}\` :: \`${key}\` es: \`${value}\`.`,
+            COMMAND_CONF_RESET: (folder, key, response) => `El valor para la clave \`${folder}\` :: \`${key}\` ha sido reiniciado a: \`${response}\`.`,
             COMMAND_STATS: (STATS, UPTIME, USAGE) => [
                 '= ESTADÍSTICAS =',
                 `• Usuarios   :: ${STATS.USERS}`,
@@ -554,7 +554,7 @@ module.exports = class extends Language {
             MODLOG_PENDING_REASON: (prefix, number) => `Usa ${prefix}reason ${number} para reclamar este caso.`,
 
             // System only
-             SYSTEM_DM_SENT: 'Te he enviado la información a través de un mensaje directo.',
+            SYSTEM_DM_SENT: 'Te he enviado la información a través de un mensaje directo.',
             SYSTEM_DM_FAIL: 'No te he podido enviar el mensaje en mensaje directo... ¿me has bloqueado?',
             SYSTEM_FETCHING: '`Buscando...`',
             SYSTEM_PROCESSING: '`Procesando...`',
@@ -597,9 +597,9 @@ module.exports = class extends Language {
             EVENTS_STARBOARD_BOT: (user) => `Querido ${user}, no puedes marcar con una estrella los mensajes enviados por bots.`,
             EVENTS_STARBOARD_EMPTY: (user) => `Querido ${user}, no puedes marcar con una estrella los mensajes que están vacíos.`,
 
-            SETTINGS_DELETE_CHANNELS_DEFAULT: 'Reiniciado el valor de la clave `Channels`::`default`.',
-            SETTINGS_DELETE_ROLES_INITIAL: 'Reiniciado el valor de la clave `Roles`::`initial`.',
-            SETTINGS_DELETE_ROLES_MUTE: 'Reiniciado el valor de la clave `Roles`::`mute`.',
+            SETTINGS_DELETE_CHANNELS_DEFAULT: 'Reiniciado el valor de la clave `Channels` :: `default`.',
+            SETTINGS_DELETE_ROLES_INITIAL: 'Reiniciado el valor de la clave `Roles` :: `initial`.',
+            SETTINGS_DELETE_ROLES_MUTE: 'Reiniciado el valor de la clave `Roles` :: `mute`.',
             TYPES_MEMBER_ROLE_UPDATE: 'Actualización de los Roles de un Miembro',
             TYPES_MEMBER_NICKNAME_UPDATE: 'Actualización de Apodo',
 
