@@ -55,8 +55,8 @@ const PERMS = {
     CONNECT: 'जोड़ना',
     SPEAK: 'बोलना',
     MUTE_MEMBERS: 'म्यूट सदस्य',
-    DEAFEN_MEMBERS: 'Deafen Members',
-    MOVE_MEMBERS: 'Move Members',
+    DEAFEN_MEMBERS: 'बहरे मेंबर्',
+    MOVE_MEMBERS: 'मूव मेंबर्स',
     USE_VAD: 'आवाज़ गतिविधि का उपयोग करें'
 };
 
