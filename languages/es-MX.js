@@ -563,6 +563,28 @@ module.exports = class extends Language {
             MODLOG_TIMED: (remaining) => `Esta acción ya ha sido programada, y termina en ${duration(remaining)}`,
             MODLOG_PENDING_REASON: (prefix, number) => `Usa ${prefix}reason ${number} para reclamar este caso.`,
 
+            // Giveaways
+            GIVEAWAY_TIME: 'El sorteo debe durar al menos 1 minuto.',
+            GIVEAWAY_ENDS_AT: 'Termina a las:',
+            GIVEAWAY_DURATION: (time) => `Este sorteo finaliza en **${duration(time)}**! Reacciona a este mensaje con 🎉 para participar.`,
+            GIVEAWAY_TITLE: '🎉 **SORTEO** 🎉',
+            GIVEAWAY_START_DIRECT_MESSAGE: (title, id) => [
+                `¡Hola! ¡Te mantendré actualizado! Una vez que su sorteo (**${title}** | ID \`${id}\`) termine, le mandaré por aquí el ganador, seguido por una lista de otros 10 posibles gandores.`,
+                `¡La habilidad de cancelar o parar sorteos es una característica a punto de llegar!`
+            ].join('\n'),
+            GIVEAWAY_LASTCHANCE: (time) => `**ÚLTIMA OPORTUNIDAD**! Tiempo restante: **${duration(time)}**. Reacciona a este mensaje con 🎉 para participar.`,
+            GIVEAWAY_LASTCHANCE_TITLE: '🎉 **ÚLTIMA OPORTUNIDAD PARA OBTENER EL SORTEO** 🎉',
+            GIVEAWAY_ENDED: (winner) => `Ganador: ${winner} (${winner.id})`,
+            GIVEAWAY_ENDED_AT: 'Terminó a las:',
+            GIVEAWAY_ENDED_TITLE: '🎉 **SORTEO FINALIZADO** 🎉',
+            GIVEAWAY_ENDED_MESSAGE: (mention, title) => `¡Felicidades ${mention}! Has ganado el sorteo **${title}**`,
+            GIVEAWAY_ENDED_DIRECT_MESSAGE: (title, id, winner, amount, list) => [
+                `¡Hola! El sorteo que empezaste (**${title}** | ID \`${id}\`), ¡acaba de terminar! El ganador es: ${winner.tag} (${winner.id})`,
+                `Sin embargo, he seleccionado otros ${amount} posible ganadores:${list}`
+            ].join('\n'),
+            GIVEAWAY_ENDED_DIRECT_MESSAGE_ONLY_WINNER: (title, id, winner) => `¡Hola! El sorteo que empezaste (**${title}** | ID \`${id}\`), ¡acaba de terminar! El ganador es: ${winner.tag} (${winner.id})`,
+            GIVEAWAY_ENDED_DIRECT_MESSAGE_NO_WINNER: (title, id) => `¡Hola! El sorteo que empezaste (**${title}** | ID \`${id}\`), ¡acaba de terminar! ¡Pero no hay ganador!`,
+
             // System only
             SYSTEM_DM_SENT: 'Te he enviado la información a través de un mensaje directo.',
             SYSTEM_DM_FAIL: 'No te he podido enviar el mensaje en mensaje directo... ¿me has bloqueado?',
