@@ -357,8 +357,16 @@ module.exports = class extends Language {
             },
 
             COMMAND_REMINDME_INPUT: 'You must tell me what do you want me to remind you and when.',
+            COMMAND_REMINDME_INPUT_PROMPT: 'How long should your new reminder last?',
             COMMAND_REMINDME_TIME: 'Your reminder must be at least one minute long.',
             COMMAND_REMINDME_CREATE: (id) => `A reminder with ID \`${id}\` has been created.`,
+            COMMAND_REMINDME_DELETE_PARAMS: ['delete', 'remove'],
+            COMMAND_REMINDME_DELETE_INVALID_PARAMETERS: 'To delete a previously created reminder, you must type either \'delete\' or \'remove\' followed by the ID.',
+            COMMAND_REMINDME_DELETE: task => `The reminder with ID \`${task.id}\` and with a remaining time of **${duration(task.timestamp - Date.now())}** has been successfully deleted.`,
+            COMMAND_REMINDME_LIST_PARAMS: ['list', 'all'],
+            COMMAND_REMINDME_LIST_EMPTY: 'You do not have any active reminder',
+            COMMAND_REMINDME_INVALID_ID: 'I am sorry, but the ID provided does not seem to be valid.',
+            COMMAND_REMINDME_NOTFOUND: 'I cannot find something here. The reminder either never existed or it ended.',
 
             COMMAND_REPUTATION_TIME: (remaining) => `You can give a reputation point in ${duration(remaining)}`,
             COMMAND_REPUTATION_USABLE: 'You can give a reputation point now.',

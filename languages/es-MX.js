@@ -358,8 +358,16 @@ module.exports = class extends Language {
             },
 
             COMMAND_REMINDME_INPUT: 'Dime qué quieres que te recuerde y cuándo.',
+            COMMAND_REMINDME_INPUT_PROMPT: '¿Cuánto debería durar su recordatorio?',
             COMMAND_REMINDME_TIME: 'Tu recordatorio debe durar al menos un minuto.',
             COMMAND_REMINDME_CREATE: (id) => `Un recordatorio con la identificación \`${id}\` ha sido creado.`,
+            COMMAND_REMINDME_DELETE_PARAMS: ['borrar', 'remover'],
+            COMMAND_REMINDME_DELETE_INVALID_PARAMETERS: 'Para borrar un recordatorio previamente creado, debes escribir o \'borrar\' o \'remover\' seguido de su ID.',
+            COMMAND_REMINDME_DELETE: task => `The reminder with ID \`${task.id}\` and with a remaining time of **${duration(task.timestamp - Date.now())}** has been successfully deleted.`,
+            COMMAND_REMINDME_LIST_PARAMS: ['lista', 'mostrar', 'todos'],
+            COMMAND_REMINDME_LIST_EMPTY: 'No tienes un recordatorio activo.',
+            COMMAND_REMINDME_INVALID_ID: 'Lo siento, pero la ID provista no parece ser válida.',
+            COMMAND_REMINDME_NOTFOUND: 'No encuentro nada aquí. El recordatorio nunca existió o acabó.',
 
             COMMAND_REPUTATION_TIME: (remaining) => `Puedes dar un punto de reputación en ${duration(remaining)}`,
             COMMAND_REPUTATION_USABLE: 'Puedes dar un punto de reputación ahora.',
