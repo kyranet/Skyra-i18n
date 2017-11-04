@@ -410,7 +410,7 @@ module.exports = class extends Language {
 			COMMAND_INVITE: (url) => [
 				`To add Skyra to your discord guild: <${url}>`,
 				'Don\'t be afraid to uncheck some permissions, Skyra will let you know if you\'re trying to run a command without permissions.'
-			],
+			].join("\n"),
 			COMMAND_HELP_DM: '📥 | Commands have been sent to your DMs.',
 			COMMAND_HELP_NODM: '❌ | You have DMs disabled, I couldn\'t send you the commands in DMs.',
 
