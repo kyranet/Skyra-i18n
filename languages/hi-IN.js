@@ -535,7 +535,7 @@ module.exports = class extends Language {
 			].join('\n'),
 			COMMAND_ROLEINFO_PERMISSIONS: (permissions) => permissions.length > 0 ? permissions.map(key => `+ **${PERMS[key]}**`) : 'अनुमति नहीं दी गई',
 
-                        COMMAND_URBAN_NOTFOUND: 'मुझे खेद है, जो शब्द आप खोज रहे हैं उसे अर्बन शब्दकोश में परिभाषित नहीं किया गया है एक और शब्द की कोशिश करें?',
+			COMMAND_URBAN_NOTFOUND: 'मुझे खेद है, जो शब्द आप खोज रहे हैं उसे अर्बन शब्दकोश में परिभाषित नहीं किया गया है एक और शब्द की कोशिश करें?',
 			COMMAND_URBAN_INDEX_NOTFOUND: 'आप एक निचले पृष्ठ नंबर की कोशिश करना चाहेंगे',
 			SYSTEM_TEXT_TRUNCATED: (definition, url) => `${definition}... [पढ़ना जारी रखें](${url})`,
 			COMMAND_URBAN_DESCRIPTION: (index, pages, definition, example, author) => [
