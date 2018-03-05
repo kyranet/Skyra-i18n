@@ -1,3 +1,9 @@
+/**
+ * #################################
+ * #            OUTDATED           #
+ * #################################
+ */
+
 const { structures: { Language }, util: { util, Duration } } = require('../index');
 const moment = require('moment');
 

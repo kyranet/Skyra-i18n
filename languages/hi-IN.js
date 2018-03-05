@@ -1,3 +1,9 @@
+/**
+ * #################################
+ * #            OUTDATED           #
+ * #################################
+ */
+
 const { structures: { Language }, util: { util, Duration } } = require('../index');
 const moment = require('moment');
 
@@ -59,7 +65,7 @@ const PERMS = {
 	USE_VAD: 'आवाज़ गतिविधि का उपयोग करें'
 };
 
-const random = num => Math.round(Math.random() * num);
+// const random = num => Math.round(Math.random() * num);
 
 const EIGHT_BALL = {
 	WHEN: ['जल्दी™', 'शायद कल', 'शायद अगले साल...', 'अभी इस वक्त', 'कुछ महीनों में'],
@@ -522,7 +528,7 @@ module.exports = class extends Language {
 				`• ऑनलाइन/ऑफ़लाइन यूजर्स: **${online}**/**${offline}** (${percentage}% ऑनलाइन यूजर्स)`,
 				`• **${newbies}** पिछले 24 घंटों के भीतर नए यूजर्स`
 			].join('\n'),
-			
+
 			COMMAND_ROLEINFO_TITLES: { PERMISSIONS: 'अनुमतियाँ' },
 			COMMAND_ROLEINFO_DESCRIPTION: (role) => [
 				`आईडी: **${role.id}**`,
