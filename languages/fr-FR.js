@@ -169,10 +169,10 @@ module.exports = class extends Language {
 			INHIBITOR_RUNIN_NONE: (name) => `La commande ${name} n'est pas configurée pour s'exécuter dans un salon.`,
 			COMMAND_BLACKLIST_DESCRIPTION: 'Ajoute ou retire des utilisateurs et des guildes sur la liste noire du bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
-				usersAdded.length ? `**Utilisateurs Ajoutés**\n${util.codeBlock('', usersAdded.join(', '))}` : '',
-				usersRemoved.length ? `**Utilisateurs Retirés**\n${util.codeBlock('', usersRemoved.join(', '))}` : '',
-				guildsAdded.length ? `**Guildes Ajoutées**\n${util.codeBlock('', guildsAdded.join(', '))}` : '',
-				guildsRemoved.length ? `**Guildes Retirées**\n${util.codeBlock('', guildsRemoved.join(', '))}` : ''
+				usersAdded.length ? `**Utilisateurs Ajoutés**\n${klasaUtil.codeBlock('', usersAdded.join(', '))}` : '',
+				usersRemoved.length ? `**Utilisateurs Retirés**\n${klasaUtil.codeBlock('', usersRemoved.join(', '))}` : '',
+				guildsAdded.length ? `**Guildes Ajoutées**\n${klasaUtil.codeBlock('', guildsAdded.join(', '))}` : '',
+				guildsRemoved.length ? `**Guildes Retirées**\n${klasaUtil.codeBlock('', guildsRemoved.join(', '))}` : ''
 			].filter(val => val !== '').join('\n'),
 			COMMAND_UNLOAD: (type, name) => `✅ ${util.toTitleCase(this.piece(type))} déchargé${this.isFeminine(type) ? 'e' : ''} : ${name}`,
 			COMMAND_UNLOAD_DESCRIPTION: 'Décharge le composant.',
@@ -185,7 +185,7 @@ module.exports = class extends Language {
 			COMMAND_RELOAD_DESCRIPTION: 'Recharge un composant, ou tous les composants d\'un cache.',
 			COMMAND_REBOOT: 'Redémarrage...',
 			COMMAND_REBOOT_DESCRIPTION: 'Redémarre le bot.',
-			COMMAND_PING: 'Ping ?',
+			COMMAND_PING: 'Ping?',
 			COMMAND_PING_DESCRIPTION: 'Exécute un test de connexion à Discord.',
 			COMMAND_PINGPONG: (diff, ping) => `Pong ! (L'aller-retour a pris : ${diff}ms. Pulsation : ${ping}ms.)`,
 			COMMAND_INVITE_SELFBOT: 'Pourquoi auriez-vous besoin d\'un lien d\'invitation pour un selfbot...',
@@ -848,7 +848,7 @@ module.exports = class extends Language {
 				extendedHelp: `The DM command is reserved for bot owner, and it's only used for very certain purposes, such as replying feedback
 				messages sent by users.`
 			}),
-			COMMAND_EVAL_DESCRIPTION: 'Evaluates arbitrary Javascript. Reserved for bot owner.',
+			COMMAND_EVAL_DESCRIPTION: 'Evalue du Javascript arbitraire. Reservé aux propriétaires du bot.',
 			COMMAND_EVAL_EXTENDED: builder.display('eval', {
 				extendedHelp: `The eval command evaluates code as-in, any error thrown from it will be handled.
 					It also uses the flags feature. Write --silent, --depth=number or --async to customize the output.
@@ -1391,10 +1391,10 @@ module.exports = class extends Language {
 			],
 			COMMAND_FEEDBACK: '|`✅`| Merci pour ton commentaire ❤! Tu vas recevoir un message de réponse le plus rapidement possible (surrement en anglais).',
 			COMMAND_EVAL_TIMEOUT: (seconds) => `TIMEOUT: Took longer than ${seconds} seconds.`,
-			COMMAND_EVAL_ERROR: (time, output, type) => `**Error**:${output}\n**Type**:${type}\n${time}`,
-			COMMAND_EVAL_OUTPUT: (time, output, type) => `**Output**:${output}\n**Type**:${type}\n${time}`,
-			COMMAND_EVAL_OUTPUT_CONSOLE: (time, type) => `Sent the result to console.\n**Type**:${type}\n${time}`,
-			COMMAND_EVAL_OUTPUT_FILE: (time, type) => `Sent the result as a file.\n**Type**:${type}\n${time}`,
+			COMMAND_EVAL_ERROR: (time, output, type) => `**Erreur**:${output}\n**Type**:${type}\n${time}`,
+			COMMAND_EVAL_OUTPUT: (time, output, type) => `**Résultat**:${output}\n**Type**:${type}\n${time}`,
+			COMMAND_EVAL_OUTPUT_FILE: (time, type) => `Le résultat état trop long... le résultat a été envoyé dans un fichier.\n**Type**:${type}\n${time}`,
+			COMMAND_EVAL_OUTPUT_CONSOLE: (time, type) => `Le résultat était trop long... le résultat a été affiché dans la console.\n**Type**:${type}\n${time}`,
 			COMMAND_EVAL_OUTPUT_HASTEBIN: (time, url, type) => `Sent the result to hastebin: ${url}\n**Type**:${type}\n${time}\n`,
 
 			COMMAND_STATS: (STATS, UPTIME, USAGE) => [
@@ -1615,6 +1615,29 @@ module.exports = class extends Language {
 			EVENTS_ERROR_WTF: 'Quelle erreur terrible! Je suis vraiment désolée!',
 			ERROR_STRING: (mention, message) => `Cher ${mention}, ${message}`
 		};
+	}
+
+	isFeminine(type) {
+		type = type.toString();
+		return ['command', 'commands'].indexOf(type) !== -1;
+	}
+
+	piece(type) {
+		type = type.toString();
+		const plural = type.slice(-1) === 's';
+		const tp = {
+			command: 'commande',
+			event: 'événement',
+			extendable: 'extensible',
+			finalizer: 'finaliseur',
+			inhibitor: 'inhibiteur',
+			language: 'langage',
+			monitor: 'contrôleur',
+			provider: 'fournisseur'
+		}[(plural ? type.slice(0, -1) : type).toLowerCase()];
+		return tp
+			? `${tp}${plural ? 's' : ''}`
+			: type;
 	}
 
 	async init() { } // eslint-disable-line no-empty-function
