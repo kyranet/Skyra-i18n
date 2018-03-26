@@ -248,41 +248,41 @@ module.exports = class extends Language {
 			 * ##############
 			 * ANIME COMMANDS
 			 */
-			COMMAND_ANIME_DESCRIPTION: 'Search your favourite anime by title with this command.',
+			COMMAND_ANIME_DESCRIPTION: 'Recherchez votre animé préféré par son titre avec cette commande.',
 			COMMAND_ANIME_EXTENDED: builder.display('anime', {
-				extendedHelp: `This command queries MyAnimeList to show data for the anime you request. In a near future, this command
-				will allow you to navigate between the results so you can read the information of the anime.`,
+				extendedHelp: `Cette commande utilise MyAnimeList pour montrer les données de l'animé que vous demandez. Dans un futur proche, cette commande
+				vous permettra de naviguer entre les résultats donc vous pourrez lire les informations de cet animé.`,
 				explainedUsage: [
-					['query', `The anime's name you are looking for.`]
+					['query', `Le nom de l'animé que vous recherchez.`]
 				],
-				examples: ['One Piece']
+				exemples: ['One Piece']
 			}),
-			COMMAND_MANGA_DESCRIPTION: 'Search your favourite manga by title with this command.',
+			COMMAND_MANGA_DESCRIPTION: 'Recherchez votre manga favori par son titre avec cette commande.',
 			COMMAND_MANGA_EXTENDED: builder.display('manga', {
-				extendedHelp: `This command queries MyAnimeList to show data for the manga you request. In a near future, this command',
-				'will allow you to navigate between the results so you can read the information of the manga.`,
+				extendedHelp: `ette commande utilise MyAnimeList pour montrer les données du manga que vous demandez. Dans un futur proche, cette commande',
+				'vous permettra de naviguer entre les résultats donc vous pourrez lire les informations de ce manga.`,
 				explainedUsage: [
-					['query', `The manga's name you are looking for.`]
+					['query', `Le nom du manga que vous recherchez.`]
 				],
-				examples: ['Stone Ocean', 'One Piece']
+				exemples: ['Stone Ocean', 'One Piece']
 			}),
 
 			/**
 			 * #####################
 			 * ANNOUNCEMENT COMMANDS
 			 */
-			COMMAND_ANNOUNCEMENT_DESCRIPTION: 'Send new announcements, mentioning the announcement role.',
+			COMMAND_ANNOUNCEMENT_DESCRIPTION: 'Envoie des annonces, en mentionnant le rôle d\'annoncement.',
 			COMMAND_ANNOUNCEMENT_EXTENDED: builder.display('announcement', {
-				extendedHelp: `This command requires an announcement channel (**channels.announcement** in the configuration command)
-				which tells Skyra where she should post the announcement messages. Question is, is this command needed?
-				Well, nothing stops you from making your announcements by yourself, however, there are many people who hate
-				being mentioned by at everyone/here. To avoid this, Skyra gives you the option of creating a subscriber role,
-				which is unmentionable (to avoid people spam mentioning the role), and once you run this command,
-				Skyra will set the role to be mentionable, post the message, and back to unmentionable.`,
+				extendedHelp: `Cette commande a besoin d'un salon d'annonces (**channels.announcement** dans la commande de configuration)
+				qui dit à Skyra où elle devra poster les messages d'annonces. La question est, cette commande est-elle necessaire?
+				Et bien, rien ne vous arrête de faire les annonces vous même, quoi qu'il en soit, il y a beaucoup de personnes qui détestent
+				être mentionné par everyone/here. Pour éviter cela, Skyra vous donne l'option de créer un rôle d'abonné,
+				qui ne peut pas être mentionné (pour éviter ceux qui spamment les rôles), et une fois que vous avez utilisé cette commande,
+				Skyra mettra le rôle mentionnable, postera le message, et le remettra inmentionnable.`,
 				explainedUsage: [
-					['announcement', 'The announcement text to post.']
+					['announcement', 'Le texte d\'annonce à poster.']
 				],
-				examples: ['I am glad to announce that we have a bot able to safely send announcements for our subscribers!']
+				examples: ['Je suis fier d\'annoncer que nous avons un bot capable d\'envoyer de manière sécurisée des annonces pour nos abonnés!']
 			}),
 			COMMAND_SUBSCRIBE_DESCRIPTION: `Subscribe to this server's announcements.`,
 			COMMAND_SUBSCRIBE_EXTENDED: builder.display('subscribe', {
