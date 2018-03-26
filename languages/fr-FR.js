@@ -233,10 +233,10 @@ module.exports = class extends Language {
 			COMMAND_CONF_USER_DESCRIPTION: 'Établit une configuration par utilisateur.',
 			COMMAND_CONF_USER: (key, list) => `**Configuration Utilisateur${key}**\n${list}`,
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
-			COMMAND_LOAD: (time, type, name) => `✅ Successfully loaded ${type}: ${name}. (Took: ${time})`,
-			COMMAND_LOAD_FAIL: 'The file does not exist, or an error occurred while loading your file. Please check your console.',
-			COMMAND_LOAD_ERROR: (type, name, error) => `❌ Failed to load ${type}: ${name}. Reason:${klasaUtil.codeBlock('js', error)}`,
-			COMMAND_LOAD_DESCRIPTION: 'Load a piece from your bot.',
+			COMMAND_LOAD: (time, type, name) => `✅ ${util.toTitleCase(this.piece(type))} chargé${this.isFeminine(type) ? 'e' : ''} avec succès : ${name}. (Temps: ${time})`,
+			COMMAND_LOAD_FAIL: 'Le fichier n\'existe pas, ou une erreur s\'est produite lors du chargement. Veuillez vérifier votre console.',
+			COMMAND_LOAD_ERROR: (type, name, error) => `❌ Échec lors du chargement de ${this.piece(type)}: ${name}. Raison : ${util.codeBlock('js', error)}`,
+			COMMAND_LOAD_DESCRIPTION: 'Charge un composant de votre bot.',
 
 			/**
 			 * ################################
