@@ -80,13 +80,13 @@ const PERMS = {
 const random = num => Math.round(Math.random() * num);
 
 const EIGHT_BALL = {
-	QUAND: ['Soon™', 'Peut-être demain.', 'Peut-être l\'an prochain...', 'Maintenant.', 'Dans quelques mois.'],
-	QUOI: ['Un avion.', 'Quoi? Demande encore.', 'Un cadeau.', 'Rien.', 'Une cloche.', 'Je ne sais pas, peut-être quelque chose.'],
-	COMBIEN: ['Beaucoup.', 'Un peu.', 'Quelques.', 'Redemande moi demain.', 'Je ne sais pas, demande à un physicien.', 'Rien.', `Entre ${random(10)} et ${random(1000)}L.`, `${random(10)}e${random(1000)}L.`, "2 ou 3 litres, je ne me souviens pas.", 'Une infinité.', '1010 litres.'],
-	COMBIEN: ['Beaucoup.', 'Un peu.', 'Quelques.', 'Redemande moi demain.', 'Je ne sais pas, demande à un physicien.', 'Rien.', `Entre ${random(10)} et ${random(1000)}.`, `${random(10)}e${random(1000)}.`, '2 ou 3, je ne me souviens pas.', 'Une infinité', '1010.'],
-	POURQUOI: ['Peut-être génétique.', 'Parce que quelqu\'un l\'a décidé comme ça.', 'Pour la gloire de Satan, évidemment !', 'Je ne sais pas, peut-être le destin.', 'Parce que je l'ai dit.', 'Je n'en ai aucune idée.', 'Harambe n\'a rien fait de mal.', 'Demande au propriétaire de ce serveur.', 'Redemande.', 'Pour être de l'autre coté.', 'C'est dit dans la Bible.'],
-	QUI: ['Un humain.', 'Un robot.', 'Un planeur.', 'Un oiseau.', 'Une composition de carbone.', 'Un tas de zéros et de uns.', 'Je n\'ai pas d\'indice, est-ce matériel?', 'Ce n\'est pas logique.'],
-	AUTRE: ['Probablement.', 'Non.', 'OUI!', 'Peut-être.']
+	WHEN: ['Soon™', 'Peut-être demain.', 'Peut-être l\'an prochain...', 'Maintenant.', 'Dans quelques mois.'],
+	WHAT: ['Un avion.', 'Quoi? Demande encore.', 'Un cadeau.', 'Rien.', 'Une cloche.', 'Je ne sais pas, peut-être quelque chose.'],
+	HOWMUCH: ['Beaucoup.', 'Un peu.', 'Quelques.', 'Redemande moi demain.', 'Je ne sais pas, demande à un physicien.', 'Rien.', `Entre ${random(10)} et ${random(1000)}L.`, `${random(10)}e${random(1000)}L.`, "2 ou 3 litres, je ne me souviens pas.", 'Une infinité.', '1010 litres.'],
+	HOWMANY: ['Beaucoup.', 'Un peu.', 'Quelques.', 'Redemande moi demain.', 'Je ne sais pas, demande à un physicien.', 'Rien.', `Entre ${random(10)} et ${random(1000)}.`, `${random(10)}e${random(1000)}.`, '2 ou 3, je ne me souviens pas.', 'Une infinité', '1010.'],
+	WHY: ['Peut-être génétique.', 'Parce que quelqu\'un l\'a décidé comme ça.', 'Pour la gloire de Satan, évidemment !', 'Je ne sais pas, peut-être le destin.', 'Parce que je l'ai dit.', 'Je n'en ai aucune idée.', 'Harambe n\'a rien fait de mal.', 'Demande au propriétaire de ce serveur.', 'Redemande.', 'Pour être de l'autre coté.', 'C'est dit dans la Bible.'],
+	WHO: ['Un humain.', 'Un robot.', 'Un planeur.', 'Un oiseau.', 'Une composition de carbone.', 'Un tas de zéros et de uns.', 'Je n\'ai pas d\'indice, est-ce matériel?', 'Ce n\'est pas logique.'],
+	ELSE: ['Probablement.', 'Non.', 'OUI!', 'Peut-être.']
 };
 
 function duration(time) { // eslint-disable-line no-unused-vars
