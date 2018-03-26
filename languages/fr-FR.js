@@ -9,8 +9,8 @@ const { Language, version, Timestamp } = require('klasa');
 const { LanguageHelp, FriendlyDuration, util, klasaUtil, constants: { EMOJIS: { SHINY } } } = require('../index');
 
 const builder = new LanguageHelp()
-	.setExplainedUsage('⚙ | ***Explained usage***')
-	.setPossibleFormats('🔢 | ***Possible formats***')
+	.setExplainedUsage('⚙ | ***Usage expliqué***')
+	.setPossibleFormats('🔢 | ***Formats possibles***')
 	.setExamples('🔗 | ***Exemples***')
 	.setReminder('⏰ | ***Rappel***');
 const timestamp = new Timestamp('YYYY/MM/DD [at] HH:mm:ss');
@@ -80,13 +80,13 @@ const PERMS = {
 const random = num => Math.round(Math.random() * num);
 
 const EIGHT_BALL = {
-	WHEN: ['Soon™', 'Maybe tomorrow.', 'Maybe next year...', 'Right now.', 'In a few months.'],
-	WHAT: ['A plane.', 'What? Ask again.', 'A gift.', 'Nothing.', 'A ring.', 'I do not know, maybe something.'],
-	HOWMUCH: ['A lot.', 'A bit.', 'A few.', 'Ask me tomorrow.', 'I do not know, ask a physicist.', 'Nothing.', `Within ${random(10)} and ${random(1000)}L.`, `${random(10)}e${random(1000)}L.`, "2 or 3 liters, I don't remember.", 'Infinity.', '1010 liters.'],
-	HOWMANY: ['A lot.', 'A bit.', 'A few.', 'Ask me tomorrow.', "I don't know, ask a physicist.", 'Nothing.', `Within ${random(10)} and ${random(1000)}.`, `${random(10)}e${random(1000)}.`, '2 or 3, I do not remember.', 'Infinity', '1010.'],
-	WHY: ['Maybe genetics.', 'Because somebody decided it.', 'For the glory of satan, of course!', 'I do not know, maybe destiny.', 'Because I said so.', 'I have no idea.', 'Harambe did nothing wrong.', 'Ask the owner of this server.', 'Ask again.', 'To get to the other side.', 'It says so in the Bible.'],
-	WHO: ['A human.', 'A robot.', 'An airplane.', 'A bird.', 'A carbon composition.', 'A bunch of zeroes and ones.', 'I have no clue, is it material?', 'That is not logical.'],
-	ELSE: ['Most likely.', 'Nope.', 'YES!', 'Maybe.']
+	QUAND: ['Soon™', 'Peut-être demain.', 'Peut-être l\'an prochain...', 'Maintenant.', 'Dans quelques mois.'],
+	QUOI: ['Un avion.', 'Quoi? Demande encore.', 'Un cadeau.', 'Rien.', 'Une cloche.', 'Je ne sais pas, peut-être quelque chose.'],
+	COMBIEN: ['Beaucoup.', 'Un peu.', 'Quelques.', 'Redemande moi demain.', 'Je ne sais pas, demande à un physicien.', 'Rien.', `Entre ${random(10)} et ${random(1000)}L.`, `${random(10)}e${random(1000)}L.`, "2 ou 3 litres, je ne me souviens pas.", 'Une infinité.', '1010 litres.'],
+	COMBIEN: ['Beaucoup.', 'Un peu.', 'Quelques.', 'Redemande moi demain.', 'Je ne sais pas, demande à un physicien.', 'Rien.', `Entre ${random(10)} et ${random(1000)}.`, `${random(10)}e${random(1000)}.`, '2 ou 3, je ne me souviens pas.', 'Une infinité', '1010.'],
+	POURQUOI: ['Peut-être génétique.', 'Parce que quelqu\'un l\'a décidé comme ça.', 'Pour la gloire de Satan, évidemment !', 'Je ne sais pas, peut-être le destin.', 'Parce que je l'ai dit.', 'Je n'en ai aucune idée.', 'Harambe n\'a rien fait de mal.', 'Demande au propriétaire de ce serveur.', 'Redemande.', 'Pour être de l'autre coté.', 'C'est dit dans la Bible.'],
+	QUI: ['Un humain.', 'Un robot.', 'Un planeur.', 'Un oiseau.', 'Une composition de carbone.', 'Un tas de zéros et de uns.', 'Je n\'ai pas d\'indice, est-ce matériel?', 'Ce n\'est pas logique.'],
+	AUTRE: ['Probablement.', 'Non.', 'OUI!', 'Peut-être.']
 };
 
 function duration(time) { // eslint-disable-line no-unused-vars
