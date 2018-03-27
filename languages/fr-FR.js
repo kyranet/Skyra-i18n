@@ -81,10 +81,10 @@ const random = num => Math.round(Math.random() * num);
 
 const EIGHT_BALL = {
 	WHEN: ['Soon™', 'Peut-être demain.', 'Peut-être l\'an prochain...', 'Maintenant.', 'Dans quelques mois.'],
-	WHAT: ['Un avion.', 'Quoi? Demande encore.', 'Un cadeau.', 'Rien.', 'Une cloche.', 'Je ne sais pas, peut-être quelque chose.'],
+	WHAT: ['Un avion.', 'Quoi? Demande encore.', 'Un cadeau.', 'Rien.', 'Une bague.', 'Je ne sais pas, peut-être quelque chose.'],
 	HOWMUCH: ['Beaucoup.', 'Un peu.', 'Quelques.', 'Redemande moi demain.', 'Je ne sais pas, demande à un physicien.', 'Rien.', `Entre ${random(10)} et ${random(1000)}L.`, `${random(10)}e${random(1000)}L.`, "2 ou 3 litres, je ne me souviens pas.", 'Une infinité.', '1010 litres.'],
 	HOWMANY: ['Beaucoup.', 'Un peu.', 'Quelques.', 'Redemande moi demain.', 'Je ne sais pas, demande à un physicien.', 'Rien.', `Entre ${random(10)} et ${random(1000)}.`, `${random(10)}e${random(1000)}.`, '2 ou 3, je ne me souviens pas.', 'Une infinité', '1010.'],
-	WHY: ['Peut-être génétique.', 'Parce que quelqu\'un l\'a décidé comme ça.', 'Pour la gloire de Satan, évidemment !', 'Je ne sais pas, peut-être le destin.', 'Parce que je l'ai dit.', 'Je n'en ai aucune idée.', 'Harambe n\'a rien fait de mal.', 'Demande au propriétaire de ce serveur.', 'Redemande.', 'Pour être de l'autre coté.', 'C'est dit dans la Bible.'],
+	WHY: ['Peut-être génétique.', 'Parce que quelqu\'un l\'a décidé comme ça.', 'Pour la gloire de Satan, évidemment !', 'Je ne sais pas, peut-être le destin.', 'Parce que je l\'ai dit.', 'Je n\'en ai aucune idée.', 'Harambe n\'a rien fait de mal.', 'Demande au propriétaire de ce serveur.', 'Redemande.', 'Pour être de l\'autre côté.', 'C'est dit dans la Bible.'],
 	WHO: ['Un humain.', 'Un robot.', 'Un planeur.', 'Un oiseau.', 'Une composition de carbone.', 'Un tas de zéros et de uns.', 'Je n\'ai pas d\'indice, est-ce matériel?', 'Ce n\'est pas logique.'],
 	ELSE: ['Probablement.', 'Non.', 'OUI!', 'Peut-être.']
 };
@@ -259,7 +259,7 @@ module.exports = class extends Language {
 			}),
 			COMMAND_MANGA_DESCRIPTION: 'Recherchez votre manga favori par son titre avec cette commande.',
 			COMMAND_MANGA_EXTENDED: builder.display('manga', {
-				extendedHelp: `ette commande utilise MyAnimeList pour montrer les données du manga que vous demandez. Dans un futur proche, cette commande',
+				extendedHelp: `Cette commande utilise MyAnimeList pour montrer les données du manga que vous demandez. Dans un futur proche, cette commande',
 				'vous permettra de naviguer entre les résultats donc vous pourrez lire les informations de ce manga.`,
 				explainedUsage: [
 					['query', `Le nom du manga que vous recherchez.`]
@@ -277,21 +277,21 @@ module.exports = class extends Language {
 				qui dit à Skyra où elle devra poster les messages d'annonces. La question est, cette commande est-elle necessaire?
 				Et bien, rien ne vous arrête de faire les annonces vous même, quoi qu'il en soit, il y a beaucoup de personnes qui détestent
 				être mentionné par everyone/here. Pour éviter cela, Skyra vous donne l'option de créer un rôle d'abonné,
-				qui ne peut pas être mentionné (pour éviter ceux qui spamment les rôles), et une fois que vous avez utilisé cette commande,
+				qui ne peut pas être mentionné (pour éviter ceux qui spamment les rôles), et à chaque fois que vous utiliserez cette commande,
 				Skyra mettra le rôle mentionnable, postera le message, et le remettra inmentionnable.`,
 				explainedUsage: [
 					['announcement', 'Le texte d\'annonce à poster.']
 				],
 				examples: ['Je suis fier d\'annoncer que nous avons un bot capable d\'envoyer de manière sécurisée des annonces pour nos abonnés!']
 			}),
-			COMMAND_SUBSCRIBE_DESCRIPTION: `Subscribe to this server's announcements.`,
+			COMMAND_SUBSCRIBE_DESCRIPTION: `Abonnez vous aux annonces de ce serveur.`,
 			COMMAND_SUBSCRIBE_EXTENDED: builder.display('subscribe', {
-				extendedHelp: `This command serves the purpose of **giving** you the subscriber role, which must be configured by the
-				server's administrators. When a moderator or administrator use the **announcement** command, you
-					will be mentioned. This feature is meant to replace everyone/here tags and mention only the interested
-					users.`
+				extendedHelp: `Cette commande a pour but de vous **donner** le rôle d'abonné, qui doit être configuré les
+				administrateurs du serveur. Quand un modérateur ou un administrateur utilise la commande **annoncement**, vous
+					allez être mentionné. Cette fonction est là pour remplacer les mentions everyone/here et mentionner seulement les utilisateurs
+					intéressés.`
 			}),
-			COMMAND_UNSUBSCRIBE_DESCRIPTION: `Unsubscribe from this server's announcements.`,
+			COMMAND_UNSUBSCRIBE_DESCRIPTION: `Désabonnez vous aux annonces de ce serveur.`,
 			COMMAND_UNSUBSCRIBE_EXTENDED: builder.display('unsubscribe', {
 				extendedHelp: `This command serves the purpose of **removing** you the subscriber role, which must be configured by the
 					server's administrators. When a moderator or administrator use the **announcement** command, you
