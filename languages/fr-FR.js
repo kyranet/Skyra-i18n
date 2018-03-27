@@ -286,17 +286,17 @@ module.exports = class extends Language {
 			}),
 			COMMAND_SUBSCRIBE_DESCRIPTION: `Abonnez vous aux annonces de ce serveur.`,
 			COMMAND_SUBSCRIBE_EXTENDED: builder.display('subscribe', {
-				extendedHelp: `Cette commande a pour but de vous **donner** le rôle d'abonné, qui doit être configuré les
+				extendedHelp: `Cette commande sert à vous **donner** le rôle d'abonné, qui doit être configuré par les
 				administrateurs du serveur. Quand un modérateur ou un administrateur utilise la commande **annoncement**, vous
 					allez être mentionné. Cette fonction est là pour remplacer les mentions everyone/here et mentionner seulement les utilisateurs
 					intéressés.`
 			}),
 			COMMAND_UNSUBSCRIBE_DESCRIPTION: `Désabonnez vous aux annonces de ce serveur.`,
 			COMMAND_UNSUBSCRIBE_EXTENDED: builder.display('unsubscribe', {
-				extendedHelp: `This command serves the purpose of **removing** you the subscriber role, which must be configured by the
-					server's administrators. When a moderator or administrator use the **announcement** command, you
-					will **not longer** be mentioned. This feature is meant to replace everyone/here tags and mention
-					only the interested users.`
+				extendedHelp: `Cette commande sert à vous **retirer** le rôle d'abonné, qui doit être configuré par les
+					administrateurs du serveur. Quand un modérateur ou un administrateur utilise la commande **annoncement**, vous
+					**ne serez plus** mentionnés. Cette fonction est là pour remplacer les mentions everyone/here et mentionner
+					seulement les utilisateurs intéressés.`
 			}),
 
 			/**
@@ -304,7 +304,7 @@ module.exports = class extends Language {
 			 * FUN COMMANDS
 			 */
 
-			COMMAND_8BALL_DESCRIPTION: 'Skyra will read the Holy Bible to find the correct answer for your question.',
+			COMMAND_8BALL_DESCRIPTION: 'Skyra lira la Sainte Bible pour trouver la réponse correcte à votre question.',
 			COMMAND_8BALL_EXTENDED: builder.display('8ball', {
 				extendedHelp: `This command provides you a random question based on your questions' type. Be careful, it may be too smart.`,
 				explainedUsage: [
