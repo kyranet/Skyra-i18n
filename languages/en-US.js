@@ -847,6 +847,19 @@ module.exports = class extends Language {
 			 * ###############
 			 * SOCIAL COMMANDS
 			 */
+			COMMAND_AUTOROLE_DESCRIPTION: '(ADM) List or configure the autoroles for a guild.',
+			COMMAND_AUTOROLE_EXTENDED: builder.display('autorole', {
+				extendedHelp: `Autoroles? They are roles that are available for everyone, and automatically given when they reach an
+					amount of (local) points, an administrator must configure them throught a setting command.`,
+				explainedUsage: [
+					['list', 'Lists all the current autoroles.'],
+					['add <amount> <role>', 'Add a new autorole.'],
+					['remove <role>', 'Remove an autorole from the list.'],
+					['update <amount> <role>', 'Change the required amount of points for an existing autorole.']
+				],
+				reminder: `The current system grants a random amount of points between 4 and 8 points, for each post with a 1 minute cooldown.`,
+				examples: ['list', 'add 20000 Trusted Member', 'update 15000 Trusted Member', 'remove Trusted Member']
+			}),
 
 			COMMAND_BALANCE_DESCRIPTION: 'Check your current balance.',
 			COMMAND_BALANCE_EXTENDED: builder.display('balance', {
@@ -877,6 +890,13 @@ module.exports = class extends Language {
 			COMMAND_LEVEL_DESCRIPTION: 'Check your global level.',
 			COMMAND_LEVEL_EXTENDED: builder.display('level', {
 				extendedHelp: `How much until next level?`,
+				explainedUsage: [
+					['user', '(Optional) The user\'s profile to show. Defaults to the message\'s author.']
+				]
+			}),
+			COMMAND_MYLEVEL_DESCRIPTION: 'Check your local level.',
+			COMMAND_MYLEVEL_EXTENDED: builder.display('mylevel', {
+				extendedHelp: `How much until next auto role? How many points do I have in this guild?`,
 				explainedUsage: [
 					['user', '(Optional) The user\'s profile to show. Defaults to the message\'s author.']
 				]
@@ -1075,8 +1095,8 @@ module.exports = class extends Language {
 			COMMANDS_TAGS_DESCRIPTION: `List or get a tag.`,
 			COMMANDS_TAGS_EXTENDED: builder.display('tags', {
 				extendedHelp: `What are tags? Tags are chunk of texts stored under a name, which allows you, for example,
-				you can do \`Skyra, tag rule1\` and get a response with what the rule number one of your server is.
-				Besides that, tags are also used for memes, who doesn't like memes?`,
+					you can do \`Skyra, tag rule1\` and get a response with what the rule number one of your server is.
+					Besides that, tags are also used for memes, who doesn't like memes?`,
 				explainedUsage: [
 					['list', 'Show a list of all tags for this server.'],
 					['tag', 'Show the content of the selected tag.']
@@ -1089,6 +1109,13 @@ module.exports = class extends Language {
 			 * TOOLS COMMANDS
 			 */
 
+			COMMAND_AVATAR_DESCRIPTION: `View somebody's avatar in full size.`,
+			COMMAND_AVATAR_EXTENDED: builder.display('avatar', {
+				extendedHelp: `As this command's name says, it shows somebody's avatar.`,
+				explainedUsage: [
+					['user', `(Optional) A user mention. Defaults to the author if the input is invalid or not given.`]
+				]
+			}),
 			COMMAND_COLOR_DESCRIPTION: 'Display some awesome colours.',
 			COMMAND_COLOR_EXTENDED: builder.display('color', {
 				extendedHelp: `The color command displays a set of colours with nearest tones given a difference between 1 and 255..`,
@@ -1473,8 +1500,8 @@ module.exports = class extends Language {
 				EXPERIENCE: 'Experience',
 				NEXT_IN: 'Next level in'
 			},
-			COMMAND_MYLEVEL: (points, next) => `You have a total of ${points} points.${next}`,
-			COMMAND_MYLEVEL_NEXT: (remaining, next) => `\nPoints for next rank: **${remaining}** (at ${next} points).`,
+			COMMAND_MYLEVEL: (points, next, user) => `${user ? `The user ${user} has` : 'You have'} a total of ${points} points.${next}`,
+			COMMAND_MYLEVEL_NEXT: (remaining, next) => `Points for next rank: **${remaining}** (at ${next} points).`,
 			COMMAND_PAY_MISSING_MONEY: (needed, has) => `I am sorry, but you need ${needed}${SHINY} and you have ${has}${SHINY}`,
 			COMMAND_PAY_PROMPT: (user, amount) => `You are about to pay ${user} ${amount}${SHINY}, are you sure you want to proceed?`,
 			COMMAND_PAY_PROMPT_ACCEPT: (user, amount) => `Payment accepted, ${amount}${SHINY} has been sent to ${user}'s profile.`,
@@ -1531,6 +1558,8 @@ module.exports = class extends Language {
 			COMMAND_EVAL_OUTPUT_FILE: (time, type) => `Sent the result as a file.\n**Type**:${type}\n${time}`,
 			COMMAND_EVAL_OUTPUT_HASTEBIN: (time, url, type) => `Sent the result to hastebin: ${url}\n**Type**:${type}\n${time}\n`,
 
+			COMMAND_FEEDBACK: 'Thanks you for your feedback ❤! I will make sure the developer team read this, you may get a response in DMs!',
+
 			COMMAND_STATS: (STATS, UPTIME, USAGE) => [
 				'= STATISTICS =',
 				`• Users      :: ${STATS.USERS}`,
@@ -1570,6 +1599,7 @@ module.exports = class extends Language {
 			 * TOOLS COMMANDS
 			 */
 
+			COMMAND_AVATAR_NONE: 'The user does not have an avatar set.',
 			COMMAND_COLOR: (hex, rgb, hsl) => [
 				`HEX: **${hex}**`,
 				`RGB: **${rgb}**`,
@@ -1631,24 +1661,23 @@ module.exports = class extends Language {
 			COMMAND_URBAN_INDEX_NOTFOUND: 'You may want to try a lower page number.',
 			SYSTEM_TEXT_TRUNCATED: (definition, url) => `${definition}... [continue reading](${url})`,
 			COMMAND_URBAN_OUTPUT: (index, pages, definition, example, author) => [
-				`→ \`Definition\` :: ${index}/${pages}\n_${definition}`,
+				`→ \`Definition\` :: ${index}/${pages}\n${definition}`,
 				`→ \`Example\` :: ${example}`,
 				`→ \`Author\` :: ${author}`
 			].join('\n\n'),
 			COMMAND_WHOIS_MEMBER: (member) => [
-				`${member.nickname ? `aka **${member.nickname}**.\n` : ''}`,
-				`With an ID of \`${member.user.id}\`,`,
-				`this user is **${member.user.presence.status}**${member.user.presence.activity ? `, playing: **${member.user.presence.activity.name}**` : '.'}`,
-				'\n',
-				`\nJoined Discord on ${timestamp.displayUTC(member.user.createdAt)}`,
-				`\nJoined ${member.guild.name} on ${timestamp.displayUTC(member.joinedAt)}`
-			].join(' '),
+				`→ \`ID         ::\` **${member.id}**`,
+				`→ \`Tag        ::\` **${member.user.tag}**`,
+				`→ \`Nickname   ::\` **${member.nickname || 'Not set'}**`,
+				`→ \`Created At ::\` **${timestamp.displayUTC(member.user.createdAt)}**`,
+				`→ \`Joined     ::\` **${timestamp.displayUTC(member.joinedAt)}**`
+			].join('\n'),
 			COMMAND_WHOIS_MEMBER_ROLES: '→ `Roles`',
 			COMMAND_WHOIS_USER: (user) => [
-				`With an ID of \`${user.id}\``,
-				'\n',
-				`Joined Discord at ${timestamp.displayUTC(user.createdAt)}`
-			].join(' '),
+				`→ \`ID         ::\` **${user.id}**`,
+				`→ \`Tag        ::\` **${user.tag}**`,
+				`→ \`Created At ::\` **${timestamp.displayUTC(user.createdAt)}**`
+			].join('\n'),
 			COMMAND_WIKIPEDIA_NOTFOUND: 'I am sorry, I could not find something that could match your input in Wikipedia.',
 			COMMAND_YOUTUBE_NOTFOUND: 'I am sorry, I could not find something that could match your input in YouTube.',
 			COMMAND_YOUTUBE_INDEX_NOTFOUND: 'You may want to try a lower page number. Because I am unable to find something at this index.',
