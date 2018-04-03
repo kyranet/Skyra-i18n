@@ -1,5 +1,7 @@
 # Skyra 2.1.0 (Star Sky Update)
 
+[![Discord Bots](https://discordbots.org/api/widget/status/266624760782258186.svg?noavatar=true)](https://discordbots.org/bot/266624760782258186)
+
 Skyra is a standalone bot created on 24th November 2016, it's designed to avoid the 'bot hell' by wrapping the functions of most popular bots into an unified and complex
 system in which includes FailSafe systems and designed to be very reliable. As well as its availability is 24/7.
 
