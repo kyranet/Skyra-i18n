@@ -189,7 +189,7 @@ module.exports = class extends Language {
 			COMMAND_PING_DESCRIPTION: 'Exécute un test de connexion à Discord.',
 			COMMAND_PINGPONG: (diff, ping) => `Pong ! (L'aller-retour a pris : ${diff}ms. Pulsation : ${ping}ms.)`,
 			COMMAND_INVITE_SELFBOT: 'Pourquoi auriez-vous besoin d\'un lien d\'invitation pour un selfbot...',
-			COMMAND_INVITE_DESCRIPTION: 'Displays the join server link of the bot.',
+			COMMAND_INVITE_DESCRIPTION: 'Affiche le lien pour inviter le bot dans votre serveur.',
 			COMMAND_INFO: [
 				"Klasa est un framework 'plug-and-play' qui étend la librairie Discord.js.",
 				'Une grande partie du code est modularisée, ce qui permet aux développeurs de modifier Klasa pour répondre à leurs besoins.',
@@ -306,7 +306,7 @@ module.exports = class extends Language {
 
 			COMMAND_8BALL_DESCRIPTION: 'Skyra lira la Sainte Bible pour trouver la réponse correcte à votre question.',
 			COMMAND_8BALL_EXTENDED: builder.display('8ball', {
-				extendedHelp: `This command provides you a random question based on your questions' type. Be careful, it may be too smart.`,
+				extendedHelp: `Cette commande vous fournit une réponse aléatoire basée sur votre type de question. Soyez prudent, elle pourait très intelligente.`,
 				explainedUsage: [
 					['question', 'The Holy Question']
 				],
@@ -314,7 +314,7 @@ module.exports = class extends Language {
 			}),
 			COMMAND_CHOICE_DESCRIPTION: 'Eeny, meeny, miny, moe, catch a tiger by the toe...',
 			COMMAND_CHOICE_EXTENDED: builder.display('choice', {
-				extendedHelp: `I have an existencial doubt... should I wash the dishes or throw them throught the window? The search
+				extendedHelp: `J'ai un doute existentiel... should I wash the dishes or throw them throught the window? The search
 					continues. List me items separated by comma and I will choose one them. On a side note, I am not
 					responsible of what happens next.`,
 				explainedUsage: [
