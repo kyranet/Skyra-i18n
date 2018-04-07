@@ -183,15 +183,9 @@ module.exports = class extends Language {
 			COMMAND_PINGPONG: (diff, ping) => `Pong! (Roundtrip took: ${diff}ms. Heartbeat: ${ping}ms.)`,
 			COMMAND_INVITE_SELFBOT: 'Why would you need an invite link for a selfbot...',
 			COMMAND_INVITE: (client) => [
-				`To add ${client.user.username} to your discord guild:`,
-				client.invite,
-				klasaUtil.codeBlock('', [
-					'The above link is generated requesting the minimum permissions required to use every command currently.',
-					'I know not all permissions are right for every server, so don\'t be afraid to uncheck any of the boxes.',
-					'If you try to use a command that requires more permissions than the bot is granted, it will let you know.'
-				].join(' ')),
-				'Please file an issue at <https://github.com/dirigeants/klasa> if you find any bugs.'
-			],
+				`To add Skyra to your discord guild: <${client.invite}>`,
+				'Don\'t be afraid to uncheck some permissions, Skyra will let you know if you\'re trying to run a command without permissions.'
+			].join('\n'),
 			COMMAND_INVITE_DESCRIPTION: 'Displays the join server link of the bot.',
 			COMMAND_INFO: [
 				"Klasa is a 'plug-and-play' framework built on top of the Discord.js library.",
@@ -365,7 +359,7 @@ module.exports = class extends Language {
 			COMMAND_LOVE_DESCRIPTION: 'Lovemeter, online!',
 			COMMAND_LOVE_EXTENDED: builder.display('love', {
 				extendedHelp: `Hey! Wanna check the lovemeter? I know it's a ridiculous machine, but many humans love it!
-				Don't be shy and try it!`,
+					Don't be shy and try it!`,
 				explainedUsage: [
 					['user', 'The user to rate.']
 				],
@@ -374,13 +368,13 @@ module.exports = class extends Language {
 			COMMAND_NORRIS_DESCRIPTION: `Enjoy your day reading Chuck Norris' jokes.`,
 			COMMAND_NORRIS_EXTENDED: builder.display('norris', {
 				extendedHelp: `Did you know that Chuck norris does **not** call the wrong number, but you **answer** the wrong phone?
-				Woah, mindblow. He also threw a carton of milk and created the Milky Way. This command queries chucknorris.io
-				and retrieves a fact (do not assume they're false, not in front of him) so you can read it`
+					Woah, mindblow. He also threw a carton of milk and created the Milky Way. This command queries chucknorris.io
+					and retrieves a fact (do not assume they're false, not in front of him) so you can read it`
 			}),
 			COMMAND_RATE_DESCRIPTION: 'Let bots have opinions and rate somebody.',
 			COMMAND_RATE_EXTENDED: builder.display('rate', {
 				extendedHelp: `Just because I am a bot doesn't mean I cannot rate you properly. I can grade you with a random number
-				generator to ease the process. Okay okay, it's not fair, but I mean... I can also give you a 💯.`,
+					generator to ease the process. Okay okay, it's not fair, but I mean... I can also give you a 💯.`,
 				explainedUsage: [
 					['user', 'The user to rate.']
 				],
@@ -389,9 +383,9 @@ module.exports = class extends Language {
 			COMMAND_XKCD_DESCRIPTION: 'Read comics from XKCD.',
 			COMMAND_XKCD_EXTENDED: builder.display('xkcd', {
 				extendedHelp: `**xkcd** is an archive for nerd comics filled with math, science, sarcasm and languages. If you don't
-				provide any argument, I will get a random comic from xkcd. If you provide a number, I will retrieve
-				the comic with said number. But if you provide a title/text/topic, I will fetch a comic that matches
-				with your input and display it. For example, \`Skyra, xkcd Curiosity\` will show the comic number 1091.`,
+					provide any argument, I will get a random comic from xkcd. If you provide a number, I will retrieve
+					the comic with said number. But if you provide a title/text/topic, I will fetch a comic that matches
+					with your input and display it. For example, \`Skyra, xkcd Curiosity\` will show the comic number 1091.`,
 				explainedUsage: [
 					['query', 'Either the number of the comic, or a title to search for.']
 				],
@@ -403,31 +397,18 @@ module.exports = class extends Language {
 			 * MANAGEMENT COMMANDS
 			 */
 			COMMAND_CREATEMUTE_DESCRIPTION: 'Prepare the mute system.',
-			COMMAND_CREATEMUTE_EXTENDED: builder.display('createmute', {
+			COMMAND_CREATEMUTE_EXTENDED: builder.display('createMute', {
 				extendedHelp: `This command prepares the mute system by creating a role called 'muted', and configuring it to
-				the guild configuration. This command also modifies all channels (where possible) permissions and disables
+					the guild configuration. This command also modifies all channels (where possible) permissions and disables
 					the permission **${PERMS.SEND_MESSAGES}** in text channels and **${PERMS.CONNECT}** in voice channels for said role.`
-			}),
-			COMMAND_FETCH_DESCRIPTION: 'Read the context of a message.',
-			COMMAND_FETCH_EXTENDED: builder.display('fetch', {
-				extendedHelp: `This command fetches the context of a message given its id (you need to turn on the developer mode)
-					and optionally a channel and limit. The channel defaults to the channel the message was sent, and limit
-					defaults to 10. To do so, this command will (by default) show you the 10 messages around the one selected.`,
-				explainedUsage: [
-					['message', 'The message id (requires Developer Mode).'],
-					['channel', '(OPTIONAL) The channel to fetch the message from. Defaults to the channel the message got sent.'],
-					['limit', '(OPTIONAL) The amount of messages to retrieve. Defaults to 10.']
-				],
-				reminder: `Skyra needs the permissions **${PERMS.VIEW_CHANNEL}** and **${PERMS.READ_MESSAGE_HISTORY}** in order
-					to be able to fetch the messages.`
 			}),
 			COMMAND_GIVEAWAY_DESCRIPTION: 'Start a new giveaway.',
 			COMMAND_GIVEAWAY_EXTENDED: builder.display('giveaway', {
 				extendedHelp: `This command is designed to manage giveaways. You can start them with this command by giving it the
-				time and a title. When a giveaway has been created, Skyra will send a giveaway message and react to it with 🎉
-				so the members of the server can participate on it. Once the timer ends, Skyra will retrieve all the users who
-				reacted and send the owner of the giveaway a message in direct messages with the winner, and other 10 possible
-				winners (in case of needing to re-roll).`,
+					time and a title. When a giveaway has been created, Skyra will send a giveaway message and react to it with 🎉
+					so the members of the server can participate on it. Once the timer ends, Skyra will retrieve all the users who
+					reacted and send the owner of the giveaway a message in direct messages with the winner, and other 10 possible
+					winners (in case of needing to re-roll).`,
 				explainedUsage: [
 					['time', 'The time the giveaway should last.'],
 					['title', 'The title of the giveaway.']
@@ -437,8 +418,8 @@ module.exports = class extends Language {
 			COMMAND_LIST_DESCRIPTION: 'Check the list of channels, roles, members or warnings for this guild.',
 			COMMAND_LIST_EXTENDED: builder.display('list', {
 				extendedHelp: `This command is designed to list (sorted) information for this guild with possible filters. For example,
-				you can read all the channels with their ids or all the roles from the guild, sorted by their position and hierarchy
-				position, respectively. However, this command also allows to display the members of a role or check the warnings given.`,
+					you can read all the channels with their ids or all the roles from the guild, sorted by their position and hierarchy
+					position, respectively. However, this command also allows to display the members of a role or check the warnings given.`,
 				explainedUsage: [
 					['channels', 'Show a list of all channels for this guild.'],
 					['roles', 'Show a list of all roles for this guild.'],
@@ -451,10 +432,10 @@ module.exports = class extends Language {
 			COMMAND_MANAGEALIAS_DESCRIPTION: 'Manage aliases for commands for this server.',
 			COMMAND_MANAGEALIAS_EXTENDED: builder.display('managealias', {
 				extendedHelp: `Command aliases are custom aliases you can use to define a command with its parameters, for example, let's say
-				the usage of a command is quite complicated or its parameters are very used. For example, let's say you want Skyra to
-				recognize 'Skyra, ps4' as 'Skyra, roles claim ps4'. This is one of the things this system can do. However, you
-				are also able to 'translate' them, i.e. you have a Spanish community and you want 'Skyra, suscribirse' as an alias of
-				'Skyra, subscribe'.`,
+					the usage of a command is quite complicated or its parameters are very used. For example, let's say you want Skyra to
+					recognize 'Skyra, ps4' as 'Skyra, roles claim ps4'. This is one of the things this system can do. However, you
+					are also able to 'translate' them, i.e. you have a Spanish community and you want 'Skyra, suscribirse' as an alias of
+					'Skyra, subscribe'.`,
 				explainedUsage: [
 					['add', 'Add an alias.'],
 					['remove', 'Remove an alias.'],
@@ -464,28 +445,10 @@ module.exports = class extends Language {
 				],
 				examples: ['add subscribe suscribirse', 'add "roles claim ps4" ps4']
 			}),
-			COMMAND_ROLEINFO_DESCRIPTION: 'Check the information for a role.',
-			COMMAND_ROLEINFO_EXTENDED: builder.display('roleinfo', {
-				extendedHelp: `The roleinfo command displays information for a role, such as its id, name, color, whether it's hoisted
-				(displays separately) or not, it's role hierarchy position, whether it's mentionable or not, how many members have said
-				role, and its permissions. It sends an embedded message with the colour of the role.`,
-				explainedUsage: [
-					['role', 'The role name, partial name, mention or id.']
-				],
-				examples: ['Administrator', 'Moderator']
-			}),
-			COMMAND_SERVERINFO_DESCRIPTION: 'Check the information of the guild.',
-			COMMAND_SERVERINFO_EXTENDED: builder.display('serverinfo', {
-				extendedHelp: `The serverinfo command displays information for the guild the message got sent. It shows the amount of channels,
-				with the count for each category, the amount of members (given from the API), the owner with their user id, the amount of roles,
-					region, creation date, verification level... between others.`,
-				reminder: `The command may not show an accurate amount of users online and offline, that's intended to save server costs for caching
-					many unnecesary members from the API. However, this should happen more likely in giant guilds.`
-			}),
 
 			/**
-				 * ###################
-				 * MANAGEMENT COMMANDS
+			 * ###################
+			 * MANAGEMENT COMMANDS
 			 */
 
 			COMMAND_NICK_DESCRIPTION: `Change Skyra's nickname for this guild.`,
@@ -506,7 +469,7 @@ module.exports = class extends Language {
 			COMMAND_SETIGNORECHANNELS_DESCRIPTION: 'Set a channel to the ignore channel list.',
 			COMMAND_SETIGNORECHANNELS_EXTENDED: builder.display('setIgnoreChannels', {
 				extendedHelp: `This command helps you setting up ignored channels. An ignored channel is a channel where nobody but moderators
-				can use Skyra's commands. Unlike removing the **${PERMS.SEND_MESSAGES}** permission, Skyra is still able to send (and therefore
+					can use Skyra's commands. Unlike removing the **${PERMS.SEND_MESSAGES}** permission, Skyra is still able to send (and therefore
 					execute commands) messages, which allows moderators to use moderation commands in the channel. Use this if you want to ban
 					any command usage from the bot in a specific channel.`,
 				explainedUsage: [
@@ -518,9 +481,9 @@ module.exports = class extends Language {
 			COMMAND_SETMEMBERLOGS_DESCRIPTION: 'Set the member logs channel.',
 			COMMAND_SETMEMBERLOGS_EXTENDED: builder.display('setMemberLogs', {
 				extendedHelp: `This command helps you setting up the member log channel. A member log channel only sends two kinds of logs: "Member Join" and
-				"Member Leave". If a muted user joins, it will send a special "Muted Member Join" event. All messages are in embeds so you will need to enable
-				the permission **${PERMS.EMBED_LINKS}** for Skyra. You also need to individually set the "events" you want to listen: "events.memberAdd" and
-				"events.memberRemove". For roles, you would enable "events.memberNicknameChange" and/or "events.memberRolesChange" via the "config" command.`,
+					"Member Leave". If a muted user joins, it will send a special "Muted Member Join" event. All messages are in embeds so you will need to enable
+					the permission **${PERMS.EMBED_LINKS}** for Skyra. You also need to individually set the "events" you want to listen: "events.memberAdd" and
+					"events.memberRemove". For roles, you would enable "events.memberNicknameChange" and/or "events.memberRolesChange" via the "config" command.`,
 				explainedUsage: [
 					['channel', 'A TextChannel. You can either put the name of the channel, tag it, or type in "here" to select the channel the message was sent.']
 				],
@@ -529,9 +492,9 @@ module.exports = class extends Language {
 			COMMAND_SETMESSAGELOGS_DESCRIPTION: 'Set the message logs channel.',
 			COMMAND_SETMESSAGELOGS_EXTENDED: builder.display('setMessageLogs', {
 				extendedHelp: `This command helps you setting up the message log channel. A message log channel only sends three kinds of logs: "Message Delete",
-				"Message Edit", and "Message Prune". All messages are in embeds so you will need to enable the permission **${PERMS.EMBED_LINKS}** for Skyra. You
-				also need to individually set the "events" you want to listen: "events.messageDelete", "events.messageEdit", and "events.messagePrune" via the
-				"config" command.`,
+					"Message Edit", and "Message Prune". All messages are in embeds so you will need to enable the permission **${PERMS.EMBED_LINKS}** for Skyra. You
+					also need to individually set the "events" you want to listen: "events.messageDelete", "events.messageEdit", and "events.messagePrune" via the
+					"config" command.`,
 				explainedUsage: [
 					['channel', 'A TextChannel. You can either put the name of the channel, tag it, or type in "here" to select the channel the message was sent.']
 				],
@@ -542,9 +505,9 @@ module.exports = class extends Language {
 			COMMAND_SETMODLOGS_DESCRIPTION: 'Set the mod logs channel.',
 			COMMAND_SETMODLOGS_EXTENDED: builder.display('setModLogs', {
 				extendedHelp: `This command helps you setting up the mod log channel. A mod log channel only sends case reports indexed by a number case and with
-				"claimable" reasons and moderators. This channel is not a must and you can always retrieve specific modlogs with the "case" command. All
-				messages are in embeds so you will need to enable the permission **${PERMS.EMBED_LINKS}** for Skyra. For auto-detection, you need to individually
-				set the "events" you want to listen: "events.banAdd", "events.banRemove" via the "config" command.`,
+					"claimable" reasons and moderators. This channel is not a must and you can always retrieve specific modlogs with the "case" command. All
+					messages are in embeds so you will need to enable the permission **${PERMS.EMBED_LINKS}** for Skyra. For auto-detection, you need to individually
+					set the "events" you want to listen: "events.banAdd", "events.banRemove" via the "config" command.`,
 				explainedUsage: [
 					['channel', 'A TextChannel. You can either put the name of the channel, tag it, or type in "here" to select the channel the message was sent.']
 				],
@@ -555,14 +518,36 @@ module.exports = class extends Language {
 			COMMAND_SETPREFIX_DESCRIPTION: 'Set Skyra\'s prefix.',
 			COMMAND_SETPREFIX_EXTENDED: builder.display('setPrefix', {
 				extendedHelp: `This command helps you setting up Skyra's prefix. A prefix is an affix that is added in front of the word, in this case, the message.
-				It allows bots to distinguish between a regular message and a command. By nature, the prefix between should be different to avoid conflicts. If
-				you forget Skyra's prefix, simply mention her with nothing else and she will tell you the current prefix. Alternatively, you can take advantage
-				of Skyra's NLP (Natural Language Processing) and prefix the commands with her name and a comma. For example, "Skyra, ping".`,
+					It allows bots to distinguish between a regular message and a command. By nature, the prefix between should be different to avoid conflicts. If
+					you forget Skyra's prefix, simply mention her with nothing else and she will tell you the current prefix. Alternatively, you can take advantage
+					of Skyra's NLP (Natural Language Processing) and prefix the commands with her name and a comma. For example, "Skyra, ping".`,
 				explainedUsage: [
 					['prefix', `The prefix to set. Default one in Skyra is "${this.client.options.prefix}".`]
 				],
 				reminder: `Your prefix should only contain characters everyone can write and type.`,
 				examples: ['&', '=']
+			}),
+
+			/**
+			 * ###########################
+			 * MANAGEMENT/HELPERS COMMANDS
+			 */
+
+			COMMAND_ROLEINFO_DESCRIPTION: 'Check the information for a role.',
+			COMMAND_ROLEINFO_EXTENDED: builder.display('roleinfo', {
+				extendedHelp: `The roleinfo command displays information for a role, such as its id, name, color, whether it's hoisted
+					(displays separately) or not, it's role hierarchy position, whether it's mentionable or not, how many members have said
+					role, and its permissions. It sends an embedded message with the colour of the role.`,
+				explainedUsage: [
+					['role', 'The role name, partial name, mention or id.']
+				],
+				examples: ['Administrator', 'Moderator', '']
+			}),
+			COMMAND_GUILDINFO_DESCRIPTION: 'Check the information of the guild.',
+			COMMAND_GUILDINFO_EXTENDED: builder.display('serverinfo', {
+				extendedHelp: `The serverinfo command displays information for the guild the message got sent. It shows the amount of channels,
+					with the count for each category, the amount of members (given from the API), the owner with their user id, the amount of roles,
+					region, creation date, verification level... between others.`
 			}),
 
 			/**
@@ -690,6 +675,11 @@ module.exports = class extends Language {
 					['user', 'The user that is triggered.']
 				],
 				examples: ['kyra']
+			}),
+			COMMAND_UPVOTE_DESCRIPTION: 'Get a link to upvote Skyra in **Discord Bot List**',
+			COMMAND_UPVOTE_EXTENDED: builder.display('upvote', {
+				extendedHelp: `Discord Bot List is a website where you can find amazing bots for your website. If you really love me,
+					you can help me a lot by upvoting me every 24 hours, so more users will be able to find me!`
 			}),
 			COMMAND_VAPORWAVE_DESCRIPTION: 'Vapowave characters!',
 			COMMAND_VAPORWAVE_EXTENDED: builder.display('vaporwave', {
@@ -847,6 +837,19 @@ module.exports = class extends Language {
 			 * ###############
 			 * SOCIAL COMMANDS
 			 */
+
+			COMMAND_BANNER_DESCRIPTION: 'Configure the banner for your profile.',
+			COMMAND_BANNER_EXTENDED: builder.display('banner', {
+				extendedHelp: `Banners are vertical in Skyra, they decorate your profile card.`,
+				explainedUsage: [
+					['list', '(Default) Lists all available banners.'],
+					['reset', 'Set your displayed banner to default.'],
+					['buy <bannerID>', 'Buy a banner, must be an ID.'],
+					['set <bannerID>', 'Set your displayed banner, must be an ID.']
+				],
+				examples: ['list', 'buy 0w1p06', 'set 0w1p06', 'reset']
+			}),
+
 			COMMAND_AUTOROLE_DESCRIPTION: '(ADM) List or configure the autoroles for a guild.',
 			COMMAND_AUTOROLE_EXTENDED: builder.display('autorole', {
 				extendedHelp: `Autoroles? They are roles that are available for everyone, and automatically given when they reach an
@@ -893,6 +896,19 @@ module.exports = class extends Language {
 				explainedUsage: [
 					['user', '(Optional) The user\'s profile to show. Defaults to the message\'s author.']
 				]
+			}),
+			COMMAND_DIVORCE_DESCRIPTION: 'Break up with your couple!',
+			COMMAND_DIVORCE_EXTENDED: builder.display('divorce', {
+				extendedHelp: `Sniff... This command is used to break up with your couple, hopefully in this virtual world, you are
+					allowed to marry the user again.`
+			}),
+			COMMAND_MARRY_DESCRIPTION: 'Marry somebody!',
+			COMMAND_MARRY_EXTENDED: builder.display('marry', {
+				extendedHelp: `Marry with your waifu!`,
+				explainedUsage: [
+					['user', '(Optional) The user to marry with. If not given, the command will tell you who are you married with.']
+				],
+				examples: ['', '@love']
 			}),
 			COMMAND_MYLEVEL_DESCRIPTION: 'Check your local level.',
 			COMMAND_MYLEVEL_EXTENDED: builder.display('mylevel', {
@@ -1312,22 +1328,49 @@ module.exports = class extends Language {
 			COMMAND_XKCD_COMICS: (amount) => `There are only ${amount} comics.`,
 
 			/**
+			 * #################
+			 * GIVEAWAY COMMANDS
+			 */
+
+			GIVEAWAY_TIME: 'A giveaway must last at least 1 minute.',
+			GIVEAWAY_ENDS_AT: 'Ends at:',
+			GIVEAWAY_DURATION: (time) => `This giveaway ends in **${duration(time)}**! React to this message with 🎉 to join.`,
+			GIVEAWAY_TITLE: '🎉 **GIVEAWAY** 🎉',
+			GIVEAWAY_START_DIRECT_MESSAGE: (title, id) => [
+				`Hello! I will keep you updated! Once your giveaway (**${title}** | ID \`${id}\`) finishes, I will send you the winner here followed with a list of other 10 possible winners.`,
+				`The ability to cancel or stop giveaways is a feature coming soon!`
+			].join('\n'),
+			GIVEAWAY_LASTCHANCE: (time) => `**LAST CHANCE**! Remaining time: **${duration(time)}**. React to this message with 🎉 to join.`,
+			GIVEAWAY_LASTCHANCE_TITLE: '🎉 **LAST CHANCE GIVEAWAY** 🎉',
+			GIVEAWAY_ENDED: (winner) => `Winner: ${winner} (${winner.id})`,
+			GIVEWAWY_ENDED_NO_WINNER: 'No winner...',
+			GIVEAWAY_ENDED_AT: 'Ended at:',
+			GIVEAWAY_ENDED_TITLE: '🎉 **GIVEAWAY ENDED** 🎉',
+			GIVEAWAY_ENDED_MESSAGE: (mention, title) => `Congratulations ${mention}! You won the giveaway **${title}**`,
+			GIVEAWAY_ENDED_DIRECT_MESSAGE: (title, id, winner, amount, list) => [
+				`Hello! The giveaway you started (**${title}** | ID \`${id}\`) just finished! Winner is ${winner.tag} (${winner.id})`,
+				`However, I have also calculated another ${amount} possible winners:${list}`
+			].join('\n'),
+			GIVEAWAY_ENDED_DIRECT_MESSAGE_ONLY_WINNER: (title, id, winner) => `Hello! The giveaway you started (**${title}** | ID \`${id}\`) just finished! Winner is ${winner.tag} (${winner.id})`,
+			GIVEAWAY_ENDED_DIRECT_MESSAGE_NO_WINNER: (title, id) => `Hello! The giveaway you started (**${title}** | ID \`${id}\`) just finished! But there's no winner!`,
+
+			/**
 			 * ###################
 			 * MANAGEMENT COMMANDS
 			 */
 
 			COMMAND_NICK_SET: (nickname) => `Changed the nickname to **${nickname}**.`,
 			COMMAND_NICK_CLEARED: 'Nickname cleared.',
-			COMMAND_SERVERINFO_TITLE: (name, id) => `Statistics for **${name}** (ID: **${id}**)`,
 			COMMAND_SERVERINFO_TITLES: {
 				CHANNELS: 'Channels',
 				MEMBERS: 'Members',
-				OTHER: 'Other',
-				USERS: 'Users'
+				OTHER: 'Other'
 			},
+			COMMAND_SERVERINFO_ROLES: (roles) => `**Roles**\n\n${roles}`,
+			COMMAND_SERVERINFO_NOROLES: 'Roles? Where? There is no other than the `@everyone` role!',
 			COMMAND_SERVERINFO_CHANNELS: (text, voice, categories, afkChannel, afkTime) => [
 				`• **${text}** Text, **${voice}** Voice, **${categories}** categories.`,
-				`• AFK: ${afkChannel ? `**<#${afkChannel}>** after **${afkTime / 60}**min` : '**None.**'}`
+				`• AFK: ${afkChannel ? `**<#${afkChannel}>** after **${afkTime / 60}**min` : '**None**.'}`
 			].join('\n'),
 			COMMAND_SERVERINFO_MEMBERS: (count, owner) => [
 				`• **${count}** members`,
@@ -1337,12 +1380,8 @@ module.exports = class extends Language {
 			COMMAND_SERVERINFO_OTHER: (size, region, createdAt, verificationLevel) => [
 				`• Roles: **${size}**`,
 				`• Region: **${region}**`,
-				`• Created at: **${timestamp.displayUTC(createdAt)}** (UTC - DD/MM/YYYY)`,
+				`• Created at: **${timestamp.displayUTC(createdAt)}** (UTC - YYYY/MM/DD)`,
 				`• Verification Level: **${this.HUMAN_LEVELS[verificationLevel]}**`
-			].join('\n'),
-			COMMAND_SERVERINFO_USERS: (online, offline, percentage, newbies) => [
-				`• Online/Offline users: **${online}**/**${offline}** (${percentage}% users online)`,
-				`• **${newbies}** new users within the last 24h.`
 			].join('\n'),
 			COMMAND_ROLEINFO_TITLES: { PERMISSIONS: 'Permissions' },
 			COMMAND_ROLEINFO: (role) => [
@@ -1351,9 +1390,9 @@ module.exports = class extends Language {
 				`Color: **${role.hexColor}**`,
 				`Hoisted: **${role.hoist ? 'Yes' : 'No'}**`,
 				`Position: **${role.rawPosition}**`,
-				`Mentionable: **${role.mentionable ? 'Yes' : 'No'}**`,
-				`Amount of members: **${role.members.size}**`
+				`Mentionable: **${role.mentionable ? 'Yes' : 'No'}**`
 			].join('\n'),
+			COMMAND_ROLEINFO_ALL: 'All Permissions granted.',
 			COMMAND_ROLEINFO_PERMISSIONS: (permissions) => permissions.length > 0 ? permissions.map(key => `+ **${PERMS[key]}**`) : 'Permissions not granted.',
 
 			/**
@@ -1375,6 +1414,7 @@ module.exports = class extends Language {
 			 * MISC COMMANDS
 			 */
 
+			COMMAND_UPVOTE_MESSAGE: 'Here is the link: **<https://discordbots.org/bot/266624760782258186>**! Some perks for upvoters are coming very soon!',
 			COMMAND_VAPORWAVE_OUTPUT: (string) => `Here is your converted message:\n${string}`,
 
 			/**
@@ -1417,6 +1457,7 @@ module.exports = class extends Language {
 			COMMAND_LOCKDOWN_LOCK: (channel) => `The channel ${channel} is now locked.`,
 			COMMAND_LOCKDOWN_LOCKING: (channel) => `Locking the channel ${channel}...`,
 			COMMAND_LOCKDOWN_OPEN: (channel) => `The lockdown for the channel ${channel} has been released.`,
+			COMMAND_MUTE_LOWLEVEL: 'I am sorry, there is no Mute role configured. Please ask an Administrator or the Guild Owner to set it up.',
 			COMMAND_MUTE_CONFIGURE_CANCELLED: 'Prompt aborted, the Mute role creation has been cancelled.',
 			COMMAND_MUTE_CONFIGURE: 'Do you want me to create and configure the Mute role now?',
 			COMMAND_MUTE_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **MUTED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
@@ -1455,25 +1496,20 @@ module.exports = class extends Language {
 			COMMAND_AUTOROLE_ADD: (role, points) => `Added new autorole: ${role.name} (${role.id}). Points required: ${points}`,
 			COMMAND_AUTOROLE_LIST_EMPTY: 'There is no role configured as an autorole in this server.',
 			COMMAND_AUTOROLE_UNKNOWN_ROLE: (role) => `Unknown role: ${role}`,
-
 			COMMAND_BALANCE: (user, amount) => `The user ${user} has a total of ${amount}${SHINY}`,
 			COMMAND_BALANCE_SELF: (amount) => `You have a total of ${amount}${SHINY}`,
-
-			COMMAND_BANNER_LIST_EMPTY: (prefix) => `You do not have an available banner. Check \`${prefix}banner buylist\` for a list of banners you can buy.`,
-			COMMAND_BANNER_SET_INPUT_NULL: 'You must specify a banner id to set.',
-			COMMAND_BANNER_SET_NOT_BOUGHT: 'You do not have this banner.',
+			COMMAND_BANNER_MISSING: 'You must specify a banner id to buy.',
+			COMMAND_BANNER_NOTEXISTS: (prefix) => `This banner id does not exist. Please check \`${prefix}banner list\` for a list of banners you can buy.`,
+			COMMAND_BANNER_USERLIST_EMPTY: (prefix) => `You did not buy a banner yet. Check \`${prefix}banner list\` for a list of banners you can buy.`,
+			COMMAND_BANNER_RESET_DEFAULT: 'You are already using the default banner.',
+			COMMAND_BANNER_RESET: 'Your banner has been reset to the default.',
+			COMMAND_BANNER_SET_NOT_BOUGHT: 'You did not buy this banner yet.',
 			COMMAND_BANNER_SET: (banner) => `|\`✅\`| **Success**. You have set your banner to: __${banner}__`,
-			COMMAND_BANNER_BUY_INPUT_NULL: 'You must specify a banner id to buy.',
-			COMMAND_BANNER_BUY_NOT_EXISTS: (prefix) => `This banner id does not exist. Please check \`${prefix}banner buylist\` for a list of banners you can buy.`,
-			COMMAND_BANNER_BUY_BOUGHT: (prefix, banner) => `You already have this banner, you may want to use \`${prefix}banner set ${banner}\` to make it visible in your profile.`,
-			COMMAND_BANNER_BUY_MONEY: (money, cost) => `You do not have enough money to buy this banner. You have ${money}${SHINY}, the banner costs ${cost}${SHINY}`,
+			COMMAND_BANNER_BOUGHT: (prefix, banner) => `You already have this banner, you may want to use \`${prefix}banner set ${banner}\` to make it visible in your profile.`,
+			COMMAND_BANNER_MONEY: (money, cost) => `You do not have enough money to buy this banner. You have ${money}${SHINY}, the banner costs ${cost}${SHINY}`,
+			COMMAND_BANNER_PAYMENT_CANCELLED: '|`❌`| The payment has been cancelled.',
 			COMMAND_BANNER_BUY: (banner) => `|\`✅\`| **Success**. You have bought the banner: __${banner}__`,
-			COMMAND_BANNER_BUY_PAYMENT_CANCELLED: '|`❌`| The payment has been cancelled.',
-			COMMAND_BANNER_PROMPT: {
-				AUTHOR: 'Author',
-				TITLE: 'Title',
-				PRICE: 'Price'
-			},
+			COMMAND_BANNER_PROMPT: 'Reply to this message choosing an option:\n`all` to check a list of all available banners.\n`user` to check a list of all bought banners.',
 			COMMAND_C4_SKYRA: 'I am sorry, I know you want to play with me, but if I do, I will not be able to help other people! 💔',
 			COMMAND_C4_BOT: 'I am sorry, but I do not think they would like to stop doing what they are doing and play with humans.',
 			COMMAND_C4_SELF: 'You must be so sad to play against yourself. Try again with another user.',
@@ -1500,6 +1536,22 @@ module.exports = class extends Language {
 				EXPERIENCE: 'Experience',
 				NEXT_IN: 'Next level in'
 			},
+			COMMAND_DIVORCE_NOTTAKEN: 'Who would you divorce with? You are not even taken!',
+			COMMAND_DIVORCE_PROMPT: 'Ooh... that sounds quite bad 💔... are you 100% sure about this?',
+			COMMAND_DIVORCE_CANCEL: 'Oh lord. I am very glad you continue with your couple!',
+			COMMAND_DIVORCE_DM: user => `Pardon... but... do you remember ${user}? He decided to break up with you 💔!`,
+			COMMAND_DIVORCE_SUCCESS: user => `Successful divorce 💔... You are not longer married with ${user}!`,
+			COMMAND_MARRY_WITH: user => `Dear, how could you forget it... You are currently married with ${user}!`,
+			COMMAND_MARRY_NOTTAKEN: 'Uh... I am sorry, but I am not aware of you being married... have you tried proposing somebody?',
+			COMMAND_MARRY_SKYRA: 'I am sorry, I know you love me, but I am already taken by a brave man I love 💞!',
+			COMMAND_MARRY_BOTS: 'Oh no! You should not be marrying bots! They still do not understand what true love is, and they are not warm!',
+			COMMAND_MARRY_SELF: 'No! This is not how this works! You cannot marry yourself, who would you spend your life with? 💔',
+			COMMAND_MARRY_AUTHOR_TAKEN: 'I am sorry, but you are already married...',
+			COMMAND_MARRY_TAKEN: 'I am very sorry, but this user is taken!',
+			COMMAND_MARRY_PETITION: (author, user) => `Fresh pair of eyes! ${author} is proposing ${user}! 💞 Reply with **yes** to accept!`,
+			COMMAND_MARRY_NOREPLY: 'The user did not reply on time... Maybe it was such a hard decision?',
+			COMMAND_MARRY_DENIED: 'Ooh. The user rejected your petition! 💔',
+			COMMAND_MARRY_ACCEPTED: (author, user) => `Congratulations dear ${author}! You're now officially married with ${user}! ❤`,
 			COMMAND_MYLEVEL: (points, next, user) => `${user ? `The user ${user} has` : 'You have'} a total of ${points} points.${next}`,
 			COMMAND_MYLEVEL_NEXT: (remaining, next) => `Points for next rank: **${remaining}** (at ${next} points).`,
 			COMMAND_PAY_MISSING_MONEY: (needed, has) => `I am sorry, but you need ${needed}${SHINY} and you have ${has}${SHINY}`,
@@ -1522,7 +1574,7 @@ module.exports = class extends Language {
 			COMMAND_REMINDME_CREATE: (id) => `A reminder with ID \`${id}\` has been created.`,
 			COMMAND_REMINDME_DELETE_PARAMS: ['delete', 'remove'],
 			COMMAND_REMINDME_DELETE_INVALID_PARAMETERS: 'To delete a previously created reminder, you must type either \'delete\' or \'remove\' followed by the ID.',
-			COMMAND_REMINDME_DELETE: task => `The reminder with ID \`${task.id}\` and with a remaining time of **${duration(task.timestamp - Date.now())}** has been successfully deleted.`,
+			COMMAND_REMINDME_DELETE: task => `The reminder with ID \`${task.id}\` and with a remaining time of **${duration(task.time - Date.now())}** has been successfully deleted.`,
 			COMMAND_REMINDME_LIST_PARAMS: ['list', 'all'],
 			COMMAND_REMINDME_LIST_EMPTY: 'You do not have any active reminder',
 			COMMAND_REMINDME_INVALID_ID: 'I am sorry, but the ID provided does not seem to be valid.',
@@ -1687,6 +1739,12 @@ module.exports = class extends Language {
 			 * WEATHER COMMANDS
 			 */
 
+			COMMAND_WEATHER_ERROR_ZERO_RESULTS: 'Your request returned no results.',
+			COMMAND_WEATHER_ERROR_REQUEST_DENIED: 'The GeoCode API Request was denied.',
+			COMMAND_WEATHER_ERROR_INVALID_REQUEST: 'Invalid request.',
+			COMMAND_WEATHER_ERROR_OVER_QUERY_LIMIT: 'Query Limit Exceeded. Try again tomorrow.',
+			COMMAND_WEATHER_ERROR_UNKNOWN: 'Unknown error.',
+
 			/**
 			 * #################################
 			 * #            MONITORS           #
@@ -1774,6 +1832,8 @@ module.exports = class extends Language {
 			SETTINGS_DELETE_CHANNELS_DEFAULT: 'Reseated the value for `channels.default`',
 			SETTINGS_DELETE_ROLES_INITIAL: 'Reseated the value for `roles.initial`',
 			SETTINGS_DELETE_ROLES_MUTE: 'Reseated the value for `roles.muted`',
+
+			MODLOG_TIMED: 'This moderation log is not timed.',
 
 			GUILD_WARN_NOT_FOUND: 'I failed to fetch the modlog for appealing. Either it does not exist, is not type of warning, or it is appealed.',
 			GUILD_MEMBER_NOT_VOICECHANNEL: 'I cannot execute this action in a member that is not connected to a voice channel.',
