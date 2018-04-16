@@ -460,12 +460,39 @@ module.exports = class extends Language {
 				],
 				examples: ['SkyNET', 'Assistant', '']
 			}),
+			COMMAND_TRIGGERS_DESCRIPTION: `Set custom triggers for your guild.`,
+			COMMAND_TRIGGERS_EXTENDED: builder.display('triggers', {
+				extendedHelp: `This command allows administrators to go further with the personalization of Skyra in the guild. A trigger is
+					a piece that can active other functions. For example, the aliases are triggers that get executed when the command does not
+					exist in bot, triggering the unknown command event. When this happens, the alias system executes and tries to find an entry
+					that matches with the input.`,
+				reminder: `This command requires the **${PERMS.ADD_REACTIONS}** permission so it can test reactions. Make sure Skyra has it.`,
+				explainedUsage: [
+					['list', `List all current triggers.`],
+					['add <type> <input> <output>', 'Add a new trigger given a type, input and output.'],
+					['remove <type> <input>', 'Remove a trigger given the type and input.']
+				],
+				examples: ['', 'list', 'add reaction "good night" 🌛', 'remove reaction "good night"']
+			}),
 
 			/**
 			 * #################################
 			 * MANAGEMENT/CONFIGURATION COMMANDS
 			 */
 
+			COMMAND_MANAGEROLEREACTION_DESCRIPTION: 'Manage the role reactions.',
+			COMMAND_MANAGEROLEREACTION_EXTENDED: builder.display('manageRoleReaction', {
+				extendedHelp: `This command manages the role reaction module, it requires a **role channel** set up and the permissions **${PERMS.ADD_REACTIONS}**
+					and **${PERMS.READ_MESSAGE_HISTORY}** to be able to validate and operate correctly.`,
+				explainedUsage: [
+					['show', 'Show all the currently configured role reactions.'],
+					['add <role> <emoji>', 'Add a new role reaction with the role ID or name, and a valid emoji.'],
+					['remove <emoji>', 'Remove a role reaction by its configured emoji.'],
+					['reset', 'Reset all the current role reactions.']
+				],
+				reminder: 'You cannot set the same emoji twice, and Skyra may remove role reactions automatically if she loses permissions or they are removed.',
+				examples: ['show', 'add Baited 🎵', 'add "Looking for Group" 🎮', 'remove 🎮', 'reset']
+			}),
 			COMMAND_SETIGNORECHANNELS_DESCRIPTION: 'Set a channel to the ignore channel list.',
 			COMMAND_SETIGNORECHANNELS_EXTENDED: builder.display('setIgnoreChannels', {
 				extendedHelp: `This command helps you setting up ignored channels. An ignored channel is a channel where nobody but moderators
@@ -526,6 +553,27 @@ module.exports = class extends Language {
 				],
 				reminder: `Your prefix should only contain characters everyone can write and type.`,
 				examples: ['&', '=']
+			}),
+			COMMAND_SETROLECHANNEL_DESCRIPTION: 'Set the role channel for role reactions.',
+			COMMAND_SETROLECHANNEL_EXTENDED: builder.display('setRoleChannel', {
+				extendedHelp: `This command sets up the role channel to lock the reactions to, it is a requirement to set up before setting up the **role message**,
+					and if none is given, the role reactions module will not run.`,
+				explainedUsage: [
+					['channel', 'A TextChannel. You can either put the name of the channel, tag it, or type in "here" to select the channel the message was sent.']
+				],
+				reminder: 'You cannot set the same channel twice, instead, Skyra will remove it.',
+				examples: ['#roles', 'here']
+			}),
+			COMMAND_SETROLEMESSAGE_DESCRIPTION: 'Set the role message for role reactions.',
+			COMMAND_SETROLEMESSAGE_EXTENDED: builder.display('setRoleMessage', {
+				extendedHelp: `This command sets up the role message to lock the reactions to, it requires a **role channel** to be set up first, and if none is given,
+					Skyra will listen to any reaction in the channel. Additionally, Skyra requires **${PERMS.READ_MESSAGE_HISTORY}** in order to fetch the message for
+					validation.`,
+				explainedUsage: [
+					['message', 'An ID, they are 17-18 characters long and numeric.']
+				],
+				reminder: 'You must execute this command in the role channel.',
+				examples: ['434096799847022598']
 			}),
 
 			/**
@@ -1167,7 +1215,21 @@ module.exports = class extends Language {
 				examples: ['https://github.com/', 'https://goo.gl/un5E']
 			}),
 			COMMAND_POLL_DESCRIPTION: 'Manage polls.',
-			COMMAND_POLL_EXTENDED: builder.display('poll', {}),
+			COMMAND_POLL_EXTENDED: builder.display('poll', {
+				extendedHelp: `The poll command creates a poll and tracks any vote, whilst also offering filters and unique
+					votes (users can't vote twice nor two different options). You can customize the available options for the
+					user and it features role and user whitelist. At the end of the poll, Skyra will DM you the results with a
+					chart, make sure to have your DMs opened! After the vote concludes (they require time), you can retrieve the
+					results for 24 hours before it gets unaccesible.`,
+				examples: [
+					'create Should I create the #anime channel? --options="yes,no,definitely"',
+					'list',
+					'vote jfutdsxsb yes',
+					'result jfutdsxsb',
+					'remove jfutdsxsb'
+				],
+				reminder: 'Skyra will prompt you for user and role whitelist, you can omit it by including `--no-prompt` in your message or specify them with `--users="id1,id2..." and --roles="id1,id2..."`. If you want something simpler, use the `spoll` command.'
+			}),
 			COMMAND_PRICE_DESCRIPTION: 'Convert the currency with this tool.',
 			COMMAND_PRICE_EXTENDED: builder.display('price', {}),
 			COMMAND_QUOTE_DESCRIPTION: 'Quote another people\'s message.',
@@ -1188,6 +1250,13 @@ module.exports = class extends Language {
 			}),
 			COMMAND_SEARCH_DESCRIPTION: 'Search things from the Internet with DuckDuckGo.',
 			COMMAND_SEARCH_EXTENDED: builder.display('search', {}),
+			COMMAND_SPOLL_DESCRIPTION: 'Simplified reaction-based poll.',
+			COMMAND_SPOLL_EXTENDED: builder.display('spoll', {
+				extendedHelp: `spoll stands for "simplified poll". You may want to use this command if you don't want to deal the
+					complexity of the other command. Simplified Polls do not track the users who vote nor it filters, it merely reacts
+					to your message with three emojis and let the users vote.`,
+				examples: ['Should I implement the #anime channel?']
+			}),
 			COMMAND_URBAN_DESCRIPTION: 'Check the definition of a word on UrbanDictionary.',
 			COMMAND_URBAN_EXTENDED: builder.display('urban', {
 				extendedHelp: `What does "spam" mean?`,
@@ -1368,6 +1437,9 @@ module.exports = class extends Language {
 			COMMAND_UNSUBSCRIBE_SUCCESS: (role) => `Successfully removed the role: **${role}***`,
 			COMMAND_SUBSCRIBE_NO_CHANNEL: 'This server does not have a configured announcement channel.',
 			COMMAND_ANNOUNCEMENT: (role) => `**New announcement for** ${role}:`,
+			COMMAND_ANNOUNCEMENT_SUCCESS: 'Successfully posted a new announcement.',
+			COMMAND_ANNOUNCEMENT_CANCELLED: 'Cancelled the message.',
+			COMMAND_ANNOUNCEMENT_PROMPT: 'This will be the message sent in the announcement channel. Are you OK with this?',
 
 			/**
 			 * ################
@@ -1448,6 +1520,15 @@ module.exports = class extends Language {
 
 			COMMAND_NICK_SET: (nickname) => `Changed the nickname to **${nickname}**.`,
 			COMMAND_NICK_CLEARED: 'Nickname cleared.',
+			COMMAND_TRIGGERS_NOTYPE: 'You need to insert a trigger type (**alias**|**reaction**)',
+			COMMAND_TRIGGERS_NOOUTPUT: 'You need to insert the trigger output.',
+			COMMAND_TRIGGERS_INVALIDREACTION: 'This reaction does not seem valid for me, either it is not valid unicode or I do not have access to it.',
+			COMMAND_TRIGGERS_INVALIDALIAS: 'There is no command like this.',
+			COMMAND_TRIGGERS_REMOVE_NOTTAKEN: 'There is no trigger with this input.',
+			COMMAND_TRIGGERS_REMOVE: 'Successfully removed this trigger.',
+			COMMAND_TRIGGERS_ADD_TAKEN: 'There is already a trigger with this input.',
+			COMMAND_TRIGGERS_ADD: 'Successfully added the trigger.',
+			COMMAND_TRIGGERS_LIST_EMPTY: 'The trigger list for this guild is empty.',
 			COMMAND_SERVERINFO_TITLES: {
 				CHANNELS: 'Channels',
 				MEMBERS: 'Members',
@@ -1487,6 +1568,17 @@ module.exports = class extends Language {
 			 * MANAGEMENT/CONFIGURATION COMMANDS
 			 */
 
+			COMMAND_MANAGEROLEREACTION_REQUIRED_REACTION: 'You must input a valid reaction that can be used by me.',
+			COMMAND_MANAGEROLEREACTION_LIST_EMPTY: 'This guild has no role reaction set up.',
+			COMMAND_MANAGEROLEREACTION_EXISTS: 'There is already a role reaction set up with the specified role or emoji.',
+			COMMAND_MANAGEROLEREACTION_ADD: 'Successfully added the role reaction.',
+			COMMAND_MANAGEROLEREACTION_REMOVE_NOTEXISTS: 'I do not find an entry with this reaction. Are you sure you have typed it correctly?',
+			COMMAND_MANAGEROLEREACTION_REMOVE: 'Successfully removed the role reaction.',
+			COMMAND_MANAGEROLEREACTION_RESET: 'Successfully removed all role reactions.',
+			COMMAND_SETMESSAGEROLE_CHANNELNOTSET: 'In order to configure the message role, you must configure the channel first.',
+			COMMAND_SETMESSAGEROLE_WRONGCHANNEL: (channel) => `In order to reduce confusion, I would suggest you to move to ${channel}`,
+			COMMAND_SETMESSAGEROLE_SET: 'Successfully set the message role.',
+			COMMAND_SETROLECHANNEL_SET: (channel) => `Successfully set the role channel to ${channel}.`,
 			CONFIGURATION_TEXTCHANNEL_REQUIRED: 'The selected channel is not a valid text channel, try again with another.',
 			CONFIGURATION_EQUALS: 'Successfully configured: no changes were made.',
 			COMMAND_SETIGNORECHANNELS_SET: (channel) => `Ignoring all command input from ${channel} now.`,
@@ -1673,7 +1765,9 @@ module.exports = class extends Language {
 			COMMAND_REPUTATION_SELF: 'You cannot give a reputation point to yourself.',
 			COMMAND_REPUTATION_BOTS: 'You cannot give a reputation point to bots.',
 			COMMAND_REPUTATION_GIVE: (user) => `You have given a reputation point to **${user}**!`,
-			COMMAND_REPUTATIONS: (points) => `You have a total of ${points} reputation points.`,
+			COMMAND_REPUTATIONS_BOTS: 'Bots cannot have reputation points...',
+			COMMAND_REPUTATIONS_SELF: (points) => `You have a total of ${points} reputation points.`,
+			COMMAND_REPUTATIONS: (user, points) => `The user ${user} has a total of ${points === 1 ? 'one reputation point' : `${points} reputation points`}.`,
 			COMMAND_SCOREBOARD_POSITION: (position) => `Your placing position is: ${position}`,
 			COMMAND_SETCOLOR: (color) => `Color changed to ${color}`,
 			COMMAND_SLOTMACHINES_MONEY: (money) => `I am sorry, but you do not have enough money to pay your bet! Your current account balance is ${money}${SHINY}`,
