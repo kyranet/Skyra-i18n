@@ -1133,7 +1133,10 @@ module.exports = class extends Language {
 					The --depth flag accepts a number, for example, --depth=2, to customize util.inspect's depth.
 					The --async flag will wrap the code into an async function where you can enjoy the use of await, however, if you want to return something, you will need the return keyword
 					The --showHidden flag will enable the showHidden option in util.inspect.
-					If the output is too large, it'll send the output as a file, or in the console if the bot does not have the **${PERMS.ATTACH_FILES}** permission.`,
+					The --lang and --language flags allow different syntax highlight for the output.
+					The --json flag converts the output to json
+					The --no-timeout flag disables the timeout
+					If the output is too large, it'll send the output as a file, or in the console if the bot does not have the ${PERMS.ATTACH_FILES} permission.`,
 				examples: [
 					'msg.author.username;',
 					'1 + 1;'
@@ -1568,6 +1571,7 @@ module.exports = class extends Language {
 			COMMAND_RATE_OUTPUT: (user, rate, emoji) => `I would give **${user}** a **${rate}**/100 ${emoji}`,
 			COMMAND_RATE_MYSELF: ['I love myself a lot 😊', 'myself'],
 			COMMAND_XKCD_COMICS: (amount) => `There are only ${amount} comics.`,
+			COMMAND_XKCD_NOTFOUND: 'I have searched far and wide, but I got no luck finding this comic, try again later or try another!',
 
 			/**
 			 * ##############
@@ -1687,6 +1691,7 @@ module.exports = class extends Language {
 			 */
 
 			COMMAND_MANAGEROLEREACTION_REQUIRED_REACTION: 'You must input a valid reaction that can be used by me.',
+			COMMAND_MANAGEROLEREACTION_REQUIRED_ROLE: 'You must input the name of the role you want me to add.',
 			COMMAND_MANAGEROLEREACTION_LIST_EMPTY: 'This guild has no role reaction set up.',
 			COMMAND_MANAGEROLEREACTION_EXISTS: 'There is already a role reaction set up with the specified role or emoji.',
 			COMMAND_MANAGEROLEREACTION_ADD: 'Successfully added the role reaction.',
@@ -2058,6 +2063,7 @@ module.exports = class extends Language {
 			CONST_MONITOR_NMS: '[NOMENTIONSPAM]',
 			CONST_MONITOR_WORDFILTER: 'Filtered Word',
 			MONITOR_NOINVITE: (user) => `|\`❌\`| Dear ${user}, invite links aren't allowed here.`,
+			MONITOR_WORDFILTER_DM: (filtered) => `Shush! You said some words that are not allowed in the server! But since you took a moment to write the message, I will post it here:\n${filtered}`,
 			MONITOR_WORDFILTER: (user) => `|\`❌\`| Pardon, dear ${user}, you said something that is not allowed in this server.`,
 			MONITOR_NMS_MESSAGE: (user) => [
 				`The banhammer has landed and now the user ${user.tag} with id ${user.id} is banned for mention spam.`,
