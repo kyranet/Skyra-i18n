@@ -322,9 +322,9 @@ module.exports = class extends Language {
 				],
 				examples: ['Devrais-je Laver la vaisselle, Jeter la vaisselle par la fenêtre', 'Chat, Chien']
 			}),
-			COMMAND_CATFACT_DESCRIPTION: 'Laissez moi vous raconter une mystérieuse you a misterious cat fact.',
+			COMMAND_CATFACT_DESCRIPTION: 'Laissez moi vous raconter une mystérieuse caractéristique des chats.',
 			COMMAND_CATFACT_EXTENDED: builder.display('catfact', {
-				extendedHelp: `Do you know cats are very curious, right? They certainly have a lot of fun and weird facts.
+				extendedHelp: `Vous savez que les chats sont très curieux, n'est-ce pas? Ils ont certainnement beaucoup de caractéristiques amusantes et bizarres.
 				This command queries catfact.ninja and retrieves a fact so you can read it.`
 			}),
 			COMMAND_DICE_DESCRIPTION: `Roll the dice, 'x' rolls and 'y' sides.`,
