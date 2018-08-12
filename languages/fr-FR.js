@@ -306,23 +306,23 @@ module.exports = class extends Language {
 
 			COMMAND_8BALL_DESCRIPTION: 'Skyra lira la Sainte Bible pour trouver la réponse correcte à votre question.',
 			COMMAND_8BALL_EXTENDED: builder.display('8ball', {
-				extendedHelp: `Cette commande vous fournit une réponse aléatoire basée sur votre type de question. Soyez prudent, elle pourait très intelligente.`,
+				extendedHelp: `Cette commande vous fournit une réponse aléatoire basée sur votre type de question. Soyez prudent, elle pourait être très intelligente.`,
 				explainedUsage: [
-					['question', 'The Holy Question']
+					['question', 'La sainte question']
 				],
-				examples: ['Why did the chicken cross the road?']
+				examples: ['Pourquoi le poulet a traversé la route ?']
 			}),
 			COMMAND_CHOICE_DESCRIPTION: 'Eeny, meeny, miny, moe, catch a tiger by the toe...',
 			COMMAND_CHOICE_EXTENDED: builder.display('choice', {
-				extendedHelp: `J'ai un doute existentiel... should I wash the dishes or throw them throught the window? The search
-					continues. List me items separated by comma and I will choose one them. On a side note, I am not
-					responsible of what happens next.`,
+				extendedHelp: `J'ai un doute existentiel... devrais-je laver la vaisselle ou la jeter par la fenêtre ? La recherche
+					se poursuit. Liste moi les objets séparés par une virgule et j'en choisirai un. Par contre, je ne suis pas
+					responsable de se qui se passe après.`,
 				explainedUsage: [
-					['words', 'A list of words separated by comma.']
+					['mots', 'Une liste de mots séparés par une virgule.']
 				],
-				examples: ['Should Wash the dishes, Throw the dishes throught the window', 'Cat, Dog']
+				examples: ['Devrais-je Laver la vaisselle, Jeter la vaisselle par la fenêtre', 'Chat, Chien']
 			}),
-			COMMAND_CATFACT_DESCRIPTION: 'Let me tell you a misterious cat fact.',
+			COMMAND_CATFACT_DESCRIPTION: 'Laissez moi vous raconter une mystérieuse you a misterious cat fact.',
 			COMMAND_CATFACT_EXTENDED: builder.display('catfact', {
 				extendedHelp: `Do you know cats are very curious, right? They certainly have a lot of fun and weird facts.
 				This command queries catfact.ninja and retrieves a fact so you can read it.`
