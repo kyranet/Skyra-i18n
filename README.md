@@ -1,7 +1,8 @@
-# Skyra 2.1.0 (Star Sky Update)
+# Skyra 3.3.0 (Ny-Royal Update)
 
+[![Discord Bot List](https://discordbotlist.com/bots/266624760782258186/widget)](https://discordbotlist.com/bots/266624760782258186)
 [![Discord Bots](https://discordbots.org/api/widget/266624760782258186.svg)](https://discordbots.org/bot/266624760782258186)
-[![Bots For Discord](https://botsfordiscord.com/api/v1/bots/266624760782258186/embed?theme=dark)](https://botsfordiscord.com/bot/266624760782258186)
+<!-- [![Bots For Discord](https://botsfordiscord.com/api/v1/bots/266624760782258186/embed?theme=dark)](https://botsfordiscord.com/bot/266624760782258186) -->
 
 Skyra is a standalone bot created on 24th November 2016, it's designed to avoid the 'bot hell' by wrapping the functions of most popular bots into an unified and complex
 system in which includes FailSafe systems and designed to be very reliable. As well as its availability is 24/7.
@@ -22,7 +23,7 @@ The source code is **PRIVATE**, this repository is meant for documentation, issu
 - **[Klasa](https://github.com/dirigeants/klasa)** (New Bot framework)
 - **[Komada](https://github.com/dirigeants/komada)** (Old Bot framework)
 
-## Changelog from 1.9.0 to 2.0.0
+<!-- ## Changelog from 1.9.0 to 2.0.0
 
 ### 18/09/2017
 
@@ -172,3 +173,4 @@ The source code is **PRIVATE**, this repository is meant for documentation, issu
 - **[09/07/2017]** Refactored Client.
 
 - **[09/07/2017]** (Almost) Everything got destroyed, Skyra **ThunderLight** is totally purged.
+-->
