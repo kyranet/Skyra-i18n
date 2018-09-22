@@ -1,6 +1,5 @@
 /* eslint object-curly-newline: "off", max-len: "off" */
-const { Language, version, Timestamp } = require('klasa');
-const { LanguageHelp, FriendlyDuration, util, klasaUtil, constants: { EMOJIS: { SHINY } } } = require('../index');
+const { Language, LanguageHelp, Timestamp, FriendlyDuration, klasaUtil: { toTitleCase, codeBlock }, constants: { EMOJIS: { SHINY } }, versions: { skyra, klasa } } = require('../index');
 
 const builder = new LanguageHelp()
 	.setExplainedUsage('⚙ | ***Explained usage***')
@@ -89,8 +88,8 @@ function duration(time) { // eslint-disable-line no-unused-vars
 
 module.exports = class extends Language {
 
-	constructor(...args) {
-		super(...args);
+	constructor(client, store, file, directory) {
+		super(client, store, file, directory);
 
 		this.PERMISSIONS = PERMS;
 		this.EIGHT_BALL = EIGHT_BALL;
@@ -158,15 +157,15 @@ module.exports = class extends Language {
 			INHIBITOR_MISSING_BOT_PERMS: (missing) => `Insufficient permissions, missing: **${missing}**`,
 			INHIBITOR_NSFW: 'You may not use NSFW commands in this channel.',
 			INHIBITOR_PERMISSIONS: 'You do not have permission to use this command',
-			INHIBITOR_REQUIRED_CONFIGS: (configs) => `The guild is missing the **${configs.join(', ')}** guild setting${configs.length !== 1 ? 's' : ''} and thus the command cannot run.`,
+			INHIBITOR_REQUIRED_SETTINGS: (settings) => `The guild is missing the **${settings.join(', ')}** guild setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
 			INHIBITOR_RUNIN: (types) => `This command is only available in ${types} channels`,
 			INHIBITOR_RUNIN_NONE: (name) => `The ${name} command is not configured to run in any channel.`,
 			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and guilds from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) => [
-				usersAdded.length ? `**Users Added**\n${klasaUtil.codeBlock('', usersAdded.join(', '))}` : '',
-				usersRemoved.length ? `**Users Removed**\n${klasaUtil.codeBlock('', usersRemoved.join(', '))}` : '',
-				guildsAdded.length ? `**Guilds Added**\n${klasaUtil.codeBlock('', guildsAdded.join(', '))}` : '',
-				guildsRemoved.length ? `**Guilds Removed**\n${klasaUtil.codeBlock('', guildsRemoved.join(', '))}` : ''
+				usersAdded.length ? `**Users Added**\n${codeBlock('', usersAdded.join(', '))}` : '',
+				usersRemoved.length ? `**Users Removed**\n${codeBlock('', usersRemoved.join(', '))}` : '',
+				guildsAdded.length ? `**Guilds Added**\n${codeBlock('', guildsAdded.join(', '))}` : '',
+				guildsRemoved.length ? `**Guilds Removed**\n${codeBlock('', guildsRemoved.join(', '))}` : ''
 			].filter(val => val !== '').join('\n'),
 			COMMAND_UNLOAD: (type, name) => `✅ Unloaded ${type}: ${name}`,
 			COMMAND_UNLOAD_DESCRIPTION: 'Unloads the klasa piece.',
@@ -174,15 +173,15 @@ module.exports = class extends Language {
 			COMMAND_TRANSFER_SUCCESS: (type, name) => `✅ Successfully transferred ${type}: ${name}`,
 			COMMAND_TRANSFER_FAILED: (type, name) => `Transfer of ${type}: ${name} to Client has failed. Please check your Console.`,
 			COMMAND_TRANSFER_DESCRIPTION: 'Transfers a core piece to its respective folder',
-			COMMAND_RELOAD: (type, name) => `✅ Reloaded ${type}: ${name}`,
-			COMMAND_RELOAD_ALL: (type) => `✅ Reloaded all ${type}.`,
+			COMMAND_RELOAD: (type, name, time) => `✅ Reloaded ${type}: ${name}. (Took: ${time})`,
+			COMMAND_RELOAD_ALL: (type, time) => `✅ Reloaded all ${type}. (Took: ${time})`,
+			COMMAND_RELOAD_EVERYTHING: (time) => `✅ Reloaded everything. (Took: ${time})`,
 			COMMAND_RELOAD_DESCRIPTION: 'Reloads a klasa piece, or all pieces of a klasa store.',
 			COMMAND_REBOOT: 'Rebooting...',
 			COMMAND_REBOOT_DESCRIPTION: 'Reboots the bot.',
 			COMMAND_PING: 'Ping?',
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
 			COMMAND_PINGPONG: (diff, ping) => `Pong! (Roundtrip took: ${diff}ms. Heartbeat: ${ping}ms.)`,
-			COMMAND_INVITE_SELFBOT: 'Why would you need an invite link for a selfbot...',
 			COMMAND_INVITE_DESCRIPTION: 'Displays the join server link of the bot.',
 			COMMAND_INFO_DESCRIPTION: 'Provides some information about this bot.',
 			COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
@@ -196,21 +195,21 @@ module.exports = class extends Language {
 			COMMAND_DISABLE_WARN: 'You probably don\'t want to disable that, since you wouldn\'t be able to run any command to enable it again',
 			COMMAND_CONF_NOKEY: 'You must provide a key',
 			COMMAND_CONF_NOVALUE: 'You must provide a value',
-			COMMAND_CONF_GUARDED: (name) => `${util.toTitleCase(name)} may not be disabled.`,
+			COMMAND_CONF_GUARDED: (name) => `${toTitleCase(name)} may not be disabled.`,
 			COMMAND_CONF_UPDATED: (key, response) => `Successfully updated the key **${key}**: \`${response}\``,
 			COMMAND_CONF_KEY_NOT_ARRAY: 'This key is not array type. Use the action \'reset\' instead.',
 			COMMAND_CONF_GET_NOEXT: (key) => `The key **${key}** does not seem to exist.`,
 			COMMAND_CONF_GET: (key, value) => `The value for the key **${key}** is: \`${value}\``,
 			COMMAND_CONF_RESET: (key, response) => `The key **${key}** has been reset to: \`${response}\``,
 			COMMAND_CONF_NOCHANGE: (key) => `The value for **${key}** was already that value.`,
-			COMMAND_CONF_SERVER_DESCRIPTION: 'Define per-server configuration.',
-			COMMAND_CONF_SERVER: (key, list) => `**Server Configuration${key}**\n${list}`,
-			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user configuration.',
-			COMMAND_CONF_USER: (key, list) => `**User Configuration${key}**\n${list}`,
+			COMMAND_CONF_SERVER_DESCRIPTION: 'Define per-server settings.',
+			COMMAND_CONF_SERVER: (key, list) => `**Server Setting ${key}**\n${list}`,
+			COMMAND_CONF_USER_DESCRIPTION: 'Define per-user settings.',
+			COMMAND_CONF_USER: (key, list) => `**User Setting ${key}**\n${list}`,
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
 			COMMAND_LOAD: (time, type, name) => `✅ Successfully loaded ${type}: ${name}. (Took: ${time})`,
 			COMMAND_LOAD_FAIL: 'The file does not exist, or an error occurred while loading your file. Please check your console.',
-			COMMAND_LOAD_ERROR: (type, name, error) => `❌ Failed to load ${type}: ${name}. Reason:${klasaUtil.codeBlock('js', error)}`,
+			COMMAND_LOAD_ERROR: (type, name, error) => `❌ Failed to load ${type}: ${name}. Reason:${codeBlock('js', error)}`,
 			COMMAND_LOAD_DESCRIPTION: 'Load a piece from your bot.',
 
 			/**
@@ -258,7 +257,7 @@ module.exports = class extends Language {
 
 			COMMAND_ANIME_DESCRIPTION: 'Search your favourite anime by title with this command.',
 			COMMAND_ANIME_EXTENDED: builder.display('anime', {
-				extendedHelp: `This command queries MyAnimeList to show data for the anime you request. In a near future, this command
+				extendedHelp: `This command queries Kitsu.io to show data for the anime you request. In a near future, this command
 				will allow you to navigate between the results so you can read the information of the anime.`,
 				explainedUsage: [
 					['query', `The anime's name you are looking for.`]
@@ -267,7 +266,7 @@ module.exports = class extends Language {
 			}),
 			COMMAND_MANGA_DESCRIPTION: 'Search your favourite manga by title with this command.',
 			COMMAND_MANGA_EXTENDED: builder.display('manga', {
-				extendedHelp: `This command queries MyAnimeList to show data for the manga you request. In a near future, this command',
+				extendedHelp: `This command queries Kitsu.io to show data for the manga you request. In a near future, this command',
 				'will allow you to navigate between the results so you can read the information of the manga.`,
 				explainedUsage: [
 					['query', `The manga's name you are looking for.`]
@@ -430,7 +429,7 @@ module.exports = class extends Language {
 			COMMAND_CREATEMUTE_DESCRIPTION: 'Prepare the mute system.',
 			COMMAND_CREATEMUTE_EXTENDED: builder.display('createMute', {
 				extendedHelp: `This command prepares the mute system by creating a role called 'muted', and configuring it to
-					the guild configuration. This command also modifies all channels (where possible) permissions and disables
+					the guild settings. This command also modifies all channels (where possible) permissions and disables
 					the permission **${PERMS.SEND_MESSAGES}** in text channels and **${PERMS.CONNECT}** in voice channels for said role.`
 			}),
 			COMMAND_GIVEAWAY_DESCRIPTION: 'Start a new giveaway.',
@@ -511,6 +510,19 @@ module.exports = class extends Language {
 			 * MANAGEMENT/CONFIGURATION COMMANDS
 			 */
 
+			COMMAND_MANAGECOMMANDCHANNEL_DESCRIPTION: 'Manage per-channel command blacklist.',
+			COMMAND_MANAGECOMMANDCHANNEL_EXTENDED: builder.display('manageCommandChannel', {
+				extendedHelp: `This command manages this guild's per-channel command blacklist, it serves well to disable certain commands you do not want
+					to be used in certain channels (to disable a command globally, use the \`disabledCommands\` settings key to disable in all channels.`,
+				explainedUsage: [
+					['show [channel]', 'Show the command blacklist for the selected channel'],
+					['add [channel] <command>', 'Add a command to the specified channel\'s command blacklist.'],
+					['remove [channel] <command>', 'Remove a command to the specified channel\'s command blacklist.'],
+					['reset [channel]', 'Clear the command blacklist for the specified channel.']
+				],
+				reminder: 'The channel argument is optional, but it uses fuzzy search when possible.',
+				examples: ['show', 'add #general profile', 'remove #general profile', 'reset #general']
+			}),
 			COMMAND_MANAGEROLEREACTION_DESCRIPTION: 'Manage the role reactions.',
 			COMMAND_MANAGEROLEREACTION_EXTENDED: builder.display('manageRoleReaction', {
 				extendedHelp: `This command manages the role reaction module, it requires a **role channel** set up and the permissions **${PERMS.ADD_REACTIONS}**
@@ -606,6 +618,16 @@ module.exports = class extends Language {
 				reminder: 'You must execute this command in the role channel.',
 				examples: ['434096799847022598']
 			}),
+			COMMAND_SETSTARBOARDEMOJI_DESCRIPTION: 'Set the emoji reaction for starboard.',
+			COMMAND_SETSTARBOARDEMOJI_EXTENDED: builder.display('setStarboardEmoji', {
+				extendedHelp: `This command sets up the starboard emoji for the starboard, which is, by default, ⭐. Once this is changed, Skyra will ignore any star and
+					will count users who reacted to said emoji.`,
+				explainedUsage: [
+					['emoji', 'The emoji to set.']
+				],
+				reminder: 'Use this wisely, not everyone expects the starboard to listen to a custom emoji.',
+				examples: ['⭐']
+			}),
 
 			/**
 			 * ###########################
@@ -628,6 +650,19 @@ module.exports = class extends Language {
 					with the count for each category, the amount of members (given from the API), the owner with their user id, the amount of roles,
 					region, creation date, verification level... between others.`
 			}),
+
+			/**
+			 * ###############################
+			 * MANAGEMENT/CAPS FILTER COMMANDS
+			 */
+
+			COMMAND_SETCAPSFILTER_DESCRIPTION: 'Manage this guild\'s flags for the caps filter.',
+			COMMAND_SETCAPSFILTER_EXTENDED: builder.display('setCapsFilter', {
+				extendedHelp: `There are three flags in the caps filter, each enable or disable a function:
+					- **Alert**: Whether or not the user should get a notification in the channel after reaching the threshold.
+					- **Log**: Whether or not the caps filter should log to the moderation log channel when it triggers.
+					- **Delete**: Whether or not the caps filter should delete the message.`
+			}, true),
 
 			/**
 			 * ###############################
@@ -1162,7 +1197,7 @@ module.exports = class extends Language {
 			COMMAND_DONATE_EXTENDED: builder.display('donate', {
 				extendedHelp: `
 				Skyra Project started on 24th October 2016, if you are reading this, you are
-				using the version 3.0.0 (Royal Update), which is the twelfth rewrite. I have
+				using the version ${skyra}, which is the twelfth rewrite. I have
 				improved a lot every single function from Skyra, and now, she is extremely fast.
 
 				However, not everything is free, I need your help to keep Skyra alive in a VPS so
@@ -1464,12 +1499,13 @@ module.exports = class extends Language {
 			COMMAND_ANIME_INVALID_CHOICE: `That's an invalid choice! Please try with another option.`,
 			COMMAND_ANIME_NO_CHOICE: 'You got me waiting... try again when you are decided!',
 			COMMAND_ANIME_OUTPUT_DESCRIPTION: (entry, synopsis) => [
-				`**English title:** ${entry.english}`,
-				synopsis.length > 750 ? `${util.splitText(synopsis, 750)}... [continue reading](https://myanimelist.net/anime/${entry.id})` : synopsis
+				`**English title:** ${entry.attributes.titles.en || entry.attributes.titles.en_us || 'None'}`,
+				`**Japanese title:** ${entry.attributes.titles.ja_jp || 'None'}`,
+				synopsis
 			],
 			COMMAND_ANIME_OUTPUT_STATUS: (entry) => [
-				`  ❯  Current status: **${entry.status}**`,
-				`    • Started: **${entry.start_date}**\n${entry.end_date[0] === '0000-00-00' ? '' : `    • Finished: **${entry.end_date[0]}**`}`
+				`  ❯  Current status: **${entry.attributes.status}**`,
+				`    • Started: **${entry.attributes.startDate}**\n${entry.attributes.endDate ? `    • Finished: **${entry.attributes.endDate}**` : ''}`
 			],
 			COMMAND_ANIME_TITLES: {
 				TYPE: 'Type',
@@ -1479,12 +1515,13 @@ module.exports = class extends Language {
 				READ_IT: 'Read it here:'
 			},
 			COMMAND_MANGA_OUTPUT_DESCRIPTION: (entry, synopsis) => [
-				`**English title:** ${entry.english}`,
-				synopsis.length > 750 ? `${util.splitText(synopsis, 750)}... [continue reading](https://myanimelist.net/manga/${entry.id})` : synopsis
+				`**English title:** ${entry.attributes.titles.en || entry.attributes.titles.en_us || 'None'}`,
+				`**Japanese title:** ${entry.attributes.titles.ja_jp || 'None'}`,
+				synopsis
 			],
 			COMMAND_MANGA_OUTPUT_STATUS: (entry) => [
-				`  ❯  Current status: **${entry.status}**`,
-				`    • Started: **${entry.start_date}**\n${entry.end_date[0] === '0000-00-00' ? '' : `    • Finished: **${entry.end_date[0]}**`}`
+				`  ❯  Current status: **${entry.attributes.status}**`,
+				`    • Started: **${entry.attributes.startDate}**\n${entry.attributes.endDate ? `    • Finished: **${entry.attributes.endDate}**` : ''}`
 			],
 			COMMAND_MANGA_TITLES: {
 				MANGA: '📘 Manga',
@@ -1513,12 +1550,12 @@ module.exports = class extends Language {
 			 * GENERAL COMMANDS
 			 */
 
-			COMMAND_INVITE: (client) => [
-				`To add Skyra to your discord guild: <${client.invite}>`,
-				'Don\'t be afraid to uncheck some permissions, Skyra will let you know if you\'re trying to run a command without permissions.'
+			COMMAND_INVITE: () => [
+				`To add me to your discord guild: <${this.client.invite}>`,
+				'Don\'t be afraid to uncheck some permissions, I will let you know if you\'re trying to run a command without permissions.'
 			].join('\n'),
 			COMMAND_INFO: [
-				'Skyra 3.0.0 (codename **Royal**) is a multi-purpose Discord Bot designed to run the majority of tasks with a great performance and constant 24/7 uptime.',
+				`Skyra ${skyra} is a multi-purpose Discord Bot designed to run the majority of tasks with a great performance and constant 24/7 uptime.`,
 				"She is built on top of Klasa, a 'plug-and-play' framework built on top of the Discord.js library.",
 				'',
 				'Skyra features:',
@@ -1553,7 +1590,7 @@ module.exports = class extends Language {
 				WHO: 'who'
 			},
 			COMMAND_CATFACT_TITLE: 'Cat Fact',
-			COMMAND_CHOICE_OUTPUT: (user, word) => `🕺 *Eeny, meeny, miny, moe, catch a tiger by the toe...* ${user}, I choose:${klasaUtil.codeBlock('', word)}`,
+			COMMAND_CHOICE_OUTPUT: (user, word) => `🕺 *Eeny, meeny, miny, moe, catch a tiger by the toe...* ${user}, I choose:${codeBlock('', word)}`,
 			COMMAND_CHOICE_MISSING: 'Please write at least two options separated by comma.',
 			COMMAND_CHOICE_DUPLICATES: (words) => `Why would I accept duplicated words? '${words}'.`,
 			COMMAND_DICE_OUTPUT: (sides, rolls, result) => `you rolled the **${sides}**-dice **${rolls}** times, you got: **${result}**`,
@@ -1684,12 +1721,32 @@ module.exports = class extends Language {
 			COMMAND_SETFILTERMODE_DELETEONLY: 'The word filter is now in **DeleteOnly** mode. Messages will be deleted but not logged.',
 			COMMAND_SETFILTERMODE_LOGONLY: 'The word filter is now in **LogOnly** mode. Messages will not be deleted but logged to your modlogs channel.',
 			COMMAND_SETFILTERMODE_ALL: 'The word filter is now in **All** mode. Messages will be both deleted and logged to your modlogs channel.',
+			COMMAND_SETCAPSFILTER_SHOW: (falert, flog, fdelete) => [
+				`= Caps Filter Flags =`, '',
+				`Alert  :: ${falert ? 'Enabled' : 'Disabled'}`,
+				`Log    :: ${flog ? 'Enabled' : 'Disabled'}`,
+				`Delete :: ${fdelete ? 'Enabled' : 'Disabled'}`
+			].join('\n'),
+			COMMAND_SETCAPSFILTER_EQUALS: 'The caps filter flags did not change, it was already set up with that mode.',
+			COMMAND_SETCAPSFILTER_ALERT: (enabled) => `The Alert flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
+			COMMAND_SETCAPSFILTER_LOG: (enabled) => `The Log flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
+			COMMAND_SETCAPSFILTER_DELETE: (enabled) => `The Delete flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
 
 			/**
 			 * #################################
 			 * MANAGEMENT/CONFIGURATION COMMANDS
 			 */
 
+			COMMAND_MANAGECOMMANDCHANNEL_TEXTCHANNEL: 'You must input a valid text channel, people cannot use commands in a voice or a category channel!',
+			COMMAND_MANAGECOMMANDCHANNEL_REQUIRED_COMMAND: 'You must specify what command do you want to add or remove from the channel\'s filter.',
+			COMMAND_MANAGECOMMANDCHANNEL_SHOW: (channel, commands) => `List of disabled commands in ${channel}: ${commands}`,
+			COMMAND_MANAGECOMMANDCHANNEL_SHOW_EMPTY: 'The list of disabled commands for the specified channel is empty!',
+			COMMAND_MANAGECOMMANDCHANNEL_ADD_ALREADYSET: 'The command you are trying to disable is already disabled!',
+			COMMAND_MANAGECOMMANDCHANNEL_ADD: (channel, command) => `Successfully disabled the command ${command} for the channel ${channel}!`,
+			COMMAND_MANAGECOMMANDCHANNEL_REMOVE_NOTSET: (channel) => `The command you are trying to enable was not disabled for ${channel}.`,
+			COMMAND_MANAGECOMMANDCHANNEL_REMOVE: (channel, command) => `Successfully enabled the command ${command} for the channel ${channel}!`,
+			COMMAND_MANAGECOMMANDCHANNEL_RESET_EMPTY: 'This channel had no disabled command, so I decided to do nothing.',
+			COMMAND_MANAGECOMMANDCHANNEL_RESET: (channel) => `Successfully enabled all disabled commands in ${channel}, enjoy!`,
 			COMMAND_MANAGEROLEREACTION_REQUIRED_REACTION: 'You must input a valid reaction that can be used by me.',
 			COMMAND_MANAGEROLEREACTION_REQUIRED_ROLE: 'You must input the name of the role you want me to add.',
 			COMMAND_MANAGEROLEREACTION_LIST_EMPTY: 'This guild has no role reaction set up.',
@@ -1701,6 +1758,7 @@ module.exports = class extends Language {
 			COMMAND_SETMESSAGEROLE_CHANNELNOTSET: 'In order to configure the message role, you must configure the channel first.',
 			COMMAND_SETMESSAGEROLE_WRONGCHANNEL: (channel) => `In order to reduce confusion, I would suggest you to move to ${channel}`,
 			COMMAND_SETMESSAGEROLE_SET: 'Successfully set the message role.',
+			COMMAND_SETSTARBOARDEMOJI_SET: (emoji) => `Successfully set a new emoji for the next star messages: ${emoji}`,
 			COMMAND_SETROLECHANNEL_SET: (channel) => `Successfully set the role channel to ${channel}.`,
 			CONFIGURATION_TEXTCHANNEL_REQUIRED: 'The selected channel is not a valid text channel, try again with another.',
 			CONFIGURATION_EQUALS: 'Successfully configured: no changes were made.',
@@ -1767,7 +1825,9 @@ module.exports = class extends Language {
 			COMMAND_MUTE_USER_NOT_MUTED: 'This user is not muted.',
 			COMMAND_MUTE_UNCONFIGURED: 'This guild does not have a **Muted** role. Aborting command execution.',
 			COMMAND_MUTECREATE_MISSING_PERMISSION: `I need the **${PERMS.MANAGE_ROLES}** permission to create the role and **${PERMS.MANAGE_CHANNELS}** to edit the channels permissions.`,
-			COMMAND_PRUNE: (amount, total) => `Successfully deleted ${amount} messages from ${total}.`,
+			COMMAND_PRUNE: (amount, total) => amount
+				? `Successfully deleted ${amount} messages from ${total}.`
+				: 'No message has been deleted, either no message match the filter or they are over 14 days old.',
 			COMMAND_REASON_NOT_EXISTS: 'The selected modlog does not seem to exist.',
 			COMMAND_SOFTBAN_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **SOFTBANNED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
 			COMMAND_UNBAN_MESSAGE: (user, reason, log, banReason) => `|\`🔨\`| [Case::${log}] **UNBANNED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}${banReason ? `\nReason for Ban: ${banReason}` : ''}`,
@@ -1795,6 +1855,7 @@ module.exports = class extends Language {
 			COMMAND_AUTOROLE_UNKNOWN_ROLE: (role) => `Unknown role: ${role}`,
 			COMMAND_BALANCE: (user, amount) => `The user ${user} has a total of ${amount}${SHINY}`,
 			COMMAND_BALANCE_SELF: (amount) => `You have a total of ${amount}${SHINY}`,
+			COMMAND_BALANCE_BOTS: `I think they have 5 gears as much, bots don't have ${SHINY}`,
 			COMMAND_BANNER_MISSING: 'You must specify a banner id to buy.',
 			COMMAND_BANNER_NOTEXISTS: (prefix) => `This banner id does not exist. Please check \`${prefix}banner list\` for a list of banners you can buy.`,
 			COMMAND_BANNER_USERLIST_EMPTY: (prefix) => `You did not buy a banner yet. Check \`${prefix}banner list\` for a list of banners you can buy.`,
@@ -1811,7 +1872,7 @@ module.exports = class extends Language {
 			COMMAND_DAILY_TIME_SUCCESS: (amount) => `Yay! You earned ${amount}${SHINY}! Next dailies in: 12 hours.`,
 			COMMAND_DAILY_GRACE: (remaining) => [
 				`Would you like to claim the dailies early? The remaining time will be added up to a normal 12h wait period.`,
-				`Remaining time: ${duration(remaining, true)}`
+				`Remaining time: ${duration(remaining)}`
 			].join('\n'),
 			COMMAND_DAILY_GRACE_ACCEPTED: (amount, remaining) => `Successfully claimed ${amount}${SHINY}! Next dailies in: ${duration(remaining)}`,
 			COMMAND_DAILY_GRACE_DENIED: 'Got it! Come back soon!',
@@ -1835,7 +1896,7 @@ module.exports = class extends Language {
 			COMMAND_MARRY_TAKEN: 'I am very sorry, but this user is taken!',
 			COMMAND_MARRY_PETITION: (author, user) => `Fresh pair of eyes! ${author} is proposing to ${user}! 💞 Reply with **yes** to accept!`,
 			COMMAND_MARRY_NOREPLY: 'The user did not reply on time... Maybe it was a hard decision?',
-			COMMAND_MARRY_DENIED: 'Ooh. The user rejected your proposal! 💔',
+			COMMAND_MARRY_DENIED: 'O-oh... The user rejected your proposal! 💔',
 			COMMAND_MARRY_ACCEPTED: (author, user) => `Congratulations dear ${author}! You're now officially married with ${user}! ❤`,
 			COMMAND_MYLEVEL: (points, next, user) => `${user ? `The user ${user} has` : 'You have'} a total of ${points} points.${next}`,
 			COMMAND_MYLEVEL_NEXT: (remaining, next) => `Points for next rank: **${remaining}** (at ${next} points).`,
@@ -1906,7 +1967,7 @@ module.exports = class extends Language {
 				`• Channels   :: ${STATS.CHANNELS}`,
 				`• Discord.js :: ${STATS.VERSION}`,
 				`• Node.js    :: ${STATS.NODE_JS}`,
-				`• Klasa      :: ${version}`,
+				`• Klasa      :: ${klasa}`,
 				'',
 				'= UPTIME =',
 				`• Host       :: ${UPTIME.HOST}`,
@@ -2062,9 +2123,12 @@ module.exports = class extends Language {
 			CONST_MONITOR_INVITELINK: 'Invite link',
 			CONST_MONITOR_NMS: '[NOMENTIONSPAM]',
 			CONST_MONITOR_WORDFILTER: 'Filtered Word',
+			CONST_MONITOR_CAPSFILTER: 'Too Many UpperCases',
 			MONITOR_NOINVITE: (user) => `|\`❌\`| Dear ${user}, invite links aren't allowed here.`,
 			MONITOR_WORDFILTER_DM: (filtered) => `Shush! You said some words that are not allowed in the server! But since you took a moment to write the message, I will post it here:\n${filtered}`,
+			MONITOR_CAPSFILTER_DM: (message) => `Speak lower! I know you need to express your thoughts. There is the message I deleted:${message}`,
 			MONITOR_WORDFILTER: (user) => `|\`❌\`| Pardon, dear ${user}, you said something that is not allowed in this server.`,
+			MONITOR_CAPSFILTER: (user) => `|\`❌\`| EEEOOO ${user}! PLEASE DO NOT SHOUT IN THIS PLACE! YOU HAVE HIT THE CAPS LIMIT!`,
 			MONITOR_NMS_MESSAGE: (user) => [
 				`The banhammer has landed and now the user ${user.tag} with id ${user.id} is banned for mention spam.`,
 				"Do not worry! I'm here to help you! 😄"
@@ -2109,6 +2173,15 @@ module.exports = class extends Language {
 			SYSTEM_ERROR: 'Something happened!',
 			SYSTEM_MESSAGE_NOT_FOUND: 'I am sorry, but either you wrote the message ID incorrectly, or it got deleted.',
 			SYSTEM_NOTENOUGH_PARAMETERS: `I am sorry, but you did not provide enough parameters...`,
+			SYSTEM_GUILD_MUTECREATE_MUTEEXISTS: '**Aborting mute role creation**: There is already one that exists.',
+			SYSTEM_GUILD_MUTECREATE_TOOMANYROLES: '**Aborting mute role creation**: There are 250 roles in this guild, you need to delete one role.',
+			SYSTEM_GUILD_MUTECREATE_APPLYING: (channels, role) => `Applying permissions (\`SEND_MESSAGES\`:\`false\`) for ${channels} to ${role}...`,
+			SYSTEM_GUILD_MUTECREATE_EXCEPTIONS: (denied) => denied.length > 1 ? `, with exception of ${denied.join(', ')}.` : '. ',
+			SYSTEM_GUILD_MUTECREATE_APPLIED: (accepted, exceptions, author, role) => `Permissions applied for ${accepted} channels${exceptions}Dear ${author}, don't forget to tweak the permissions in the channels you want ${role} to send messages.`,
+
+			RESOLVER_INVALID_CHANNELNAME: (name) => `${name} must be a valid channel name, id, or tag.`,
+			RESOLVER_INVALID_ROLENAME: (name) => `${name} must be a valid role name, id, or mention.`,
+			RESOLVER_INVALID_USERNAME: (name) => `${name} must be a valid user name, id, or mention.`,
 
 			LISTIFY_PAGE: (page, pageCount, results) => `Page ${page} / ${pageCount} | ${results} Total`,
 
@@ -2155,8 +2228,14 @@ module.exports = class extends Language {
 			PROMPTLIST_ABORT: 'abort',
 			PROMPTLIST_ABORTED: 'Successfully aborted the prompt.',
 
+			FUZZYSEARCH_MATCHES: (matches, codeblock) => `I found multiple matches! **Please select a number within 0 and ${matches}**:\n${codeblock}\nWrite **ABORT** if you want to exit the prompt.`,
+			FUZZYSEARCH_INVALID_NUMBER: 'I expected you to give me a (single digit) number, got a potato.',
+			FUZZYSEARCH_INVALID_INDEX: 'That number was out of range, aborting prompt.',
+
 			EVENTS_ERROR_WTF: 'What a Terrible Failure! I am very sorry!',
-			EVENTS_ERROR_STRING: (mention, message) => `Dear ${mention}, ${message}`
+			EVENTS_ERROR_STRING: (mention, message) => `Dear ${mention}, ${message}`,
+
+			CONST_USERS: 'Users'
 		};
 	}
 
