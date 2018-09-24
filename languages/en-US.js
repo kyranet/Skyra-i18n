@@ -1,5 +1,5 @@
 /* eslint object-curly-newline: "off", max-len: "off" */
-const { Language, LanguageHelp, Timestamp, FriendlyDuration, klasaUtil: { toTitleCase, codeBlock }, constants: { EMOJIS: { SHINY } }, versions: { skyra, klasa } } = require('../index');
+const { Language, LanguageHelp, Timestamp, FriendlyDuration, klasaUtil: { toTitleCase, codeBlock }, constants: { EMOJIS: { SHINY, GREENTICK, REDCROSS } }, versions: { skyra, klasa } } = require('../index');
 
 const builder = new LanguageHelp()
 	.setExplainedUsage('⚙ | ***Explained usage***')
@@ -121,24 +121,26 @@ module.exports = class extends Language {
 			SETTING_GATEWAY_KEY_NOT_ARRAY: (key) => `The key ${key} is not an Array.`,
 			SETTING_GATEWAY_KEY_NOEXT: (key) => `The key ${key} does not exist in the current data schema.`,
 			SETTING_GATEWAY_INVALID_TYPE: 'The type parameter must be either add or remove.',
-			RESOLVER_INVALID_CUSTOM: (name, type) => `${name} must be a valid ${type}.`,
-			RESOLVER_INVALID_PIECE: (name, piece) => `${name} must be a valid ${piece} name.`,
-			RESOLVER_INVALID_MSG: (name) => `${name} must be a valid message id.`,
-			RESOLVER_INVALID_USER: (name) => `${name} must be a mention or valid user id.`,
-			RESOLVER_INVALID_MEMBER: (name) => `${name} must be a mention or valid user id.`,
-			RESOLVER_INVALID_CHANNEL: (name) => `${name} must be a channel tag or valid channel id.`,
-			RESOLVER_INVALID_EMOJI: (name) => `${name} must be a custom emoji tag or valid emoji id.`,
-			RESOLVER_INVALID_GUILD: (name) => `${name} must be a valid guild id.`,
-			RESOLVER_INVALID_ROLE: (name) => `${name} must be a role mention or role id.`,
-			RESOLVER_INVALID_LITERAL: (name) => `Your option did not match the only possibility: ${name}`,
+			RESOLVER_MULTI_TOO_FEW: (name, min = 1) => `Provided too few ${name}s. Atleast ${min} ${min === 1 ? 'is' : 'are'} required.`,
 			RESOLVER_INVALID_BOOL: (name) => `${name} must be true or false.`,
-			RESOLVER_INVALID_INT: (name) => `${name} must be an integer.`,
-			RESOLVER_INVALID_FLOAT: (name) => `${name} must be a valid number.`,
-			RESOLVER_INVALID_REGEX_MATCH: (name, pattern) => `${name} must follow this regex pattern \`${pattern}\`.`,
-			RESOLVER_INVALID_URL: (name) => `${name} must be a valid url.`,
+			RESOLVER_INVALID_CHANNEL: (name) => `${name} must be a channel tag or valid channel id.`,
+			RESOLVER_INVALID_CUSTOM: (name, type) => `${name} must be a valid ${type}.`,
 			RESOLVER_INVALID_DATE: (name) => `${name} must be a valid date.`,
 			RESOLVER_INVALID_DURATION: (name) => `${name} must be a valid duration string.`,
+			RESOLVER_INVALID_EMOJI: (name) => `${name} must be a custom emoji tag or valid emoji id.`,
+			RESOLVER_INVALID_FLOAT: (name) => `${name} must be a valid number.`,
+			RESOLVER_INVALID_GUILD: (name) => `${name} must be a valid guild id.`,
+			RESOLVER_INVALID_INT: (name) => `${name} must be an integer.`,
+			RESOLVER_INVALID_LITERAL: (name) => `Your option did not match the only possibility: ${name}`,
+			RESOLVER_INVALID_MEMBER: (name) => `${name} must be a mention or valid user id.`,
+			RESOLVER_INVALID_MSG: (name) => `${name} must be a valid message id.`,
+			RESOLVER_INVALID_PIECE: (name, piece) => `${name} must be a valid ${piece} name.`,
+			RESOLVER_INVALID_REGEX_MATCH: (name, pattern) => `${name} must follow this regex pattern \`${pattern}\`.`,
+			RESOLVER_INVALID_ROLE: (name) => `${name} must be a role mention or role id.`,
+			RESOLVER_INVALID_STRING: (name) => `${name} must be a valid string.`,
 			RESOLVER_INVALID_TIME: (name) => `${name} must be a valid duration or date string.`,
+			RESOLVER_INVALID_URL: (name) => `${name} must be a valid url.`,
+			RESOLVER_INVALID_USER: (name) => `${name} must be a mention or valid user id.`,
 			RESOLVER_STRING_SUFFIX: ' characters',
 			RESOLVER_MINMAX_EXACTLY: (name, min, suffix) => `${name} must be exactly ${min}${suffix}.`,
 			RESOLVER_MINMAX_BOTH: (name, min, max, suffix) => `${name} must be between ${min} and ${max}${suffix}.`,
@@ -1783,7 +1785,7 @@ module.exports = class extends Language {
 			 */
 
 			COMMAND_WARNINGS_EMPTY: 'Nobody has behaved badly yet, who will be the first user to be listed here?',
-			COMMAND_WARNINGS_AMOUNT: (amount) => `There are ${amount === 1 ? 'warning' : 'warnings'}.`,
+			COMMAND_WARNINGS_AMOUNT: (amount) => `There are ${amount} ${amount === 1 ? 'warning' : 'warnings'}.`,
 
 			/**
 			 * #############################
@@ -1810,9 +1812,7 @@ module.exports = class extends Language {
 			 * MODERATION COMMANDS
 			 */
 
-			COMMAND_BAN_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **BANNED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
 			COMMAND_BAN_NOT_BANNABLE: 'The target is not bannable for me.',
-			COMMAND_KICK_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **KICKED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
 			COMMAND_KICK_NOT_KICKABLE: 'The target is not kickable for me.',
 			COMMAND_LOCKDOWN_LOCK: (channel) => `The channel ${channel} is now locked.`,
 			COMMAND_LOCKDOWN_LOCKING: (channel) => `Locking the channel ${channel}...`,
@@ -1820,7 +1820,7 @@ module.exports = class extends Language {
 			COMMAND_MUTE_LOWLEVEL: 'I am sorry, there is no Mute role configured. Please ask an Administrator or the Guild Owner to set it up.',
 			COMMAND_MUTE_CONFIGURE_CANCELLED: 'Prompt aborted, the Mute role creation has been cancelled.',
 			COMMAND_MUTE_CONFIGURE: 'Do you want me to create and configure the Mute role now?',
-			COMMAND_MUTE_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **MUTED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
+			COMMAND_MUTE_CONFIGURE_TOOMANY_ROLES: 'There are too many roles (250). Please delete a role before proceeding.',
 			COMMAND_MUTE_MUTED: 'The target user is already muted.',
 			COMMAND_MUTE_USER_NOT_MUTED: 'This user is not muted.',
 			COMMAND_MUTE_UNCONFIGURED: 'This guild does not have a **Muted** role. Aborting command execution.',
@@ -1829,17 +1829,14 @@ module.exports = class extends Language {
 				? `Successfully deleted ${amount} messages from ${total}.`
 				: 'No message has been deleted, either no message match the filter or they are over 14 days old.',
 			COMMAND_REASON_NOT_EXISTS: 'The selected modlog does not seem to exist.',
-			COMMAND_SOFTBAN_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **SOFTBANNED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
-			COMMAND_UNBAN_MESSAGE: (user, reason, log, banReason) => `|\`🔨\`| [Case::${log}] **UNBANNED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}${banReason ? `\nReason for Ban: ${banReason}` : ''}`,
 			COMMAND_UNBAN_MISSING_PERMISSION: `I will need the **${PERMS.BAN_MEMBERS}** permission to be able to unban.`,
-			COMMAND_UNMUTE_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **UNMUTED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
 			COMMAND_UNMUTE_MISSING_PERMISSION: `I will need the **${PERMS.MANAGE_ROLES}** permission to be able to unmute.`,
-			COMMAND_UNWARN_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **APPEALED WARN**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
 			COMMAND_VMUTE_MISSING_PERMISSION: `I will need the **${PERMS.MUTE_MEMBERS}** permission to be able to voice unmute.`,
 			COMMAND_VMUTE_USER_NOT_MUTED: 'This user is not voice muted.',
-			COMMAND_VOICEKICK_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **VOICE KICKED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
 			COMMAND_WARN_DM: (moderator, guild, reason) => `You have been warned by ${moderator} in ${guild} for the reason: ${reason}`,
-			COMMAND_WARN_MESSAGE: (user, reason, log) => `|\`🔨\`| [Case::${log}] **WARNED**: ${user.tag} (${user.id})${reason ? `\nReason: ${reason}` : ''}`,
+			COMMAND_WARN_MESSAGE: (user, log) => `|\`🔨\`| [Case::${log}] **WARNED**: ${user.tag} (${user.id})`,
+			COMMAND_MODERATION_OUTPUT: (cases, range, users, reason) => `${GREENTICK} Created ${cases.length === 1 ? 'case' : 'cases'} ${range} | ${users.join(', ')}.${reason ? `\nWith the reason of: ${reason}` : ''}`,
+			COMMAND_MODERATION_FAILED: (users) => `${REDCROSS} Failed to moderate ${users.length === 1 ? 'user' : 'users'}:\n${users.join('\n')}`,
 
 			/**
 			 * ###############
@@ -1919,7 +1916,7 @@ module.exports = class extends Language {
 			COMMAND_REMINDME_SHORT_TIME: 'You did not give me a duration of at least one minute long. Cancelling prompt.',
 			COMMAND_REMINDME_CREATE: (id) => `A reminder with ID \`${id}\` has been created.`,
 			COMMAND_REMINDME_DELETE_PARAMS: ['delete', 'remove'],
-			COMMAND_REMINDME_DELETE_INVALID_PARAMETERS: 'To delete a previously created reminder, you must type either \'delete\' or \'remove\' followed by the ID.',
+			COMMAND_REMINDME_DELETE_INVALID_PARAMETERS: 'To delete a previously created reminder, you must type \'delete\' followed by the ID.',
 			COMMAND_REMINDME_DELETE: task => `The reminder with ID \`${task.id}\` and with a remaining time of **${duration(task.time - Date.now())}** has been successfully deleted.`,
 			COMMAND_REMINDME_LIST_PARAMS: ['list', 'all'],
 			COMMAND_REMINDME_LIST_EMPTY: 'You do not have any active reminder',
@@ -1986,6 +1983,8 @@ module.exports = class extends Language {
 			 */
 
 			COMMAND_TAGS_NAME_REQUIRED: 'You must specify a tag name.',
+			COMMAND_TAGS_NAME_NOTALLOWED: 'A tag name may not have a grave accent nor invisible characters.',
+			COMMAND_TAGS_NAME_TOOLONG: 'A tag name must be 50 or less characters long.',
 			COMMAND_TAGS_ADD_EXISTS: (tag) => `The tag '${tag}' already exists.`,
 			COMMAND_TAGS_CONTENT_REQUIRED: 'You must provide a content for this tag.',
 			COMMAND_TAGS_ADD_ADDED: (name, content) => `Successfully added a new tag: **${name}** with a content of **${content}**.`,
@@ -1993,6 +1992,7 @@ module.exports = class extends Language {
 			COMMAND_TAGS_REMOVE_REMOVED: (name) => `Successfully removed the tag **${name}**.`,
 			COMMAND_TAGS_EDITED: (name, content, old) => `Successfully edited the tag **${name}** which had a content of **${old}** to **${content}**.`,
 			COMMAND_TAGS_LIST_EMPTY: 'The tag list for this server is empty.',
+			COMMAND_TAGS_LIST: (tags) => `There ${tags.length === 1 ? 'is' : 'are'} ${tags.length} tags: ${tags.join(', ')}`,
 
 			/**
 			 * ##############
@@ -2218,7 +2218,7 @@ module.exports = class extends Language {
 			SETTINGS_DELETE_ROLES_INITIAL: 'Reseated the value for `roles.initial`',
 			SETTINGS_DELETE_ROLES_MUTE: 'Reseated the value for `roles.muted`',
 
-			MODLOG_TIMED: 'This moderation log is not timed.',
+			MODLOG_TIMED: (remaining) => `This moderation log is already timed. Expires in ${duration(remaining)}`,
 
 			GUILD_WARN_NOT_FOUND: 'I failed to fetch the modlog for appealing. Either it does not exist, is not type of warning, or it is appealed.',
 			GUILD_MEMBER_NOT_VOICECHANNEL: 'I cannot execute this action in a member that is not connected to a voice channel.',
