@@ -232,7 +232,7 @@ module.exports = class extends Language {
 			}),
 			COMMAND_DOG_DESCRIPTION: 'Cute doggos! ❤',
 			COMMAND_DOG_EXTENDED: builder.display('dog', {
-				extendedHelp: `Do **you** know how cute are dogs? They are so beautiful! This command uses a tiny selection of images
+				extendedHelp: `Do **you** know how cute dogs are? They are so beautiful! This command uses a tiny selection of images
 					From WallHaven, but the ones with the greatest quality! I need to find more of them, and there are
 					some images that, sadly, got deleted and I cannot retrieve them 💔.`
 			}),
