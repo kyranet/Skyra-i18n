@@ -227,7 +227,7 @@ module.exports = class extends Language {
 
 			COMMAND_CATFACT_DESCRIPTION: 'Let me tell you a mysterious cat fact.',
 			COMMAND_CATFACT_EXTENDED: builder.display('catfact', {
-				extendedHelp: `Do you know cats are very curious, right? They certainly have a lot of fun and weird facts.
+				extendedHelp: `Do **you** know cats are very curious, right? They certainly have a lot of fun and weird facts.
 				This command queries catfact.ninja and retrieves a fact so you can read it.`
 			}),
 			COMMAND_DOG_DESCRIPTION: 'Cute doggos! ❤',
