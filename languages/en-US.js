@@ -1,5 +1,5 @@
 /* eslint object-curly-newline: "off", max-len: "off" */
-const { Language, LanguageHelp, Timestamp, FriendlyDuration, klasaUtil: { toTitleCase, codeBlock }, constants: { EMOJIS: { SHINY, GREENTICK, REDCROSS } }, versions: { skyra, klasa } } = require('../index');
+const { Language, LanguageHelp, Timestamp, FriendlyDuration, util: { pick }, klasaUtil: { toTitleCase, codeBlock }, constants: { EMOJIS: { LOADING, SHINY, GREENTICK, REDCROSS } }, versions: { skyra, klasa } } = require('../index');
 
 const builder = new LanguageHelp()
 	.setExplainedUsage('⚙ | ***Explained usage***')
@@ -86,6 +86,7 @@ function duration(time) { // eslint-disable-line no-unused-vars
 	return FriendlyDuration.duration(time, TIMES);
 }
 
+// @ts-ignore
 module.exports = class extends Language {
 
 	constructor(client, store, file, directory) {
@@ -154,7 +155,7 @@ module.exports = class extends Language {
 			MONITOR_COMMAND_HANDLER_REPROMPT: (tag, error, time) => `${tag} | **${error}** | You have **${time}** seconds to respond to this prompt with a valid argument. Type **"ABORT"** to abort this prompt.`, // eslint-disable-line max-len
 			MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT: (tag, name, time) => `${tag} | **${name}** is a repeating argument | You have **${time}** seconds to respond to this prompt with additional valid arguments. Type **"CANCEL"** to cancel this prompt.`, // eslint-disable-line max-len
 			MONITOR_COMMAND_HANDLER_ABORTED: 'Aborted',
-			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
+			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in second${remaining === 1 ? '' : 's'}.`,
 			INHIBITOR_DISABLED: 'This command is currently disabled',
 			INHIBITOR_MISSING_BOT_PERMS: (missing) => `Insufficient permissions, missing: **${missing}**`,
 			INHIBITOR_NSFW: 'You may not use NSFW commands in this channel.',
@@ -219,6 +220,67 @@ module.exports = class extends Language {
 			 * #     COMMAND DESCRIPTIONS     #
 			 * ################################
 			 */
+
+			COMMAND_CONF_MENU_NOPERMISSIONS: `I need the permissions ${PERMS.ADD_REACTIONS} and ${PERMS.MANAGE_MESSAGES} to be able to run the menu.`,
+			COMMAND_CONF_MENU_RENDER_AT_FOLDER: (path) => `Currently at: \\📁 ${path}`,
+			COMMAND_CONF_MENU_RENDER_AT_PIECE: (path) => `Currently at: ${path}`,
+			COMMAND_CONF_MENU_RENDER_NOKEYS: 'There are no configurable keys for this folder',
+			COMMAND_CONF_MENU_RENDER_SELECT: 'Please select any of the following entries',
+			COMMAND_CONF_MENU_RENDER_TCTITLE: 'Text Commands:',
+			COMMAND_CONF_MENU_RENDER_UPDATE: '• Update Value → `set <value>`',
+			COMMAND_CONF_MENU_RENDER_REMOVE: '• Remove Value → `remove <value>`',
+			COMMAND_CONF_MENU_RENDER_RESET: '• Reset Value → `reset`',
+			COMMAND_CONF_MENU_RENDER_UNDO: '• Undo Update → `undo`',
+			COMMAND_CONF_MENU_RENDER_CVALUE: (value) => `Current Value: **\`\`${value}\`\`**`,
+			COMMAND_CONF_MENU_RENDER_BACK: 'Press ◀ to go back',
+			COMMAND_CONF_MENU_INVALID_KEY: 'Invalid Key, please try again with any of the following options.',
+			COMMAND_CONF_MENU_INVALID_ACTION: 'Invalid Action, please try again with any of the following options.',
+			COMMAND_CONF_MENU_SAVED: 'Successfully saved all changes.',
+
+			SETTINGS_PREFIX: 'A prefix is an affix that is added in front of the word, in this case, the message. It allows bots to distinguish between a regular message and a command.',
+			SETTINGS_LANGUAGE: 'The language I will use for your server. It may not be available in the language you want.',
+			SETTINGS_DISABLEDCOMMANDS: 'The disabled commands, core commands may not be disabled, and moderators will override this. All commands must be in lower case.',
+			SETTINGS_CHANNELS_ANNOUNCEMENT: 'The channel for announcements, in pair with the key `roles.subscriber`, they are required for the announce command.',
+			SETTINGS_CHANNELS_DEFAULT: 'The channel I will use to send greetings and farewells, you must enable the events and set up the messages, in other categories.',
+			SETTINGS_CHANNELS_LOG: 'The channel for member logs, you must enable the events (`events.memberAdd` for new members, `events.memberRemove` for members who left).',
+			SETTINGS_CHANNELS_MESSAGELOGS: 'The channel for (non-NSFW) message logs, you must enable the events (`events.messageDelete` for deleted messages, `events.messageEdit` for edited messages).',
+			SETTINGS_CHANNELS_MODLOG: 'The channel for moderation logs, once enabled, I will post all my moderation cases there. If `events.banRemove` and/or `events.banRemove` are enabled, I will automatically post anonymous logs.',
+			SETTINGS_CHANNELS_NSFWMESSAGELOGS: 'The channel for NSFW message logs, same requirement as normal message logs, but will only send NSFW messages.',
+			SETTINGS_CHANNELS_ROLES: 'The channel for the reaction roles.',
+			SETTINGS_CHANNELS_SPAM: 'The channel for me to redirect users to when they use commands I consider spammy.',
+			SETTINGS_DISABLEDCHANNELS: 'A list of channels for disabled commands, for example, setting up a channel called general will forbid all users from using my commands there. Moderators+ override this purposedly to allow them to moderate without switching channels.',
+			SETTINGS_EVENTS_BANADD: 'This event posts anonymous moderation logs when a user gets banned. You must set up `channels.modlog`.',
+			SETTINGS_EVENTS_BANREMOVE: 'This event posts anonymous moderation logs when a user gets unbanned. You must set up `channels.modlog`.',
+			SETTINGS_EVENTS_MEMBERADD: 'This event posts member logs when a user joins. They will be posted in `channels.log`.',
+			SETTINGS_EVENTS_MEMBERREMOVE: 'This event posts member logs when a user leaves. They will be posted in `channels.log`.',
+			SETTINGS_EVENTS_MESSAGEDELETE: 'This event posts message logs when a message is edited. They will be posted in `channels.messagelogs` (or `channel.nsfwmessagelogs` in case of NSFW channels).',
+			SETTINGS_EVENTS_MESSAGEEDIT: 'This event posts message logs when a message is edited. They will be posted in `channels.messagelogs` (or `channel.nsfwmessagelogs` in case of NSFW channels).',
+			SETTINGS_MESSAGES_FAREWELL: 'The message I shall send to when a user leaves. You must set up `channels.default` and `events.memberRemove`',
+			SETTINGS_MESSAGES_GREETING: 'The message I shall send to when a user joins. You must set up `channels.default` and `events.memberAdd`',
+			SETTINGS_MESSAGES_JOIN_DM: 'The message I shall send to when a user joins in DMs.',
+			SETTINGS_MESSAGES_WARNINGS: 'Whether or not I should send warnings to the user when they receive one.',
+			SETTINGS_ROLES_ADMIN: `The administrator role, their priviledges in Skyra will be upon moderative, covering management. Defaults to anyone with the ${PERMS.MANAGE_GUILD} permission.`,
+			SETTINGS_ROLES_INITIAL: 'The initial role, if configured, I will give it to users as soon as they join.',
+			SETTINGS_ROLES_MODERATOR: 'The moderator role, their priviledges will cover almost all moderation commands. Defaults to anyone who can ban members.',
+			SETTINGS_ROLES_MUTED: 'The muted role, if configured, I will give new muted users this role. Otherwise I will prompt you the creation of one.',
+			SETTINGS_ROLES_PUBLIC: 'The public roles, they will be given with no cost to any user using the `roles` command.',
+			SETTINGS_ROLES_REMOVEINITIAL: 'Whether the claim of a public role should remove the initial one too.',
+			SETTINGS_ROLES_STAFF: 'The staff role, their priviledges are nearly helpers of moderators and administrators, but they cannot take any actions besides warnings.',
+			SETTINGS_ROLES_SUBSCRIBER: 'The subscriber role, this role will be mentioned every time you use the `announce` command. I will always keep it non-mentionable so people do not abuse mentions.',
+			SETTINGS_SELFMOD_CAPSMINIMUM: 'The minimum amount of characters the message must have before trying to delete it. You must enable it with the `setCapsFilter` command.',
+			SETTINGS_SELFMOD_CAPSTHRESHOLD: 'The minimum percentage of caps allowed before taking action. You must enable it with the `setCapsFilter` command.',
+			SETTINGS_SELFMOD_IGNORECHANNELS: 'The channels I will ignore, be careful any channel configured will have all auto-moderation systems (CapsFilter, InviteLinks, and NoMentionSpam) deactivated.',
+			SETTINGS_SELFMOD_INVITELINKS: 'Whether or not I should delete invite links or not.',
+			SETTINGS_SELFMOD_NMSTHRESHOLD: 'The minimum amount of "points" a user must accumulate before landing the hammer. A user mention will count as 1 point, a role mention as 2 points, and an everyone/here mention as 5 points.',
+			SETTINGS_SELFMOD_NOMENTIONSPAM: 'Whether or not I should have the ban hammer ready for mention spammers.',
+			SETTINGS_SELFMOD_RAID: 'Whether or not I should kick users when they try to raid the server.',
+			SETTINGS_SELFMOD_RAIDTHRESHOLD: 'The minimum amount of users joined on the last 20 seconds required before starting to kick them and anybody else who joins until a minute cooldown or forced cooldown (using the `raid` command to manage this).',
+			SETTINGS_SOCIAL_ACHIEVE: 'Whether or not I should congratulate people who get a new leveled role.',
+			SETTINGS_SOCIAL_ACHIEVEMESSAGE: 'The congratulation message for people when they get a new leveled role. Requires `social.achieve` to be enabled.',
+			SETTINGS_SOCIAL_IGNORECHANNELS: 'The channels I should ignore when adding points.',
+			SETTINGS_STARBOARD_CHANNEL: 'The starboard channel. If you star a message, it will be posted there. Using the `setStarboardEmoji` command allows the emoji customization.',
+			SETTINGS_STARBOARD_IGNORECHANNELS: 'The channels I should ignore when listening for new stars.',
+			SETTINGS_STARBOARD_MINIMUM: 'The minimum amount of stars required before a message is posted to the starboard channel.',
 
 			/**
 			 * ################
@@ -654,6 +716,25 @@ module.exports = class extends Language {
 			}),
 
 			/**
+			 * #####################################
+			 * MANAGEMENT/ATTACHMENT FILTER COMMANDS
+			 */
+
+			COMMAND_MANAGEATTACHMENTS_DESCRIPTION: 'Manage attachment management in this guild.',
+			COMMAND_MANAGEATTACHMENTS_EXTENDED: builder.display('manageAttachments', {
+				extendedHelp: `This command manages the attachment management for me in this guild.`,
+				examples: ['maximum 25', 'duration 1m', 'action mute', 'logs y', 'enable', 'disable'],
+				explainedUsage: [
+					['maximum <maximum>', 'The maximum amount of attachments allowed.'],
+					['duration <duration>', 'The lifetime for the attachments in the system.'],
+					['action <ban|kick|mute|softban>', 'Defines the action I will take once a user breaks the threshold.'],
+					['logs <y|yes|n|no>', 'Defines whether or not should I log when somebody breaks the threshold.'],
+					['enable', 'Enables the attachment filter.'],
+					['disable', 'Disables the attachment filter.']
+				]
+			}),
+
+			/**
 			 * ###############################
 			 * MANAGEMENT/CAPS FILTER COMMANDS
 			 */
@@ -819,6 +900,12 @@ module.exports = class extends Language {
 			 * MODERATION/MANAGEMENT COMMANDS
 			 */
 
+			COMMAND_HISTORY_DESCRIPTION: 'Display the count of moderation cases from this guild or from a user.',
+			COMMAND_HISTORY_EXTENDED: builder.display('history', {
+				extendedHelp: `This command shows the amount of bans, mutes, kicks, and warnings, including temporary, that have not been
+					appealed.`,
+				examples: ['', '@Pete']
+			}),
 			COMMAND_WARNINGS_DESCRIPTION: 'List all warnings from this guild or from a user.',
 			COMMAND_WARNINGS_EXTENDED: builder.display('warnings', {
 				extendedHelp: `This command shows either all warnings filed in this guild, or all warnings filed in this guild
@@ -912,7 +999,7 @@ module.exports = class extends Language {
 			COMMAND_REASON_DESCRIPTION: 'Edit the reason field from a moderation log case.',
 			COMMAND_REASON_EXTENDED: builder.display('reason', {
 				extendedHelp: `This command allows moderation log case management, it allows moderators to update the reason.`,
-				examples: ['420 Spamming all channels']
+				examples: ['420 Spamming all channels', '419..421 Bad memes', 'latest Woops, I did a mistake!']
 			}),
 			COMMAND_SOFTBAN_DESCRIPTION: 'Hit somebody with the ban hammer, destroying all their messages for some days, and unban it.',
 			COMMAND_SOFTBAN_EXTENDED: builder.display('softban', {
@@ -981,6 +1068,17 @@ module.exports = class extends Language {
 			 * SOCIAL COMMANDS
 			 */
 
+			COMMAND_SOCIAL_DESCRIPTION: 'Configure this guild\'s member points.',
+			COMMAND_SOCIAL_EXTENDED: builder.display('social', {
+				extendedHelp: `This command allows for updating other members' points.`,
+				explainedUsage: [
+					['set <user> <amount>', 'Sets an amount of points to the user.'],
+					['add <user> <amount>', 'Adds an amount of points to the user.'],
+					['remove <user> <amount>', 'Removes an amount of points from the user.'],
+					['reset <user>', 'Resets all pointss from the user.']
+				],
+				examples: ['set @kyra 40000', 'add @kyra 2400', 'remove @kyra 3000', 'reset @kyra']
+			}),
 			COMMAND_BANNER_DESCRIPTION: 'Configure the banner for your profile.',
 			COMMAND_BANNER_EXTENDED: builder.display('banner', {
 				extendedHelp: `Banners are vertical in Skyra, they decorate your profile card.`,
@@ -1122,6 +1220,16 @@ module.exports = class extends Language {
 			}),
 
 			/**
+			 * ##################
+			 * STARBOARD COMMANDS
+			 */
+
+			COMMAND_STAR_DESCRIPTION: 'Get a random starred message from the database or the star leaderboard.',
+			COMMAND_STAR_EXTENDED: builder.display('star', {
+				extendedHelp: `This command shows a random starred message or the starboard usage and leaderboard for this server.`
+			}),
+
+			/**
 			 * ###############
 			 * SYSTEM COMMANDS
 			 */
@@ -1227,12 +1335,11 @@ module.exports = class extends Language {
 			 * TAGS COMMANDS
 			 */
 
-			COMMAND_TAGMANAGER_DESCRIPTION: `Manage this guilds' tags.`,
-			COMMAND_TAGMANAGER_EXTENDED: builder.display('tagmanager', {
-				extendedHelp: `This command gives you tag management (you can use it to add, remove or edit them).
-				What are tags? Tags are chunk of texts stored under a name, which allows you, for example,
-				you can do \`Skyra, tag rule1\` and get a response with what the rule number one of your server is.
-				Besides that, tags are also used for memes, who doesn't like memes?`,
+			COMMAND_TAG_DESCRIPTION: `Manage this guilds' tags.`,
+			COMMAND_TAG_EXTENDED: builder.display('tag', {
+				extendedHelp: `What are tags? Tags are chunk of texts stored under a name, which allows you, for example,
+					you can do \`Skyra, tag rule1\` and get a response with what the rule number one of your server is.
+					Besides that, tags are also used for memes, who doesn't like memes?`,
 				explainedUsage: [
 					['action', 'The action to perform: **add** to add new tags, **remove** to delete them, and **edit** to edit them.'],
 					['tag', `The tag's name.`],
@@ -1241,19 +1348,11 @@ module.exports = class extends Language {
 				examples: [
 					'add rule1 Respect other users. Harassment, hatespeech, etc... will not be tolerated.',
 					'edit rule1 Just be respectful with the others.',
-					'remove rule1'
+					'rule1',
+					'source rule1',
+					'remove rule1',
+					'list'
 				]
-			}),
-			COMMANDS_TAGS_DESCRIPTION: `List or get a tag.`,
-			COMMANDS_TAGS_EXTENDED: builder.display('tags', {
-				extendedHelp: `What are tags? Tags are chunk of texts stored under a name, which allows you, for example,
-					you can do \`Skyra, tag rule1\` and get a response with what the rule number one of your server is.
-					Besides that, tags are also used for memes, who doesn't like memes?`,
-				explainedUsage: [
-					['list', 'Show a list of all tags for this server.'],
-					['tag', 'Show the content of the selected tag.']
-				],
-				examples: ['list', 'rule1']
 			}),
 
 			/**
@@ -1719,10 +1818,15 @@ module.exports = class extends Language {
 			COMMAND_FILTER_SHOW_EMPTY: 'The list of filtered words is empty!',
 			COMMAND_FILTER_SHOW: (words) => `There is the list of all filtered words: ${words}`,
 			COMMAND_SETFILTERMODE_EQUALS: 'The word filter mode did not change, it was already set up with that mode.',
-			COMMAND_SETFILTERMODE_DISABLED: 'The word filter is now disabled. No messages will be deleted nor logged.',
-			COMMAND_SETFILTERMODE_DELETEONLY: 'The word filter is now in **DeleteOnly** mode. Messages will be deleted but not logged.',
-			COMMAND_SETFILTERMODE_LOGONLY: 'The word filter is now in **LogOnly** mode. Messages will not be deleted but logged to your modlogs channel.',
-			COMMAND_SETFILTERMODE_ALL: 'The word filter is now in **All** mode. Messages will be both deleted and logged to your modlogs channel.',
+			COMMAND_SETFILTERMODE_ALERT: (enabled) => `The Alert flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
+			COMMAND_SETFILTERMODE_LOG: (enabled) => `The Log flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
+			COMMAND_SETFILTERMODE_DELETE: (enabled) => `The Delete flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
+			COMMAND_SETFILTERMODE_SHOW: (falert, flog, fdelete) => [
+				`= Word Filter Flags =`, '',
+				`Alert  :: ${falert ? 'Enabled' : 'Disabled'}`,
+				`Log    :: ${flog ? 'Enabled' : 'Disabled'}`,
+				`Delete :: ${fdelete ? 'Enabled' : 'Disabled'}`
+			].join('\n'),
 			COMMAND_SETCAPSFILTER_SHOW: (falert, flog, fdelete) => [
 				`= Caps Filter Flags =`, '',
 				`Alert  :: ${falert ? 'Enabled' : 'Disabled'}`,
@@ -1733,6 +1837,14 @@ module.exports = class extends Language {
 			COMMAND_SETCAPSFILTER_ALERT: (enabled) => `The Alert flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
 			COMMAND_SETCAPSFILTER_LOG: (enabled) => `The Log flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
 			COMMAND_SETCAPSFILTER_DELETE: (enabled) => `The Delete flag for the caps filter has been ${enabled ? 'enabled' : 'disabled'}.`,
+			COMMAND_MANAGEATTACHMENTS_REQUIRED_VALUE: 'You must input a value for this type.',
+			COMMAND_MANAGEATTACHMENTS_INVALID_ACTION: 'The type must be `ban`, `kick`, `mute`, or `softban`.',
+			COMMAND_MANAGEATTACHMENTS_MAXIMUM: (maximum) => `${GREENTICK} Successfully set the maximum amount of attachments to ${maximum}.`,
+			COMMAND_MANAGEATTACHMENTS_EXPIRE: (time) => `${GREENTICK} Successfully set the lifetime for the manager's entries to ${duration(time)}.`,
+			COMMAND_MANAGEATTACHMENTS_DURATION: (time) => `${GREENTICK} Successfully set the duration for moderation logs to ${duration(time)}.`,
+			COMMAND_MANAGEATTACHMENTS_ACTION: `${GREENTICK} Successfully changed the moderative action for the manager.`,
+			COMMAND_MANAGEATTACHMENTS_LOGS: `${GREENTICK} Successfully changed the preferences for message logging.`,
+			COMMAND_MANAGEATTACHMENTS_ENABLED: (enabled) => `${GREENTICK} Successfully ${enabled ? 'enabled' : 'disabled'} the attachment management.`,
 
 			/**
 			 * #################################
@@ -1784,6 +1896,11 @@ module.exports = class extends Language {
 			 * MODERATION/MANAGEMENT COMMANDS
 			 */
 
+			COMMAND_HISTORY_FOOTER: (warnings, mutes, kicks, bans) => `This user has ${
+				warnings} ${warnings === 1 ? 'warning' : 'warnings'}, ${
+				mutes} ${mutes === 1 ? 'mute' : 'mutes'}, ${
+				kicks} ${kicks === 1 ? 'kick' : 'kicks'}, ${
+				bans} ${bans === 1 ? 'ban' : 'bans'}.`,
 			COMMAND_WARNINGS_EMPTY: 'Nobody has behaved badly yet, who will be the first user to be listed here?',
 			COMMAND_WARNINGS_AMOUNT: (amount) => `There are ${amount} ${amount === 1 ? 'warning' : 'warnings'}.`,
 
@@ -1828,7 +1945,12 @@ module.exports = class extends Language {
 			COMMAND_PRUNE: (amount, total) => amount
 				? `Successfully deleted ${amount} messages from ${total}.`
 				: 'No message has been deleted, either no message match the filter or they are over 14 days old.',
-			COMMAND_REASON_NOT_EXISTS: 'The selected modlog does not seem to exist.',
+			COMMAND_REASON_MISSING_CASE: 'You need to provide a case or a case range.',
+			COMMAND_REASON_NOT_EXISTS: (range = false) => `The selected modlog${range ? 's' : ''} don't seem to exist.`,
+			COMMAND_REASON_UPDATED: (entries, newReason) => [
+				`${GREENTICK} Updated ${entries.length} case${entries.size === 1 ? '' : 's'}`,
+				` └─ Set the${entries.size === 1 ? '' : 'ir'} reason to ${newReason}`
+			].join('\n'),
 			COMMAND_UNBAN_MISSING_PERMISSION: `I will need the **${PERMS.BAN_MEMBERS}** permission to be able to unban.`,
 			COMMAND_UNMUTE_MISSING_PERMISSION: `I will need the **${PERMS.MANAGE_ROLES}** permission to be able to unmute.`,
 			COMMAND_VMUTE_MISSING_PERMISSION: `I will need the **${PERMS.MUTE_MEMBERS}** permission to be able to voice unmute.`,
@@ -1853,6 +1975,11 @@ module.exports = class extends Language {
 			COMMAND_BALANCE: (user, amount) => `The user ${user} has a total of ${amount}${SHINY}`,
 			COMMAND_BALANCE_SELF: (amount) => `You have a total of ${amount}${SHINY}`,
 			COMMAND_BALANCE_BOTS: `I think they have 5 gears as much, bots don't have ${SHINY}`,
+			COMMAND_SOCIAL_MEMBER_NOTEXISTS: `${REDCROSS} The member is not in this server, and is not in my database either.`,
+			COMMAND_SOCIAL_ADD: (user, amount, added) => `${GREENTICK} Successfully added ${added} point${added === 1 ? '' : 's'} to ${user}. Current amount: ${amount}.`,
+			COMMAND_SOCIAL_REMOVE: (user, amount, removed) => `${GREENTICK} Successfully removed ${removed} point${removed === 1 ? '' : 's'} to ${user}. Current amount: ${amount}.`,
+			COMMAND_SOCIAL_UNCHANGED: (user) => `${REDCROSS} The user ${user} already had the given amount of points, no update was needed.`,
+			COMMAND_SOCIAL_RESET: (user) => `${GREENTICK} The user ${user} got his points removed.`,
 			COMMAND_BANNER_MISSING: 'You must specify a banner id to buy.',
 			COMMAND_BANNER_NOTEXISTS: (prefix) => `This banner id does not exist. Please check \`${prefix}banner list\` for a list of banners you can buy.`,
 			COMMAND_BANNER_USERLIST_EMPTY: (prefix) => `You did not buy a banner yet. Check \`${prefix}banner list\` for a list of banners you can buy.`,
@@ -1932,6 +2059,7 @@ module.exports = class extends Language {
 			COMMAND_REPUTATIONS_BOTS: 'Bots cannot have reputation points...',
 			COMMAND_REPUTATIONS_SELF: (points) => `You have a total of ${points} reputation points.`,
 			COMMAND_REPUTATIONS: (user, points) => `The user ${user} has a total of ${points === 1 ? 'one reputation point' : `${points} reputation points`}.`,
+			COMMAND_REQUIRE_ROLE: 'I am sorry, but you must provide a role for this command.',
 			COMMAND_SCOREBOARD_POSITION: (position) => `Your placing position is: ${position}`,
 			COMMAND_SETCOLOR: (color) => `Color changed to ${color}`,
 			COMMAND_SLOTMACHINES_MONEY: (money) => `I am sorry, but you do not have enough money to pay your bet! Your current account balance is ${money}${SHINY}`,
@@ -1942,6 +2070,19 @@ module.exports = class extends Language {
 			COMMAND_SOCIAL_PROFILE_DELETE: (user, points) => `|\`✅\`| **Success**. Deleted the __Member Profile__ for **${user}**, which had ${points} points.`,
 			COMMAND_SOCIAL_POINTS: 'May you specify the amount of points you want to add or remove?',
 			COMMAND_SOCIAL_UPDATE: (action, amount, user, before, now) => `You have just ${action === 'add' ? 'added' : 'removed'} ${amount} ${amount === 1 ? 'point' : 'points'} to the __Member Profile__ for ${user}. Before: ${before}; Now: ${now}.`,
+
+			/**
+			 * ##################
+			 * STARBOARD COMMANDS
+			 */
+
+			COMMAND_STAR_NOSTARS: 'There is no starred message.',
+			COMMAND_STAR_STATS: 'Starboard Stats',
+			COMMAND_STAR_STATS_DESCRIPTION: (messages, stars) => `${messages} ${messages === 1 ? 'message' : 'messages'} starred with a total of ${stars} ${stars === 1 ? 'star' : 'stars'}.`,
+			COMMAND_STAR_TOPSTARRED: 'Top Starred Posts',
+			COMMAND_STAR_TOPSTARRED_DESCRIPTION: (medal, id, stars) => `${medal}: ${id} (${stars} ${stars === 1 ? 'star' : 'stars'})`,
+			COMMAND_STAR_TOPRECEIVERS: 'Top Star Receivers',
+			COMMAND_STAR_TOPRECEIVERS_DESCRIPTION: (medal, id, stars) => `${medal}: <@${id}> (${stars} ${stars === 1 ? 'star' : 'stars'})`,
 
 			/**
 			 * ###############
@@ -1982,17 +2123,17 @@ module.exports = class extends Language {
 			 * TAGS COMMANDS
 			 */
 
-			COMMAND_TAGS_NAME_REQUIRED: 'You must specify a tag name.',
-			COMMAND_TAGS_NAME_NOTALLOWED: 'A tag name may not have a grave accent nor invisible characters.',
-			COMMAND_TAGS_NAME_TOOLONG: 'A tag name must be 50 or less characters long.',
-			COMMAND_TAGS_ADD_EXISTS: (tag) => `The tag '${tag}' already exists.`,
-			COMMAND_TAGS_CONTENT_REQUIRED: 'You must provide a content for this tag.',
-			COMMAND_TAGS_ADD_ADDED: (name, content) => `Successfully added a new tag: **${name}** with a content of **${content}**.`,
-			COMMAND_TAGS_REMOVE_NOT_EXISTS: (tag) => `The tag '${tag}' does not exist.`,
-			COMMAND_TAGS_REMOVE_REMOVED: (name) => `Successfully removed the tag **${name}**.`,
-			COMMAND_TAGS_EDITED: (name, content, old) => `Successfully edited the tag **${name}** which had a content of **${old}** to **${content}**.`,
-			COMMAND_TAGS_LIST_EMPTY: 'The tag list for this server is empty.',
-			COMMAND_TAGS_LIST: (tags) => `There ${tags.length === 1 ? 'is' : 'are'} ${tags.length} tags: ${tags.join(', ')}`,
+			COMMAND_TAG_PERMISSIONLEVEL: 'You must be a staff member, moderator, or admin, to be able to manage tags.',
+			COMMAND_TAG_NAME_NOTALLOWED: 'A tag name may not have a grave accent nor invisible characters.',
+			COMMAND_TAG_NAME_TOOLONG: 'A tag name must be 50 or less characters long.',
+			COMMAND_TAG_EXISTS: (tag) => `The tag '${tag}' already exists.`,
+			COMMAND_TAG_CONTENT_REQUIRED: 'You must provide a content for this tag.',
+			COMMAND_TAG_ADDED: (name, content) => `Successfully added a new tag: **${name}** with a content of **${content}**.`,
+			COMMAND_TAG_REMOVED: (name) => `Successfully removed the tag **${name}**.`,
+			COMMAND_TAG_NOTEXISTS: (tag) => `The tag '${tag}' does not exist.`,
+			COMMAND_TAG_EDITED: (name, content) => `Successfully edited the tag **${name}** with a content of **${content}**.`,
+			COMMAND_TAG_LIST_EMPTY: 'The tag list for this server is empty.',
+			COMMAND_TAG_LIST: (tags) => (tags.length === 1 ? 'There is 1 tag: ' : `There are ${tags.length} tags: `) + tags.join(', '),
 
 			/**
 			 * ##############
@@ -2048,6 +2189,7 @@ module.exports = class extends Language {
 			COMMAND_PRICE_CURRENCY_NOT_FOUND: 'There was an error, please make sure you specified an appropriate coin and currency.',
 			COMMAND_QUOTE_MESSAGE: 'It is very weird, but said message does not have a content nor a image.',
 			COMMAND_ROLES_LIST_EMPTY: 'This server does not have a role listed as a public role.',
+			COMMAND_ROLES_ABORT: (prefix) => `I looked far and wide, but I seem to not have found what you were looking for. Please run \`${prefix}roles\` for the full list!`,
 			COMMAND_ROLES_LIST_TITLE: 'List of public roles',
 			COMMAND_ROLES_ADDED: (roles) => `The following roles have been added to your profile: \`${roles}\``,
 			COMMAND_ROLES_REMOVED: (roles) => `The following roles have been removed from your profile: \`${roles}\``,
@@ -2061,9 +2203,9 @@ module.exports = class extends Language {
 			COMMAND_URBAN_INDEX_NOTFOUND: 'You may want to try a lower page number.',
 			SYSTEM_TEXT_TRUNCATED: (definition, url) => `${definition}... [continue reading](${url})`,
 			COMMAND_URBAN_OUTPUT: (index, pages, definition, example, author) => [
-				`→ \`Definition\` :: ${index}/${pages}\n${definition}`,
-				`→ \`Example\` :: ${example}`,
-				`→ \`Author\` :: ${author}`
+				`→ \`Definition ::\` ${index}/${pages}\n${definition}`,
+				`→ \`Example    ::\` ${example}`,
+				`→ \`Author     ::\` ${author}`
 			].join('\n\n'),
 			COMMAND_WHOIS_MEMBER: (member) => [
 				`→ \`ID         ::\` **${member.id}**`,
@@ -2124,6 +2266,7 @@ module.exports = class extends Language {
 			CONST_MONITOR_NMS: '[NOMENTIONSPAM]',
 			CONST_MONITOR_WORDFILTER: 'Filtered Word',
 			CONST_MONITOR_CAPSFILTER: 'Too Many UpperCases',
+			CONST_MONITOR_ATTACHMENTFILTER: 'Too Many Attachments',
 			MONITOR_NOINVITE: (user) => `|\`❌\`| Dear ${user}, invite links aren't allowed here.`,
 			MONITOR_WORDFILTER_DM: (filtered) => `Shush! You said some words that are not allowed in the server! But since you took a moment to write the message, I will post it here:\n${filtered}`,
 			MONITOR_CAPSFILTER_DM: (message) => `Speak lower! I know you need to express your thoughts. There is the message I deleted:${message}`,
@@ -2150,6 +2293,7 @@ module.exports = class extends Language {
 			 * #################################
 			 */
 
+			RESOLVER_DATE_SUFFIX: ' seconds',
 			POWEREDBY_WEEBSH: 'Powered by weeb.sh',
 			PREFIX_REMINDER: (prefix) => `The prefix in this guild is set to: \`${prefix}\``,
 
@@ -2157,19 +2301,28 @@ module.exports = class extends Language {
 
 			COMMAND_DM_NOT_SENT: 'I cannot send you a message in DMs, did you block me?',
 			COMMAND_DM_SENT: 'I have sent you the message in DMs.',
-			COMMAND_ROLE_HIGHER_SKYRA: 'The selected member has higher or equal role position than me.',
-			COMMAND_ROLE_HIGHER: 'The selected member has higher or equal role position than you.',
+			COMMAND_ROLE_HIGHER_SKYRA: 'The selected member has a role position that is higher than or equal to mine.',
+			COMMAND_ROLE_HIGHER: 'The selected member has a role position that is higher than or equal to yours.',
 			COMMAND_SUCCESS: 'Successfully executed the command.',
-			COMMAND_TOSKYRA: 'Eww... I thought you loved me! 💔',
+			COMMAND_TOSKYRA: 'Why... I thought you loved me! 💔',
 			COMMAND_USERSELF: 'Why would you do that to yourself?',
 
-			SYSTEM_FETCHING: '`Fetching...`',
-			SYSTEM_FETCHING_USERS: 'Some users are playing hide-and-seek, please wait a moment until I find them all...',
-			SYSTEM_PROCESSING: '`Processing...`',
+			SYSTEM_FETCHING: pick([
+				`${LOADING} Downloading data...`,
+				`${LOADING} Fetching Commander Data...`,
+				`${LOADING} Chasing after starships...`
+			]),
 			SYSTEM_HIGHEST_ROLE: 'This role\'s hierarchy position is higher or equal than me, I am not able to grant it to anyone.',
 			SYSTEM_CHANNEL_NOT_POSTABLE: 'I am not allowed to send messages to this channel.',
 			SYSTEM_FETCHBANS_FAIL: `Failed to fetch bans. Do I have the **${PERMS.BAN_MEMBERS}** permission?`,
-			SYSTEM_LOADING: '`Loading... please wait.`',
+			SYSTEM_LOADING: pick([
+				`${LOADING} Watching hamsters run...`,
+				`${LOADING} Finding people at hide-and-seek...`,
+				`${LOADING} Trying to figure out this command...`,
+				`${LOADING} Fetching data from the cloud...`,
+				`${LOADING} Calibrating lenses...`,
+				`${LOADING} Playing rock, scissors, paper...`
+			]),
 			SYSTEM_ERROR: 'Something happened!',
 			SYSTEM_MESSAGE_NOT_FOUND: 'I am sorry, but either you wrote the message ID incorrectly, or it got deleted.',
 			SYSTEM_NOTENOUGH_PARAMETERS: `I am sorry, but you did not provide enough parameters...`,
@@ -2178,6 +2331,8 @@ module.exports = class extends Language {
 			SYSTEM_GUILD_MUTECREATE_APPLYING: (channels, role) => `Applying permissions (\`SEND_MESSAGES\`:\`false\`) for ${channels} to ${role}...`,
 			SYSTEM_GUILD_MUTECREATE_EXCEPTIONS: (denied) => denied.length > 1 ? `, with exception of ${denied.join(', ')}.` : '. ',
 			SYSTEM_GUILD_MUTECREATE_APPLIED: (accepted, exceptions, author, role) => `Permissions applied for ${accepted} channels${exceptions}Dear ${author}, don't forget to tweak the permissions in the channels you want ${role} to send messages.`,
+
+			STARBOARD_JUMPTO: 'Jump to Message ►',
 
 			RESOLVER_INVALID_CHANNELNAME: (name) => `${name} must be a valid channel name, id, or tag.`,
 			RESOLVER_INVALID_ROLENAME: (name) => `${name} must be a valid role name, id, or mention.`,
