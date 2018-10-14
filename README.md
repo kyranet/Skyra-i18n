@@ -2,7 +2,7 @@
 
 [![Discord Bot List](https://discordbotlist.com/bots/266624760782258186/widget)](https://discordbotlist.com/bots/266624760782258186)
 [![Discord Bots](https://discordbots.org/api/widget/266624760782258186.svg)](https://discordbots.org/bot/266624760782258186)
-[![Bots For Discord](https://botsfordiscord.com/api/v1/bots/266624760782258186/embed?theme=dark)](https://botsfordiscord.com/bot/266624760782258186)
+[![Bots For Discord](https://botsfordiscord.com/api/bot/266624760782258186/widget)](https://botsfordiscord.com/bots/266624760782258186)
 
 Skyra is a standalone bot created on 24th November 2016, it's designed to avoid the 'bot hell' by wrapping the functions of most popular bots into an unified and complex
 system in which includes FailSafe systems and designed to be very reliable. As well as its availability is 24/7.
