@@ -1,4 +1,4 @@
-# Skyra 3.4.0 (Ny-Royal Update)
+# Skyra 4.0.0 (Nerom Update)
 
 [![Discord Bot List](https://discordbotlist.com/bots/266624760782258186/widget)](https://discordbotlist.com/bots/266624760782258186)
 [![Discord Bots](https://discordbots.org/api/widget/266624760782258186.svg)](https://discordbots.org/bot/266624760782258186)
