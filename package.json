@@ -1,0 +1,27 @@
+{
+  "name": "skyra-i18n",
+  "version": "5.0.0",
+  "description": "Multipurpose Discord Bot built on Klasa",
+  "scripts": {
+    "lint": "tslint -p tsconfig.json src/**/*.ts --fix",
+    "test": "tslint -p tsconfig.json src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyranet/Skyra-i18n.git"
+  },
+  "contributors": [
+    "kyranet <kyradiscord@gmail.com>"
+  ],
+  "private": true,
+  "author": "kyranet <kyradiscord@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/kyranet/Skyra-i18n/issues"
+  },
+  "devDependencies": {
+    "tslint": "^5.12.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.3.3333"
+  }
+}
