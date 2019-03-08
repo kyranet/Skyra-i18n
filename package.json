@@ -4,7 +4,7 @@
   "description": "Multipurpose Discord Bot built on Klasa",
   "scripts": {
     "lint": "tslint -p tsconfig.json src/**/*.ts --fix",
-    "test": "tslint -p tsconfig.json src/**/*.ts"
+    "test:lint": "tslint -p tsconfig.json src/**/*.ts"
   },
   "repository": {
     "type": "git",
